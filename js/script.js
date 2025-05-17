@@ -1,4 +1,56 @@
+  // 动态生成魔法元素
+  function createParticles() {
+    const container = document.getElementById('particles-container');
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'magic-particle';
+        particle.style.width = `${Math.random() * 15 + 5}px`;
+        particle.style.height = particle.style.width;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(particle);
+    }
+}
+
+
+// 生成漂浮符文
+function createRunes() {
+    const runes = ['ᚨ', 'ᛒ', 'ᚷ', 'ᛞ', 'ᛖ', 'ᚠ', 'ᚷ', 'ᚺ'];
+    const container = document.getElementById('runes-container');
+    for (let i = 0; i < 12; i++) {
+        const rune = document.createElement('div');
+        rune.className = 'rune';
+        rune.textContent = runes[Math.floor(Math.random() * runes.length)];
+        rune.style.left = `${Math.random() * 100}%`;
+        rune.style.top = `${Math.random() * 100}%`;
+        rune.style.animationDelay = `${Math.random() * 10}s`;
+        container.appendChild(rune);
+    }
+}
+
+// 设置当前年份
+document.getElementById('current-year').textContent = new Date().getFullYear();
+  
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    createParticles();
+    createRunes();
+     // 性别按钮交互
+     const genderBtns = document.querySelectorAll('.gender-btn');
+     genderBtns.forEach(btn => {
+         btn.addEventListener('click', function() {
+             genderBtns.forEach(b => b.classList.remove('active'));
+             this.classList.add('active');
+             
+             // 这里可以添加生成名字的逻辑
+             const gender = this.dataset.gender;
+             // 调用生成名字的函数
+             // generateName(gender);
+         });
+     });
+
     const currentYearSpan = document.getElementById('current-year');
     if (currentYearSpan) {
         currentYearSpan.textContent = new Date().getFullYear();

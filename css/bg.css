@@ -1,0 +1,276 @@
+/* ===== 奇幻背景核心样式 ===== */
+.fantasy-container {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden; /* 只禁用横向滚动 */
+}
+
+.fantasy-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* 确保背景在内容下方 */
+}
+
+/* 魔法元素容器 */
+#particles-container, 
+#runes-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* 允许点击穿透 */
+  z-index: -1;
+}
+  
+  /* 魔法粒子系统 */
+  .magic-particle {
+    position: absolute;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23a2f7e8' d='M10 0L12.4 6.3L19 7.6L14 12.7L15.4 19L10 15.6L4.6 19L6 12.7L1 7.6L7.6 6.3L10 0Z'/%3E%3C/svg%3E");
+    background-size: contain;
+    opacity: 0.7;
+    animation: float 15s infinite linear;
+  }
+  
+  /* 符文漂浮元素 */
+  .rune {
+    position: absolute;
+    font-family: 'Times New Roman', serif;
+    font-size: 24px;
+    color: rgba(162, 247, 232, 0.8);
+    text-shadow: 0 0 10px rgba(162, 247, 232, 0.5);
+    animation: drift 25s infinite linear;
+    user-select: none;
+  }
+  
+  /* 光晕效果 */
+  .glow-effect {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+      rgba(123, 239, 178, 0.2) 0%, 
+      transparent 70%);
+    filter: blur(15px);
+    animation: pulse 8s infinite alternate;
+  }
+  /* 点击符文样式 */
+.click-rune {
+  position: absolute;
+  font-size: 2rem;
+  color: rgba(255, 215, 0, 0.8);
+  text-shadow: 0 0 10px gold;
+  animation: 
+    fadeInOut 1.5s ease-out,
+    floatUp 3s ease-in forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-100px); }
+}
+
+/* 陀螺仪粒子响应式移动 */
+.magic-particle {
+  transition: transform 0.5s ease-out;
+}
+
+/* 日夜模式基础样式 */
+.day-theme .fantasy-bg {
+  background: 
+    radial-gradient(ellipse at 30% 40%, 
+      rgba(255, 255, 200, 0.3) 0%, 
+      transparent 60%),
+    linear-gradient(160deg,
+      #87CEEB 0%,
+      #E0F7FA 50%,
+      #B3E5FC 100%);
+}
+
+.night-theme .fantasy-bg {
+  background: 
+    radial-gradient(ellipse at 70% 30%, 
+      rgba(138, 43, 226, 0.2) 0%, 
+      transparent 70%),
+    linear-gradient(180deg,
+      #0F2027 0%,
+      #203A43 50%,
+      #2C5364 100%);
+}
+
+/* 丁达尔效应（白天） */
+.day-theme::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(105deg,
+      transparent 45%,
+      rgba(255,255,255,0.1) 50%,
+      transparent 55%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 萤火虫（夜晚） */
+.night-theme .magic-particle {
+  animation: 
+    float 15s infinite linear,
+    glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { opacity: 0.3; }
+  to { opacity: 0.9; }
+}
+
+/* 切换按钮样式 */
+.theme-switcher {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+}
+
+.theme-switcher button {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: all 0.3s;
+}
+
+.theme-switcher button:hover {
+  background: rgba(255,255,255,0.4);
+  transform: scale(1.1);
+}
+
+
+
+
+
+
+
+  /* ===== 动画定义 ===== */
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+    100% { transform: translateY(0) rotate(360deg); }
+  }
+  
+  @keyframes drift {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(50px, 30px) rotate(90deg); }
+    50% { transform: translate(0, 60px) rotate(180deg); }
+    75% { transform: translate(-50px, 30px) rotate(270deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    100% { opacity: 0.7; transform: scale(1.2); }
+  }
+  
+  /* ===== 移动端适配 ===== */
+  @media (max-width: 768px) {
+    .fantasy-bg {
+      background-position: 60% center;
+    }
+    
+    .rune {
+      font-size: 18px;
+      animation-duration: 15s;
+    }
+    
+    .magic-particle {
+      animation-duration: 10s;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .fantasy-bg {
+      background: 
+        linear-gradient(180deg, 
+          #0a2e38 0%, 
+          #1a1a3a 60%, 
+          #2e0a38 100%);
+    }
+    
+    .glow-effect {
+      width: 120px;
+      height: 120px;
+    }
+  }
+  
+  /* ===== 内容容器样式 ===== */
+  .content-box {
+    background: rgba(10, 22, 30, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(123, 239, 178, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    max-width: 800px;
+    width: 90%;
+    box-shadow: 0 0 30px rgba(123, 239, 178, 0.2);
+  }
+  
+  /* 生成按钮魔法特效 */
+  .generate-btn {
+    background: linear-gradient(45deg, 
+      #4facfe 0%, 
+      #00f2fe 50%, 
+      #a6c1ee 100%);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+  }
+  
+  .generate-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+  }
+  
+  .generate-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom right, 
+      transparent 45%, 
+      rgba(255,255,255,0.3) 50%, 
+      transparent 55%
+    );
+    transform: rotate(30deg);
+    animation: shine 3s infinite;
+  }
+  
+  @keyframes shine {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+  }

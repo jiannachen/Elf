@@ -6,10 +6,18 @@
     <meta name="description" content="Welcome to Mystic Names, your ultimate destination for crafting unique and enchanting elf names. Whether you're a World of Warcraft enthusiast, a Lord of the Rings aficionado, or a fantasy writer, find the perfect name for your characters. Explore random generation based on gender.">
     <title>Mystic Names: Elf Name Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    
+    <link rel="stylesheet" href="./css/bg.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
 </head>
-<body>
+<body class="fantasy-container">
+    <div class="fantasy-bg"></div>
+    
+    <!-- 动态魔法元素容器 -->
+    <div id="particles-container"></div>
+    <div id="runes-container"></div>
+
     <header>
         <h1>Mystic Names: Elf Name Generator</h1>
     </header>
@@ -20,7 +28,7 @@
             <p>Welcome to Mystic Names, your ultimate destination for crafting unique and enchanting elf names. Whether you're a World of Warcraft enthusiast, a Lord of the Rings aficionado, or a fantasy writer, find the perfect name for your characters by selecting a gender below.</p>
         </section>
 
-        <!-- Unified Name Generation Section -->
+        <!-- 统一名称生成部分 -->
         <section id="name-generation-area">
             <h2>Craft Your Elf Name</h2>
             <div class="generator-controls">
@@ -32,11 +40,13 @@
                         <button type="button" class="gender-btn" data-gender="neutral">Neutral</button>
                     </div>
                 </fieldset>
-                <!-- No meaning input or other buttons needed here -->
             </div>
 
             <div id="name-results-area" class="results-area">
-                <!-- Generated names will appear here -->
+                <!-- 生成的名字将出现在这里 -->
+                <div class="generated-name-placeholder">
+                    <p>Your elf name will appear here...</p>
+                </div>
             </div>
         </section>
 
@@ -54,12 +64,10 @@
     </main>
 
     <footer>
-
         <p>&copy; <span id="current-year"></span> Mystic Names - All Rights Reserved</p>
     </footer>
-
+    
     <script src="js/name-generator.js"></script>
     <script src="js/script.js"></script>
 </body>
-
 </html>
