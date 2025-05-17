@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Mystic Names, your ultimate destination for crafting unique and enchanting elf names. Whether you're a World of Warcraft enthusiast, a Lord of the Rings aficionado, or a fantasy writer, find the perfect name for your characters. Explore random generation based on gender.">
+    <title>Mystic Names: Elf Name Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+</head>
+<body>
+    <header>
+        <h1>Mystic Names: Elf Name Generator</h1>
+    </header>
+
+    <main>
+        <section id="seo-description">
+            <h2>Discover Your Elf Identity</h2>
+            <p>Welcome to Mystic Names, your ultimate destination for crafting unique and enchanting elf names. Whether you're a World of Warcraft enthusiast, a Lord of the Rings aficionado, or a fantasy writer, find the perfect name for your characters by selecting a gender below.</p>
+        </section>
+
+        <!-- Unified Name Generation Section -->
+        <section id="name-generation-area">
+            <h2>Craft Your Elf Name</h2>
+            <div class="generator-controls">
+                <fieldset>
+                    <legend>Choose a Gender (click to generate):</legend>
+                    <div class="gender-button-group">
+                        <button type="button" class="gender-btn active" data-gender="male">Male</button>
+                        <button type="button" class="gender-btn" data-gender="female">Female</button>
+                        <button type="button" class="gender-btn" data-gender="neutral">Neutral</button>
+                    </div>
+                </fieldset>
+                <!-- No meaning input or other buttons needed here -->
+            </div>
+
+            <div id="name-results-area" class="results-area">
+                <!-- Generated names will appear here -->
+            </div>
+        </section>
+
+        <section id="elf-lore">
+            <h2>The Lore of the Elves</h2>
+            <article>
+                <h3>Ancient Lineages</h3>
+                <p>Delve into the rich history of the Elves. From the ancient High Elves, masters of magic and lore, known for their wisdom and ethereal cities, to the agile Wood Elves, protectors of the deepest forests, living in harmony with nature. Discover the enigmatic Night Elves, children of the stars and moon, with their nocturnal habits and deep connection to the mystical energies of the world. Each lineage carries unique traditions, naming conventions, and a profound legacy that echoes through the ages.</p>
+            </article>
+            <article>
+                <h3>Cultural Traits</h3>
+                <p>Elves are often depicted as beings of immense grace, longevity, and a deep connection to the natural or magical world. Their names often reflect these qualities, carrying sonorous tones and meanings tied to elements, celestial bodies, or virtues. Whether you seek a name that speaks of ancient power, sylvan grace, or starlit mystery, the essence of elven culture provides a vast wellspring of inspiration.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+
+        <p>&copy; <span id="current-year"></span> Mystic Names - All Rights Reserved</p>
+    </footer>
+
+    <script src="js/name-generator.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

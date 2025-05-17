@@ -1,0 +1,412 @@
+/* General Body Styles */
+body {
+    font-family: 'Cinzel', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #001f3f, #000); /* Dark blue to black gradient */
+    color: #e0e0e0;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll from potential overflow */
+}
+
+/* Header Styles */
+header {
+    background-color: rgba(10, 25, 47, 0.85);
+    padding: 25px 0;
+    text-align: center;
+    border-bottom: 2px solid #c5b358;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5), 0 0 20px rgba(197, 179, 88, 0.3) inset;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.8em;
+    color: #f0e68c;
+    font-weight: 700;
+    text-shadow:
+        0 0 5px #f0e68c,
+        0 0 10px #f0e68c,
+        0 0 15px #c5b358,
+        2px 2px 5px rgba(0,0,0,0.7);
+    letter-spacing: 1px;
+}
+
+/* Main Content Styles */
+main {
+    flex-grow: 1;
+    width: 85%;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: rgba(19, 47, 79, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.6), 0 0 10px rgba(42, 82, 138, 0.5) inset;
+}
+
+/* General Section Styles (applies to #seo-description, #name-generation-area, #elf-lore) */
+section {
+    margin-bottom: 50px;
+    padding: 25px;
+    border-radius: 8px;
+    background: rgba(10, 25, 47, 0.7);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    position: relative;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 90%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #ad9a5f, transparent);
+    opacity: 0.7;
+}
+
+section h2 {
+    font-size: 2em;
+    color: #e6d5a0;
+    border-bottom: 2px dashed #ad9a5f;
+    padding-bottom: 15px;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5), 0 0 5px #ad9a5f;
+}
+
+section h3 { /* For Elf Lore subheadings */
+    font-size: 1.4em;
+    color: #b8a870;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p, label, legend {
+    font-size: 1em;
+    color: #d0d0d0;
+    
+}
+
+/* Generator Controls Styling (applies within #name-generation-area) */
+.generator-controls {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 6px;
+}
+
+.generator-controls fieldset {
+    border: 1px solid #6b8ead;
+    padding: 20px;
+    margin-bottom: 25px; /* More space after gender selection */
+    border-radius: 6px;
+    background: rgba(20, 40, 60, 0.3);
+    text-align: center; /* 新增：使fieldset内所有内容居中 */
+}
+
+.generator-controls legend {
+    padding: 5px 15px;
+    font-weight: bold;
+    color: #f0e68c;
+    background-color: #001f3f;
+    border: 1px solid #c5b358;
+    border-radius: 4px;
+    font-size: 1.1em;
+    margin: 0 auto; /* 新增：使legend在fieldset内水平居中 */
+    display: inline-block; /* 确保margin-auto生效 */
+}
+
+.generator-controls div { /* General spacing for control groups */
+    margin-bottom: 15px;
+}
+.generator-controls div:last-child {
+    margin-bottom: 0;
+}
+
+.generator-controls label { /* For text input */
+    cursor: pointer;
+    display: block; /* Make label for text input take full width */
+    margin-bottom: 8px; /* Space between label and input */
+}
+
+.gender-button-group {
+    display: flex;
+    gap: 10px; /* Space between gender buttons */
+    justify-content: center; /* Center the buttons */
+    margin-top: 10px; /* Space below legend */
+}
+
+.gender-btn {
+    background: linear-gradient(to bottom, #a99867, #8c7d4e); /* Muted gold for inactive */
+    color: #e0e0e0;
+    border: 1px solid #7a6b40;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-family: 'Cinzel', serif;
+    font-weight: normal; /* Normal weight for inactive */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    flex-grow: 1;
+    max-width: 150px;
+}
+
+.gender-btn:hover {
+    background: linear-gradient(to bottom, #c5b358, #ad9a5f); /* Brighter gold on hover */
+    color: #0a192f;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.gender-btn.active {
+    background: linear-gradient(to bottom, #f0e68c, #c5b358); /* Brightest gold for active */
+    color: #001f3f; /* Dark text for active */
+    font-weight: 700; /* Bold for active */
+    border-color: #b8a04c;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3), 0 0 8px rgba(240, 230, 140, 0.5) inset;
+}
+
+.generator-controls input[type="text"] {
+    padding: 12px 15px;
+    border: 1px solid #6b8ead;
+    background-color: #0a192f;
+    color: #e0e0e0;
+    border-radius: 4px;
+    width: calc(100% - 32px); /* Adjusted for padding */
+    font-family: inherit;
+    font-size: 1em;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    margin-top: 5px; /* Space above text input if label is on its own line */
+}
+
+.generator-controls input[type="text"]::placeholder {
+    color: #7c89a3;
+}
+
+/* General button styles - these are base styles, gender-btn overrides some */
+button {
+    background: linear-gradient(to bottom, #e6d5a0, #c5b358);
+    color: #0a192f;
+    border: 1px solid #b8a04c;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3), 0 0 5px rgba(240, 230, 140, 0.5) inset;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #f0e68c, #ad9a5f);
+    color: #000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 10px rgba(240, 230, 140, 0.7) inset, 0 0 15px #f0e68c;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 0 5px rgba(240, 230, 140, 0.4) inset;
+}
+
+/* --- MODIFIED AND NEW STYLES FOR RESULTS AREA --- */
+.results-area {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: rgba(0, 15, 30, 0.8);
+    border: 1px solid #6b8ead;
+    border-radius: 6px;
+    min-height: 200px; /* Adjusted for more items */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+    gap: 15px; /* Space between name items */
+}
+
+/* Individual Name Item */
+.name-item {
+    background-color: rgba(19, 47, 79, 0.75); /* Consistent with section backgrounds, slightly more opaque */
+    padding: 12px 15px;
+    border-radius: 5px;
+    border: 1px solid #ad9a5f; /* Gold accent border */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3), 0 0 5px rgba(197, 179, 88, 0.15) inset;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.name-item:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 10px rgba(197, 179, 88, 0.3) inset;
+    border-color: #c5b358; /* Brighter border on hover */
+}
+
+.name-text {
+    font-family: 'Cinzel', serif; /* Ensure consistent font */
+    font-size: 1.1em; /* Slightly larger for prominence */
+    color: #f0e68c; /* Gold color for the name text */
+    flex-grow: 1; /* Allow name to take available space */
+    margin-right: 10px; /* Space between name and buttons */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+/* Container for interactive buttons within a name item */
+.name-item-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between buttons */
+}
+
+/* Styling for interactive buttons (Speak, Copy) */
+.interactive-btn {
+    background: none !important; /* Override general button styles */
+    border: none !important; /* Override general button styles */
+    color: #ad9a5f; /* Muted gold for icons */
+    font-size: 1.3em; /* Larger icons */
+    font-family: 'Font Awesome 6 Free'; /* Ensure Font Awesome is used */
+    font-weight: 900; /* For solid icons */
+    cursor: pointer;
+    padding: 5px !important; /* Override general button styles */
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: none !important; /* Override general button styles */
+    letter-spacing: normal !important; /* Override general button styles */
+    box-shadow: none !important; /* Override general button styles */
+}
+
+.interactive-btn:hover {
+    color: #f0e68c; /* Brighter gold on hover */
+    transform: scale(1.15);
+    background: none !important; /* Ensure no background on hover from general button */
+    box-shadow: none !important; /* Ensure no shadow on hover from general button */
+}
+
+.interactive-btn:active {
+    transform: scale(1.05); /* Slight press effect */
+}
+
+.interactive-btn .fa-check { /* For copy success */
+    color: #77dd77; /* A soft, mystical green */
+}
+
+/* Speaking animation hint (Font Awesome's fa-beat class will be added by JS) */
+.interactive-btn .fa-volume-up.speaking,
+.interactive-btn .fa-volume-up.fa-beat {
+    color: #f0e68c; /* Bright gold when speaking */
+    /* The fa-beat animation is defined by Font Awesome's CSS */
+}
+
+/* Error message styling (if needed in results area) */
+.error-message {
+    color: #ff8c8c;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(100, 0, 0, 0.3);
+    border: 1px solid #8b0000;
+    border-radius: 4px;
+    grid-column: 1 / -1; /* Span across all columns in grid */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More standard font for errors */
+}
+/* --- END OF MODIFIED AND NEW STYLES --- */
+
+/* Elf Lore Section */
+#elf-lore article {
+    margin-bottom: 20px;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 25px 0;
+    background-color: rgba(10, 25, 47, 0.9);
+    border-top: 2px solid #c5b358;
+    font-size: 0.9em;
+    color: #aaa;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    main {
+        width: 95%;
+        margin: 20px auto;
+    }
+
+    header h1 {
+        font-size: 2.2em;
+    }
+
+    section h2 {
+        font-size: 1.6em;
+    }
+
+    .generator-controls input[type="text"] {
+        width: calc(100% - 32px); /* Ensure it doesn't overflow, considering padding */
+    }
+
+    .gender-button-group {
+        flex-direction: column; /* Stack gender buttons */
+    }
+    .gender-btn {
+        width: 100%;
+        max-width: none;
+        margin-bottom: 10px;
+    }
+    .gender-button-group .gender-btn:last-child {
+        margin-bottom: 0;
+    }
+
+    /* General button adjustments for smaller screens, if not overridden by .gender-btn */
+    button:not(.interactive-btn) { /* Apply only to non-interactive buttons */
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+
+    .results-area {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+        gap: 12px;
+    }
+    
+    .name-item {
+        padding: 10px 12px;
+        /* Optional: stack name and buttons vertically if needed, but current flex setup should adapt well */
+        /* flex-direction: column; */
+        /* align-items: flex-start; */
+    }
+    
+    .name-text {
+        font-size: 1em;
+        /* margin-bottom: 8px; /* If stacking name and buttons */
+    }
+
+    .interactive-btn {
+        font-size: 1.2em; /* Slightly smaller icons on mobile */
+    }
+    
+    /* This section was for the old ul/li structure, removing it or commenting out */
+    /*
+    .results-area ul li {
+        text-transform: none !important; 
+        font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif !important; 
+    }
+    */
+}
