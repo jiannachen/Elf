@@ -1,65 +1,87 @@
-# 精灵名网站项目 README
 
-## 🌟 项目名称：精灵名生成器 (Elf Name Generator)
 
-一个可以生成奇幻精灵名字的创意网站，为角色扮演游戏、小说创作或游戏玩家提供灵感。
+```markdown
+# 🧝♀️ 精灵名生成器 | Elf Name Generator
 
-## 🚀 功能特点
+![项目封面](https://via.placeholder.com/800x400?text=Elf+Name+Generator) <!-- 可替换为实际项目封面图 -->
 
-- **随机精灵名生成**：一键生成独特的精灵名字
-- **名字分类**：按精灵种族（森林精灵、暗夜精灵等）分类
+一个为奇幻爱好者打造的精灵名生成网站，为您的角色扮演游戏、小说创作或游戏角色提供独特命名灵感。
 
-## 🛠️ 技术栈
+## ✨ 核心功能
+
+### 🎲 随机名称生成
+- 一键生成独特的精灵名字
+- 支持多种生成算法（古典/现代/混合风格）
+
+### 🌳 种族分类系统
+| 种族类型       | 示例名字          | 特色描述          |
+|----------------|-------------------|-------------------|
+| 森林精灵       | Lirendel, Faelivrin | 自然亲和型名字    |
+| 暗夜精灵       | Nurvaryn, Drizzt  | 神秘幽暗风格      |
+| 高等精灵       | Galadriel, Elrond  | 优雅高贵型命名    |
+
+## 🛠 技术架构
+
+```mermaid
+graph TD
+    A[前端] --> B(HTML5)
+    A --> C(CSS3 with Sass)
+    A --> D(JavaScript ES6+)
+    D --> E[名字生成引擎]
+    F[部署] --> G(GitHub Pages)
+    F --> H(Vercel Edge)
+```
+
+## 🏗️ 项目结构
 
 ```
-前端：HTML5, CSS3, JavaScript
-部署：GitHub Pages/Vercel
-```
+elf-name-generator/
+├── index.html            # 主入口文件
+├── styles/
+│   ├── style.css         # 主要样式
+│ 
+├── scripts/
+│   ├── script.js            # 主逻辑
+│   └── name-generator.js # 核心算法
 
-
-## 📜 名字数据示例 (JavaScript)
-
-```javascript
-// 精灵名字数据
-const elfNames = {
-    forest: ["Lirendel", "Faelivrin", "Celeborn", "Thanduil"],
-    dark: ["Nurvaryn", "Drizzt", "Viconia", "Liriel"],
-    high: ["Galadriel", "Elrond", "Celebrían", "Gil-galad"]
-};
-
-// 生成随机名字
-function generateName(type) {
-    const names = elfNames[type] || Object.values(elfNames).flat();
-    return names[Math.floor(Math.random() * names.length)];
-}
 ```
 
 ## 🚀 快速开始
 
-1. 克隆仓库：
 ```bash
-git clone https://github.com/jiannachen/Elf.git
+# 1. 克隆仓库
+git clone https://github.com/jiannachen/Elf.git && cd Elf
+
+# 2. 启动开发服务器（需安装Live Server）
+npx live-server --port=3000
 ```
 
-2. 打开首页：
+或直接访问：[在线演示](https://elfnamegenerator.online) 🔗
+
+## 💻 开发指南
+
+### 基础命令
 ```bash
-open index.html  # 或在浏览器中直接打开
+# 安装依赖（如需）
+npm install
+
+# 代码格式化
+npx prettier --write .
 ```
 
-## 🌍 在线体验
+### 分支规范
+- `main` - 生产分支
+- `dev` - 开发主分支
+- `feature/*` - 功能开发分支
+- `hotfix/*` - 紧急修复分支
 
-[点击这里访问在线版本](https://elfnamegenerator.online)
+## 🤝 贡献方式
 
-## 🤝 贡献指南
+1. 提交Issue报告问题或建议
+2. Fork后提交Pull Request
+3. 参与文档翻译工作
+4. 分享您的命名创意
 
-欢迎提交Pull Request：
-1. Fork项目
-2. 创建你的分支 (`git checkout -b feature/awesome-feature`)
-3. 提交更改 (`git commit -m 'Add awesome feature'`)
-4. 推送到分支 (`git push origin feature/awesome-feature`)
-5. 创建Pull Request
+## 📜 许可证
 
-## 📄 许可证
-
-MIT License © 2025 []
-
+MIT License © 2025 
