@@ -189,6 +189,7 @@ class ParticleGenerator {
     }
   }
   
+  
   // 语音合成功能
   const SpeechSynthesisManager = {
     isSpeaking: false,
