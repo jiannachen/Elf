@@ -1,3 +1,4 @@
+
 /* ===== 奇幻背景核心样式 ===== */
 .fantasy-container {
   position: relative;
@@ -26,37 +27,48 @@
   z-index: -1;
 }
   
-  /* 魔法粒子系统 */
-  .magic-particle {
-    position: absolute;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23a2f7e8' d='M10 0L12.4 6.3L19 7.6L14 12.7L15.4 19L10 15.6L4.6 19L6 12.7L1 7.6L7.6 6.3L10 0Z'/%3E%3C/svg%3E");
-    background-size: contain;
-    opacity: 0.7;
-    animation: float 15s infinite linear;
-  }
+.magic-particle {
+  position: absolute;
+  background-color: rgba(var(--theme-particle-color, 220, 255, 240), 0.7);
+  border-radius: 50%; /* 确保是圆形 */
+  /* 可以根据需要调整大小，这个大小通常在 animations.js 中设置 */
+  /* width: 5px; */ /* 示例大小 */
+  /* height: 5px; */ /* 示例大小 */
+  box-shadow: 
+      0 0 5px rgba(var(--theme-particle-color, 220, 255, 240), 0.5),
+      0 0 10px rgba(var(--theme-particle-color, 220, 255, 240), 0.3);
+
+  opacity: 0; /* 将透明度设置为0以隐藏粒子 */
+  animation: float 15s infinite linear; /* 您可以保留或调整此动画 */
+}
   
-  /* 符文漂浮元素 */
-  .rune {
-    position: absolute;
-    font-family: 'Times New Roman', serif;
-    font-size: 24px;
-    color: rgba(162, 247, 232, 0.8);
-    text-shadow: 0 0 10px rgba(162, 247, 232, 0.5);
-    animation: drift 25s infinite linear;
-    user-select: none;
-  }
+ /* 符文漂浮元素 */
+ .rune {
+  position: absolute;
+  font-family: 'Times New Roman', serif; /* 可以考虑换成更具奇幻风格的字体 */
+  font-size: 28px; /* 稍微增大字体 */
+  color: rgba(var(--theme-rune-color, 180, 250, 220), 0.9); /* 使用CSS变量，更柔和的颜色 */
+  text-shadow: 
+      0 0 12px rgba(var(--theme-rune-shadow-color, 180, 250, 220), 0.6),
+      0 0 5px rgba(var(--theme-rune-glow-color, 200, 255, 230), 0.4); /* 增强阴影和光晕 */
+  animation: drift 30s infinite linear; /* 调整动画时间 */
+  user-select: none;
+  opacity: 0.7; /* 可以适当调整透明度 */
+}
   
   /* 光晕效果 */
   .glow-effect {
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 280px; /* 进一步增大光晕范围 */
+    height: 280px; /* 进一步增大光晕范围 */
     border-radius: 50%;
     background: radial-gradient(circle, 
-      rgba(123, 239, 178, 0.2) 0%, 
-      transparent 70%);
-    filter: blur(15px);
-    animation: pulse 8s infinite alternate;
+      rgba(var(--theme-glow-center-color, 180, 255, 200), 0.35) 0%, /* 增加中心亮度，调整颜色变量 */
+      rgba(var(--theme-glow-edge-color, 100, 220, 150), 0.15) 40%, /* 增加一个边缘过渡色 */
+      transparent 70%); /* 调整渐变范围 */
+    filter: blur(25px); /* 进一步增加模糊效果，使其更柔和地扩散 */
+    animation: pulse 9s infinite alternate; /* 调整动画时间，使其有不同的节奏 */
+    opacity: 0.75; /* 提高整体透明度，使其更明显 */
   }
   /* 点击符文样式 */
 .click-rune {
@@ -106,6 +118,9 @@
       #0F2027 0%,
       #203A43 50%,
       #2C5364 100%);
+          --theme-glow-center-color: 173, 216, 230; /* 例如：夜间主题的亮蓝色 */
+    --theme-glow-edge-color: 70, 130, 180;    /* 例如：夜间主题的钢蓝色 */
+
 }
 
 /* 丁达尔效应（白天） */
@@ -127,10 +142,18 @@
 
 /* 萤火虫（夜晚） */
 .night-theme .magic-particle {
+  background-color: rgba(var(--theme-particle-color, 220, 255, 240), 0.5); /* 夜晚可以稍微暗淡一些 */
+  box-shadow: 
+    0 0 6px rgba(var(--theme-particle-color, 220, 255, 240), 0.4),
+    0 0 12px rgba(var(--theme-particle-color, 220, 255, 240), 0.2);
   animation: 
-    float 15s infinite linear,
-    glow 2s infinite alternate;
+    float 15s infinite linear, /* 保留漂浮 */
+    glow 2s infinite alternate; /* 保留夜晚的闪烁效果 */
+
+    --theme-glow-center-color: 173, 216, 230; /* 例如：夜间主题的亮蓝色 */
+    --theme-glow-edge-color: 70, 130, 180;    /* 例如：夜间主题的钢蓝色 */
 }
+
 
 @keyframes glow {
   from { opacity: 0.3; }
@@ -274,3 +297,376 @@
     0% { transform: translateX(-100%) rotate(30deg); }
     100% { transform: translateX(100%) rotate(30deg); }
   }
+
+  
+
+
+/* ===== Animation Definitions ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 5px rgba(197, 179, 88, 0.3); }
+  50% { box-shadow: 0 0 15px rgba(197, 179, 88, 0.5); }
+  100% { box-shadow: 0 0 5px rgba(197, 179, 88, 0.3); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ===== Applied Animations ===== */
+
+/* Section entrance animations */
+section {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+section:nth-child(1) { animation-delay: 0.1s; }
+section:nth-child(2) { animation-delay: 0.2s; }
+section:nth-child(3) { animation-delay: 0.3s; }
+section:nth-child(4) { animation-delay: 0.4s; }
+
+/* Name card animations */
+/* 添加新动画 */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(30px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes tagFadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.8);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+.name-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--secondary-gold);
+}
+
+/* Generate button animation */
+.primary-btn.generating {
+  background: linear-gradient(45deg, var(--secondary-gold), var(--primary-gold), var(--secondary-gold));
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  pointer-events: none;
+}
+
+/* Bloodline option hover animation */
+.bloodline-option:hover .bloodline-icon {
+  animation: pulse 1s infinite;
+}
+
+/* Theme button hover animation */
+.theme-btn:hover {
+  animation: pulse 1s infinite;
+}
+
+/* Favorite name animation */
+.favorite-card {
+  position: relative;
+}
+
+.favorite-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+  pointer-events: none;
+}
+
+/* Modal animation */
+.modal-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Speaking animation */
+.fa-beat {
+  animation: pulse 0.8s infinite;
+}
+
+/* Placeholder decoration animation */
+.placeholder-decoration {
+  animation: float 3s infinite ease-in-out;
+}
+
+/* Copied button animation */
+.copy-btn.copied {
+  animation: pulse 0.5s;
+}
+
+/* Loading animation for generating names */
+@keyframes generating {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.generating .fa-magic {
+  animation: generating 1.5s infinite linear;
+}
+
+/* Rune click animation */
+@keyframes runeClick {
+  0% { 
+      opacity: 1;
+      transform: scale(1);
+  }
+  100% { 
+      opacity: 0;
+      transform: scale(2);
+  }
+}
+
+.click-rune {
+  position: absolute;
+  animation: runeClick 1s forwards;
+  pointer-events: none;
+}
+
+/* Theme transition */
+body {
+  transition: background 0.5s ease;
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+  }
+}
+/* ===== 科幻风格背景和特效 (调整为更自然的精灵风格) ===== */
+.sci-fi-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 移除或替换为更自然的网格，例如藤蔓或星空点缀 */
+  /* background-image: 
+    linear-gradient(rgba(16, 24, 44, 0.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 24, 44, 0.8) 1px, transparent 1px); */
+  /* background-size: 40px 40px; */
+  background: transparent; /* 暂时移除网格，后续可添加精灵风格图案 */
+  background-position: center center;
+  z-index: -2;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  /* animation: gridPulse 15s infinite linear; */ /* 移除或替换动画 */
+  opacity: 0.1; /* 降低不透明度或移除 */
+}
+
+/* 全息光效 (调整为精灵光晕) */
+.hologram-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 调整为更柔和的精灵光晕 */
+  background: 
+    radial-gradient(ellipse at 30% 40%, rgba(var(--theme-glow-color, 123, 239, 178), 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(var(--theme-glow-color, 123, 239, 178), 0.1) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(12px); /* 增加模糊度，使其更柔和 */
+  animation: hologramPulse 10s infinite alternate; /* 减慢动画 */
+}
+
+/* 离子粒子 (调整为精灵尘埃/光点) */
+.ion-particle {
+  position: absolute;
+  border-radius: 50%;
+  /* 调整为更自然的精灵光点效果 */
+  background: radial-gradient(circle, 
+    rgba(var(--theme-particle-color, 220, 255, 240), 0.7), 
+    rgba(var(--theme-particle-color, 220, 255, 240), 0.3) 40%, 
+    transparent 70%
+  );
+  box-shadow: 
+    0 0 8px rgba(var(--theme-particle-color, 220, 255, 240), 0.5),
+    0 0 15px rgba(var(--theme-particle-color, 220, 255, 240), 0.3),
+    0 0 25px rgba(var(--theme-particle-color, 220, 255, 240), 0.1);
+  opacity: 0.6; /* 可根据需要调整 */
+  filter: blur(0.5px); /* 轻微模糊，增加柔和感 */
+  animation: elfDustFloat 25s infinite linear; /* 使用新的动画 */
+}
+
+/* 数据流效果 (移除或替换) */
+.data-stream {
+  /* display: none; */ /* 暂时隐藏，或替换为藤蔓、星光轨迹等 */
+  position: absolute;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(var(--theme-glow-color,123, 239, 178), 0.5), transparent);
+  opacity: 0.3;
+  animation: dataFlow 12s infinite linear; /* 如果保留，减慢动画 */
+}
+
+/* 主题颜色变量定义 - 将这些添加到 :root 或 body[data-theme] 中 */
+/* 示例：在 style.css 或 bg.css 的 :root 中添加 */
+/* 
+:root {
+  --high-elf-glow-rgb: 32, 222, 255;
+  --high-elf-particle-rgb: 200, 240, 255;
+  --wood-elf-glow-rgb: 32, 255, 136;
+  --wood-elf-particle-rgb: 200, 255, 210;
+  --dark-elf-glow-rgb: 180, 80, 220; 
+  --dark-elf-particle-rgb: 220, 180, 255;
+  --half-elf-glow-rgb: 255, 200, 80;
+  --half-elf-particle-rgb: 255, 230, 180;
+}
+*/
+
+/* 科幻主题覆盖 (调整为精灵主题颜色) */
+body[data-theme="high-elf"] .hologram-effect {
+  background: 
+    radial-gradient(ellipse at 30% 40%, rgba(32, 222, 255, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(88, 124, 255, 0.1) 0%, transparent 60%);
+}
+body[data-theme="high-elf"] .ion-particle {
+  background: radial-gradient(circle, rgba(200, 240, 255, 0.7), rgba(200, 240, 255, 0.3) 40%, transparent 70%);
+  box-shadow: 0 0 8px rgba(200, 240, 255, 0.5), 0 0 15px rgba(200, 240, 255, 0.3), 0 0 25px rgba(200, 240, 255, 0.1);
+}
+
+body[data-theme="wood-elf"] .hologram-effect {
+  background: 
+    radial-gradient(ellipse at 30% 40%, rgba(32, 255, 136, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(88, 255, 124, 0.1) 0%, transparent 60%);
+}
+body[data-theme="wood-elf"] .ion-particle {
+  background: radial-gradient(circle, rgba(200, 255, 210, 0.7), rgba(200, 255, 210, 0.3) 40%, transparent 70%);
+  box-shadow: 0 0 8px rgba(200, 255, 210, 0.5), 0 0 15px rgba(200, 255, 210, 0.3), 0 0 25px rgba(200, 255, 210, 0.1);
+}
+
+body[data-theme="dark-elf"] .hologram-effect {
+  background: 
+    radial-gradient(ellipse at 30% 40%, rgba(180, 80, 220, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(124, 88, 255, 0.1) 0%, transparent 60%);
+}
+body[data-theme="dark-elf"] .ion-particle {
+  background: radial-gradient(circle, rgba(220, 180, 255, 0.7), rgba(220, 180, 255, 0.3) 40%, transparent 70%);
+  box-shadow: 0 0 8px rgba(220, 180, 255, 0.5), 0 0 15px rgba(220, 180, 255, 0.3), 0 0 25px rgba(220, 180, 255, 0.1);
+}
+
+body[data-theme="half-elf"] .hologram-effect {
+  background: 
+    radial-gradient(ellipse at 30% 40%, rgba(255, 200, 80, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(255, 124, 88, 0.1) 0%, transparent 60%);
+}
+body[data-theme="half-elf"] .ion-particle {
+  background: radial-gradient(circle, rgba(255, 230, 180, 0.7), rgba(255, 230, 180, 0.3) 40%, transparent 70%);
+  box-shadow: 0 0 8px rgba(255, 230, 180, 0.5), 0 0 15px rgba(255, 230, 180, 0.3), 0 0 25px rgba(255, 230, 180, 0.1);
+}
+
+/* 动画定义 */
+@keyframes gridPulse { /* 如果保留网格，可以调整此动画使其更柔和 */
+  0% { opacity: 0.1; transform: translateZ(0) scale(1); }
+  50% { opacity: 0.2; transform: translateZ(20px) scale(1.02); }
+  100% { opacity: 0.1; transform: translateZ(0) scale(1); }
+}
+
+@keyframes hologramPulse { /* 调整为更自然的精灵光晕脉动 */
+  0% { opacity: 0.2; filter: blur(15px); }
+  50% { opacity: 0.4; filter: blur(10px); }
+  100% { opacity: 0.2; filter: blur(15px); }
+}
+
+/* 新的精灵尘埃/光点漂浮动画 */
+@keyframes elfDustFloat {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(var(--x-drift, 30px), var(--y-drift, -40px)) rotate(var(--r-drift, 60deg)) scale(1.1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(calc(var(--x-drift, 30px) * 0.5), var(--y-drift, -80px)) rotate(calc(var(--r-drift, 60deg) * 2)) scale(1);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(calc(var(--x-drift, 30px) * -0.5), calc(var(--y-drift, -40px) * 0.5)) rotate(calc(var(--r-drift, 60deg) * 3)) scale(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(0, 0) rotate(calc(var(--r-drift, 60deg) * 4)) scale(1);
+    opacity: 0.3;
+  }
+}
+
+@keyframes dataFlow { /* 如果保留数据流，调整为更像魔法轨迹 */
+  0% { transform: translateY(-150%) scaleY(0.5); opacity: 0; }
+  50% { transform: translateY(0) scaleY(1); opacity: 0.3; }
+  100% { transform: translateY(150%) scaleY(0.5); opacity: 0; }
+}
+
+/* 扫描线效果 (移除或替换) */
+.scan-line {
+  /* display: none; */ /* 彻底移除或替换为更符合主题的元素，如流星、飘落的叶子等 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px; /* 更细的线条 */
+  background-color: rgba(var(--theme-glow-color, 123, 239, 178), 0.3);
+  box-shadow: 0 0 8px rgba(var(--theme-glow-color, 123, 239, 178), 0.5);
+  z-index: -1;
+  animation: scanMoveElf 8s infinite linear; /* 减慢并调整动画 */
+}
+
+@keyframes scanMoveElf {
+  0% { top: -20px; opacity: 0; }
+  20% { opacity: 0.4; }
+  80% { opacity: 0.4; }
+  100% { top: 105%; opacity: 0; }
+}

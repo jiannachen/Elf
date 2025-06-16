@@ -1,0 +1,238 @@
+@media (max-width: 480px) {
+    body {
+        font-size: 0.9rem; /* 调整基础字体大小 */
+    }
+
+    h1 {
+        font-size: clamp(2rem, 4vw, 2.8rem); /* 调整h1字体大小 */
+    }
+
+    h2 {
+        font-size: clamp(1.5rem, 3.5vw, 2rem); /* 调整h2字体大小 */
+    }
+
+    section {
+        padding: var(--spacing-md); /* 之前是 var(--spacing-lg)，可以适当减小 */
+    }
+    
+    .gender-button-group {
+        flex-direction: column;
+    }
+    
+    .gender-btn {
+        width: 100%;
+        margin-bottom: var(--spacing-xs); /* 为堆叠的按钮添加一些间距 */
+    }
+    .gender-btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    .name-results-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm); /* 减小网格间距 */
+    }
+    
+    .examples-grid,
+    .lore-grid,
+    .faq-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md); /* 减小网格间距 */
+    }
+    
+    .name-text {
+        font-size: 0.9rem; /* 已有，可以根据需要微调 */
+        max-width: 60%; /* 稍微调整以适应更小的屏幕 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .bloodline-selector {
+        grid-template-columns: 1fr;
+    }
+
+    .action-btn {
+        padding: var(--spacing-sm) var(--spacing-md); /* 减小内边距 */
+        font-size: var(--font-size-md); /* 减小字体大小 */
+        min-width: 200px; /* 可以根据需要调整最小宽度 */
+        width: 90%; /* 让按钮在小屏幕上更宽 */ 
+        margin-top: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .modal-content {
+        margin: 10% auto; /* 调整上下边距 */
+        padding: var(--spacing-md); /* 进一步减小内边距 */
+        width: 95%; /* 允许更宽一点 */
+    }
+
+    .modal-actions .primary-btn,
+    .modal-actions .secondary-btn {
+        width: 100%; /* 确保按钮在堆叠时占满宽度 */
+        margin-bottom: var(--spacing-sm); /* 为堆叠的按钮添加间距 */
+    }
+
+    .modal-actions .secondary-btn:last-child {
+        margin-bottom: 0;
+    }
+
+    .card-actions {
+        gap: 2px; /* 稍微减小卡片内操作按钮的间距 */
+    }
+
+    .copy-btn, .action-btn, .speak-btn, .save-btn, 
+    .speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn { /* 确保所有卡片内小按钮都应用调整 */
+        width: 30px; /* 略微调整大小 */
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .theme-switcher {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .theme-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .modal-content {
+        margin: 15% auto;
+        padding: var(--spacing-lg);
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .secondary-btn { /* 这会影响所有 secondary-btn，包括 #clear-favorites-btn 和 #regenerate-btn */
+        width: 100%;
+        margin-bottom: var(--spacing-sm);
+    }
+    .results-actions .secondary-btn:last-child, /* 避免最后一个按钮也有下边距 */
+    .modal-actions .secondary-btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    .name-card {
+        padding: var(--spacing-sm);
+    }
+    
+    .card-actions {
+        gap: 4px;
+    }
+    .secondary-btn { /* 这会影响所有 secondary-btn */
+        width: 100%;
+        margin-bottom: var(--spacing-sm);
+    }
+    .results-actions .secondary-btn:last-child, /* 避免最后一个按钮也有下边距 */
+    .modal-actions .secondary-btn:last-child {
+        margin-bottom: 0;
+    }
+
+    /* 为 clear-favorites-btn 添加特定样式以覆盖 width: 100% */
+    #clear-favorites-btn {
+        width: auto; /* 恢复其自动宽度 */
+       
+        font-size: var(--font-size-sm); /* 保持或调整字体大小 */
+        margin-bottom: 0; /* 如果它不需要额外的下边距 */
+    }
+    
+    /* 注意：这里的 .action-btn 指的是卡片内部的小按钮，而不是主生成按钮 */
+    /* 主生成按钮的 .action-btn 样式在 480px 断点中处理 */
+    .copy-btn, .card-actions .action-btn, .speak-btn, .save-btn, 
+    .speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .bloodline-selector {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .bloodline-option {
+        padding: 1rem;
+    }
+    
+    .bloodline-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .bloodline-option span {
+        font-size: 1rem;
+    }
+    
+    .bloodline-desc {
+        font-size: 0.8rem;
+    }
+    .advanced-options-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    .name-results-grid,
+    .favorites-list {
+        grid-template-columns: 1fr; /* 在768px时已经是1列，480px时也是，这里保持一致 */
+    }
+    .range-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-sm);
+    }
+    
+    .range-value {
+        align-self: center;
+    }
+}
+
+/* 可以考虑为更小的屏幕添加断点，例如 360px */
+@media (max-width: 360px) {
+    body {
+        font-size: 0.85rem;
+    }
+    h1 {
+        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    }
+    h2 {
+        font-size: clamp(1.3rem, 3vw, 1.8rem);
+    }
+    section {
+        padding: var(--spacing-sm);
+    }
+    .name-text {
+        max-width: 55%;
+    }
+    .action-btn { /* 主生成按钮 */
+        padding: 6px 8px;
+        font-size: 0.8rem;
+      
+        display: flex; /* 或者 block，如果内部元素对齐已通过其他方式处理 */
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        gap: var(--spacing-xs);
+        margin-left: auto; /* 实现居中 */
+        margin-right: auto; /* 实现居中 */
+        margin-top: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+    .copy-btn, .card-actions .action-btn, .speak-btn, .save-btn, 
+    .speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn { /* 卡片内小按钮 */
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
+    .modal-content {
+        padding: var(--spacing-sm);
+        margin: 5% auto;
+    }
+}

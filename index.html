@@ -3,71 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Welcome to Mystic Names, your ultimate destination for crafting unique and enchanting elf names. Whether you're a World of Warcraft enthusiast, a Lord of the Rings aficionado, or a fantasy writer, find the perfect name for your characters. Explore random generation based on gender.">
-    <title>Mystic Names: Elf Name Generator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="./css/bg.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-</head>
-<body class="fantasy-container">
-    <div class="fantasy-bg"></div>
+    <title>Elven Name Generator - Create Magical Fantasy Names</title>
+    <meta name="description" content="Generate authentic elven names for your fantasy characters, RPGs, or creative writing. Choose from High Elves, Wood Elves, Dark Elves, and Half-Elves.">
+    <meta name="keywords" content="elf name generator, elven names, fantasy names, RPG names, D&D names, high elf, wood elf, dark elf, half-elf">
     
-    <!-- 动态魔法元素容器 -->
-    <div id="particles-container"></div>
-    <div id="runes-container"></div>
-
-    <header>
-        <h1>Mystic Names: Elf Name Generator</h1>
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/respons.css">
+    <link rel="stylesheet" href="css/bg.css">
+</head>
+<body data-theme="high-elf">
+    <!-- Theme and Background Containers -->
+    <div id="theme-container">
+        <div id="particles-container"></div>
+        <div id="runes-container"></div>
+    </div>
+    
+    <!-- Theme Switcher -->
+ 
+    
+    <header class="main-header">
+        <h1>Elven Name Generator</h1>
+        <p class="subtitle">Create authentic names for your fantasy characters</p>
     </header>
-
+    
     <main>
-        <section id="seo-description">
-            <h2>Discover Your Elf Identity</h2>
-            <p>Welcome to Mystic Names, your ultimate destination for crafting unique and enchanting elf names. Whether you're a World of Warcraft enthusiast, a Lord of the Rings aficionado, or a fantasy writer, find the perfect name for your characters by selecting a gender below.</p>
-        </section>
-
-        <!-- 统一名称生成部分 -->
-        <section id="name-generation-area">
-            <h2>Craft Your Elf Name</h2>
-            <div class="generator-controls">
-                <fieldset>
-                    <legend>Choose a Gender (click to generate):</legend>
-                    <div class="gender-button-group">
-                        <button type="button" class="gender-btn active" data-gender="male">Male</button>
-                        <button type="button" class="gender-btn" data-gender="female">Female</button>
-                        <button type="button" class="gender-btn" data-gender="neutral">Neutral</button>
+        <section class="generator-section">
+            <fieldset class="bloodline-fieldset">
+                <legend>Choose Bloodline</legend>
+                <div class="bloodline-selector">
+                    <div class="bloodline-option active" data-bloodline="high-elf">
+                        <div class="bloodline-icon high-elf-icon"></div>
+                        <span>High Elf</span>
+                        <p class="bloodline-desc">Noble and magical</p>
                     </div>
-                </fieldset>
-            </div>
+                    <div class="bloodline-option" data-bloodline="wood-elf">
+                        <div class="bloodline-icon wood-elf-icon"></div>
+                        <span>Wood Elf</span>
+                        <p class="bloodline-desc">Wild and natural</p>
+                    </div>
+                    <div class="bloodline-option" data-bloodline="dark-elf">
+                        <div class="bloodline-icon dark-elf-icon"></div>
+                        <span>Dark Elf</span>
+                        <p class="bloodline-desc">Mysterious and shadowy</p>
+                    </div>
+                    <div class="bloodline-option" data-bloodline="half-elf">
+                        <div class="bloodline-icon half-elf-icon"></div>
+                        <span>Half-Elf</span>
+                        <p class="bloodline-desc">Versatile and adaptable</p>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset class="gender-fieldset">
+                <legend>Choose Gender</legend>
+                <div class="gender-button-group">
+                    <button class="gender-btn active" data-gender="male">
+                        <i class="fas fa-mars"></i> Male
+                    </button>
+                    <button class="gender-btn" data-gender="female">
+                        <i class="fas fa-venus"></i> Female
+                    </button>
+                    <button class="gender-btn" data-gender="neutral">
+                        <i class="fas fa-genderless"></i> Neutral
+                    </button>
+                </div>
+            </fieldset>
+            
 
-            <div id="name-results-area" class="results-area">
-                <!-- 生成的名字将出现在这里 -->
+            
+            <button id="generate-btn" class="action-btn">
+                <i class="fas fa-magic"></i> Generate Names
+            </button>
+        </section>
+        
+        <section class="results-area">
+            <div class="results-header">
+                <h2>Generated Names</h2>
+                <div class="results-actions">
+                    <button id="regenerate-btn" class="secondary-btn">
+                        <i class="fas fa-redo"></i> Regenerate
+                    </button>
+                </div>
+            </div>
+            <div id="name-results">
                 <div class="generated-name-placeholder">
-                    <p>Your elf name will appear here...</p>
+                    <p>Click the generate button above to create elven names</p>
+                    <div class="placeholder-decoration">✧</div>
                 </div>
             </div>
         </section>
-
-        <section id="elf-lore">
-            <h2>The Lore of the Elves</h2>
-            <article>
-                <h3>Ancient Lineages</h3>
-                <p>Delve into the rich history of the Elves. From the ancient High Elves, masters of magic and lore, known for their wisdom and ethereal cities, to the agile Wood Elves, protectors of the deepest forests, living in harmony with nature. Discover the enigmatic Night Elves, children of the stars and moon, with their nocturnal habits and deep connection to the mystical energies of the world. Each lineage carries unique traditions, naming conventions, and a profound legacy that echoes through the ages.</p>
-            </article>
-            <article>
-                <h3>Cultural Traits</h3>
-                <p>Elves are often depicted as beings of immense grace, longevity, and a deep connection to the natural or magical world. Their names often reflect these qualities, carrying sonorous tones and meanings tied to elements, celestial bodies, or virtues. Whether you seek a name that speaks of ancient power, sylvan grace, or starlit mystery, the essence of elven culture provides a vast wellspring of inspiration.</p>
-            </article>
+        
+        <section class="favorites-section">
+            <div class="favorites-header">
+                <h2>My Favorites <span id="favorites-count">(0)</span></h2>
+                <button id="clear-favorites-btn" class="secondary-btn" title="Clear all favorites">
+                    <i class="fas fa-trash-alt"></i> Clear All
+                </button>
+            </div>
+            <div id="favorites-container">
+                <div class="empty-favorites-message">
+                    <p>You haven't saved any names yet</p>
+                    <div class="placeholder-decoration">♡</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="lore-section">
+            <h2>Elf Lore</h2>
+            <div class="lore-grid">
+                <div class="lore-card">
+                    <h3>Ancient Lineages</h3>
+                    <p>Elves are one of the oldest races in fantasy worlds, often living for hundreds or even thousands of years. Their names reflect their ancient heritage and deep connection to magic and nature.</p>
+                </div>
+                <div class="lore-card">
+                    <h3>Cultural Traits</h3>
+                    <p>Each elven subrace has distinct cultural elements reflected in their naming conventions. High Elves favor elegant, magical-sounding names, while Wood Elves prefer nature-inspired names, and Dark Elves often have harsher, more mysterious names.</p>
+                </div>
+                <div class="lore-card">
+                    <h3>Naming Systems</h3>
+                    <p>Elven names typically consist of multiple syllables with flowing sounds. Many elven cultures give names that have specific meanings related to natural phenomena, magical concepts, or ancestral heroes.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="examples-section">
+            <h2>Famous Elven Names</h2>
+            <div class="examples-grid">
+                <div class="example-card high-elf">
+                    <h3>High Elf Examples</h3>
+                    <ul>
+                        <li>Galanodel - "Moonwhisper"</li>
+                        <li>Caemlin - "Lightbringer"</li>
+                        <li>Eldrathil - "Starcrowned"</li>
+                        <li>Sylvaranth - "Silverleaf"</li>
+                        <li>Ithrandil - "Eternal Wisdom"</li>
+                    </ul>
+                </div>
+                <div class="example-card wood-elf">
+                    <h3>Wood Elf Examples</h3>
+                    <ul>
+                        <li>Adranath - "Oak Friend"</li>
+                        <li>Sylvalor - "Forest Wind"</li>
+                        <li>Faelynn - "Fairy Pool"</li>
+                        <li>Nimrodel - "Lady of the White Cave"</li>
+                        <li>Thalion - "Strong One"</li>
+                    </ul>
+                </div>
+                <div class="example-card dark-elf">
+                    <h3>Dark Elf Examples</h3>
+                    <ul>
+                        <li>Drizzt - "Hunter in Darkness"</li>
+                        <li>Ilythiir - "Shadow Realm"</li>
+                        <li>Viconia - "Victory's Shadow"</li>
+                        <li>Malzrath - "Dark Path"</li>
+                        <li>Nyx'atra - "Night Veil"</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How are elven names structured?</h3>
+                    <p>Elven names typically consist of a personal name followed by a family or house name. They often incorporate natural elements, magical concepts, or ancestral references. Names can vary in length but usually have a melodic, flowing quality.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What makes a good elven name?</h3>
+                    <p>Good elven names balance authenticity with pronounceability. They should evoke the cultural essence of the specific elven subrace while being memorable and suitable for your character's personality and background.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use these names in my game or story?</h3>
+                    <p>Yes! All names generated here are free to use in your creative projects, whether for tabletop RPGs, fiction writing, video games, or any other creative endeavor.</p>
+                </div>
+            </div>
         </section>
     </main>
-
-    <footer>
-        <p>&copy; <span id="current-year"></span> Mystic Names - All Rights Reserved</p>
-    </footer>
     
+
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2023 Elven Name Generator. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://twitter.com/intent/tweet?url=https://www.elfnamegenerator.online/&text=Check%20out%20this%20Elven%20Name%20Generator!" target="_blank" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.reddit.com/submit?url=https://www.elfnamegenerator.online/&title=Check%20out%20this%20Elven%20Name%20Generator!" target="_blank" title="Share on Reddit"><i class="fab fa-reddit-alien"></i></a>
+                <a href="https://pinterest.com/pin/create/button/?url=https://www.elfnamegenerator.online/&media=https://www.elfnamegenerator.online/webImg.pngL&description=Amazing%20Elven%20Names%20from%20this%20Generator!" target="_blank" title="Pin on Pinterest"><i class="fab fa-pinterest"></i></a>
+                <button id="copy-link-btn" title="Copy Link to Share" style="background:none; border:none; color:var(--icon-color); cursor:pointer; padding: 0.5em;">
+                    <i class="fas fa-link"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+
+    
+    <!-- Name Details Modal -->
+    <div id="name-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 id="modal-name">Elven Name</h2>
+            <div id="modal-details">
+                <div class="meaning-section">
+                    <h3>Meaning</h3>
+                    <p id="modal-meaning">This elven name has ancient origins.</p>
+                </div>
+                <div class="pronunciation-section">
+                    <h3>Pronunciation</h3>
+                    <div class="pronunciation-container">
+                        <p id="modal-pronunciation">el-ven-name</p>
+                        <button id="modal-speak" class="speak-btn" title="speak_name">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="usage-section">
+                    <h3>Usage Ideas</h3>
+                    <p id="modal-usage">This name would be perfect for a noble character with magical abilities.</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="modal-save" class="primary-btn">
+                    <i class="far fa-heart"></i> Save
+                </button>
+                <button id="modal-copy" class="secondary-btn">
+                    <i class="far fa-copy"></i> Copy
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="notification-container"></div>
+
+    <script src="js/animations.js"></script>
     <script src="js/name-generator.js"></script>
     <script src="js/script.js"></script>
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Elven Name Generator",
+        "description": "Generate authentic elven names for your fantasy characters, RPGs, or creative writing.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0"
+        },
+        "keywords": "elf name generator, elven names, fantasy names, RPG names, D&D names, high elf, wood elf, dark elf, half-elf"
+    }
+    </script>
 </body>
 </html>
