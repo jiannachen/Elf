@@ -29,6 +29,42 @@ function showNotification(message, type = 'success') {
     }, 1500); // Adjusted duration
 }
 
+
+const raceStyleUIConfig = {
+    'high-elf': {
+        styles: [
+            { id: 'noble', name: 'Noble', desc: 'Aristocratic and refined', icon: 'fas fa-crown' },
+            { id: 'scholarly', name: 'Scholarly', desc: 'Wise and learned', icon: 'fas fa-book' },
+            { id: 'celestial', name: 'Celestial', desc: 'Star and moon inspired', icon: 'fas fa-star' },
+            { id: 'arcane', name: 'Arcane', desc: 'Magical and mystical', icon: 'fas fa-magic' }
+        ]
+    },
+    'wood-elf': {
+        styles: [
+            { id: 'forest', name: 'Forest', desc: 'Deep woodland heritage', icon: 'fas fa-tree' },
+            { id: 'hunter', name: 'Hunter', desc: 'Swift and precise', icon: 'fas fa-crosshairs' },
+            { id: 'druidic', name: 'Druidic', desc: 'Nature magic focused', icon: 'fas fa-leaf' },
+            { id: 'tribal', name: 'Tribal', desc: 'Ancient clan traditions', icon: 'fas fa-feather' }
+        ]
+    },
+    'dark-elf': {
+        styles: [
+            { id: 'shadow', name: 'Shadow', desc: 'Darkness and stealth', icon: 'fas fa-mask' },
+            { id: 'noble-dark', name: 'Noble', desc: 'Dark aristocracy', icon: 'fas fa-chess-king' },
+            { id: 'spider', name: 'Spider', desc: 'Web and venom themed', icon: 'fas fa-spider' },
+            { id: 'exile', name: 'Exile', desc: 'Outcast and wanderer', icon: 'fas fa-route' }
+        ]
+    },
+    'half-elf': {
+        styles: [
+            { id: 'balanced', name: 'Balanced', desc: 'Human-Elf harmony', icon: 'fas fa-scale-balanced' },
+            { id: 'wanderer', name: 'Wanderer', desc: 'Traveler between worlds', icon: 'fas fa-compass' },
+            { id: 'adaptive', name: 'Adaptive', desc: 'Flexible and versatile', icon: 'fas fa-arrows-rotate' },
+            { id: 'bridge', name: 'Bridge', desc: 'Connecting two cultures', icon: 'fas fa-bridge' }
+        ]
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // Global variables
     let favorites = JSON.parse(localStorage.getItem('elfFavorites')) || [];
@@ -36,7 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTheme = 'high-elf';
     let speechSynthesisInstance = null;
 
-
+    // 在文件顶部添加常量
+    const MAX_FAVORITES = 100;
     // DOM elements
     const generateBtn = document.getElementById('generate-btn');
     const regenerateBtn = document.getElementById('regenerate-btn');
@@ -52,6 +89,103 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalUsage = document.getElementById('modal-usage');
     const modalSaveBtn = document.getElementById('modal-save');
     const modalCopyBtn = document.getElementById('modal-copy');
+    const exportFavoritesBtn = document.getElementById('export-favorites-btn'); // 添加导出按钮引用
+    
+
+// 在现有的血统选择事件处理后添加
+
+
+
+
+
+// 更新风格选项的函数
+function updateStyleOptions(race) {
+    const styleSelector = document.getElementById('style-selector');
+    if (!styleSelector) return;
+    
+    const config = raceStyleUIConfig[race];
+    if (!config) return;
+    
+    styleSelector.innerHTML = '';
+    
+    config.styles.forEach((style, index) => {
+        const styleOption = document.createElement('div');
+        styleOption.className = `style-option ${index === 0 ? 'active' : ''}`;
+        styleOption.dataset.style = style.id;
+        
+        styleOption.innerHTML = `
+            <i class="style-icon ${style.icon}"></i>
+            <span class="style-name">${style.name}</span>
+            <p class="style-desc">${style.desc}</p>
+        `;
+        
+        styleOption.addEventListener('click', function() {
+            document.querySelectorAll('.style-option').forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+            
+            const selectedStyle = this.dataset.style;
+            updateMeaningOptions(selectedStyle);
+            
+            if (window.elfGeneratorInstance) {
+                window.elfGeneratorInstance.setStyle(selectedStyle);
+            }
+        });
+        
+        styleSelector.appendChild(styleOption);
+    });
+    
+    if (config.styles.length > 0) {
+        updateMeaningOptions(config.styles[0].id);
+        if (window.elfGeneratorInstance) {
+            window.elfGeneratorInstance.setStyle(config.styles[0].id);
+        }
+    }
+}
+
+// 更新含义选项函数（使用标签而非下拉框）
+function updateMeaningOptions(style) {
+    const meaningTags = document.getElementById('meaning-tags');
+    if (!meaningTags) return;
+    
+    if (window.elfGeneratorInstance) {
+        const availableMeanings = window.elfGeneratorInstance.getAvailableMeaningTags(style);
+        
+        meaningTags.innerHTML = '<span class="meaning-tag active" data-meaning="">Any</span>';
+        
+        availableMeanings.slice(0, 4).forEach(meaning => {
+            const tag = document.createElement('span');
+            tag.className = 'meaning-tag';
+            tag.dataset.meaning = meaning;
+            tag.textContent = meaning.charAt(0).toUpperCase() + meaning.slice(1).replace('-', ' ');
+            
+            tag.addEventListener('click', function() {
+                document.querySelectorAll('.meaning-tag').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const selectedMeaning = this.dataset.meaning;
+                if (window.elfGeneratorInstance) {
+                    window.elfGeneratorInstance.setMeaningPreference(selectedMeaning);
+                }
+            });
+            
+            meaningTags.appendChild(tag);
+        });
+    }
+}
+
+// 添加名字数量选择功能
+function initNameCountSelector() {
+    document.querySelectorAll('.count-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.count-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const count = parseInt(this.dataset.count);
+            // 这里可以设置全局变量或传递给生成函数
+            window.selectedNameCount = count;
+        });
+    });
+}
 
 
 
@@ -60,18 +194,64 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize function
     function init() {
-          // 初始化语音合成
-        if ('speechSynthesis' in window) {
-            speechSynthesisInstance = window.speechSynthesis;
-            // 尝试获取语音列表
-            availableVoices = speechSynthesisInstance.getVoices();
-            // 监听voiceschanged事件，确保语音列表加载完成
-            speechSynthesisInstance.addEventListener('voiceschanged', function() {
-                availableVoices = speechSynthesisInstance.getVoices();
-                console.log("语音列表已加载，共", availableVoices.length, "个语音");
+     
+         // 高级选项折叠功能
+        const advancedFieldset = document.querySelector('.advanced-fieldset');
+        const collapsibleLegend = document.querySelector('.collapsible-legend');
+        const advancedContent = document.querySelector('.advanced-content');
+        
+        if (collapsibleLegend && advancedContent) {
+            collapsibleLegend.addEventListener('click', function() {
+                const isExpanded = advancedFieldset.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    advancedFieldset.classList.remove('expanded');
+                    advancedContent.style.display = 'none';
+                } else {
+                    advancedFieldset.classList.add('expanded');
+                    advancedContent.style.display = 'block';
+                }
             });
         }
         
+         // 姓氏开关功能
+        const surnameToggle = document.getElementById('surname-toggle');
+        const toggleLabel = document.querySelector('.toggle-label');
+        
+        if (surnameToggle && toggleLabel) {
+            surnameToggle.addEventListener('change', function() {
+                const isEnabled = this.checked;
+                toggleLabel.textContent = isEnabled ? 'Enabled' : 'Disabled';
+                
+                if (window.elfGeneratorInstance) {
+                    window.elfGeneratorInstance.setSurnameEnabled(isEnabled);  // 使用isEnabled变量
+                }
+            });
+            
+            // 初始化设置
+            if (window.elfGeneratorInstance) {
+                window.elfGeneratorInstance.setSurnameEnabled(false);
+            }
+        }
+
+
+        const meaningSelect = document.getElementById('meaning-preference');
+            if (meaningSelect) {
+                meaningSelect.addEventListener('change', function() {
+                    const selectedMeaning = this.value;
+                    if (window.elfGeneratorInstance) {
+                        window.elfGeneratorInstance.setMeaningPreference(selectedMeaning);
+                    }
+                });
+            }
+        
+            // 页面加载时初始化风格选项
+            const activeBloodline = document.querySelector('.bloodline-option.active');
+            if (activeBloodline) {
+                const race = activeBloodline.dataset.bloodline;
+                updateStyleOptions(race);
+    }
+
         generateBtn.addEventListener('click', generateNames);
         if (regenerateBtn) {
             regenerateBtn.addEventListener('click', generateNames);
@@ -85,7 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (modalCopyBtn) modalCopyBtn.addEventListener('click', copyCurrentName);
         if (clearFavoritesBtn) clearFavoritesBtn.addEventListener('click', clearAllFavorites); // Add event listener
-        
+        if (exportFavoritesBtn) exportFavoritesBtn.addEventListener('click', exportFavorites); // 添加导出按钮事件绑定
+
 
 
         document.querySelectorAll('.bloodline-option').forEach(option => {
@@ -93,9 +274,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll('.bloodline-option').forEach(opt => opt.classList.remove('active'));
                 this.classList.add('active');
                 
-                // 将这段代码移到循环内部的回调函数中
                 const bloodline = this.getAttribute('data-bloodline');
                 switchTheme(bloodline);
+                
+                // 重要：添加风格联动
+                updateStyleOptions(bloodline);
                 
                 // 更新主题按钮的激活状态
                 document.querySelectorAll('.theme-btn').forEach(btn => {
@@ -110,21 +293,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.classList.add('active');
             });
         });
+
+
         
-
-
+       
+        
+        // 初始化语音合成
+        if ('speechSynthesis' in window) {
+        speechSynthesisInstance = window.speechSynthesis;
+        // 尝试获取语音列表
+        availableVoices = speechSynthesisInstance.getVoices();
+        // 监听voiceschanged事件，确保语音列表加载完成
+        speechSynthesisInstance.addEventListener('voiceschanged', function() {
+            availableVoices = speechSynthesisInstance.getVoices();
+            console.log("语音列表已加载，共", availableVoices.length, "个语音");
+        });
+         }       
+         initNameCountSelector();
         regenerateBackgroundEffects(); // This function needs to be defined or removed if not used
         renderFavorites(); // This function needs to be defined or removed if not used
     }
 
 
   function generateNames() {
+
+    console.log('当前生成器状态:', {
+        style: window.elfGeneratorInstance.currentStyle,
+        meaning: window.elfGeneratorInstance.meaningPreference,
+        surname: window.elfGeneratorInstance.isSurnameEnabled()
+    });
     console.log("=== 开始生成名字 ===");
     const bloodlineElement = document.querySelector('.bloodline-option.active');
     const genderElement = document.querySelector('.gender-btn.active');
 
     if (!bloodlineElement || !genderElement) {
-        console.error("Bloodline or gender not selected.");
+        handleError("Bloodline or gender not selected.");
         resultsContainer.innerHTML = `
             <div class="error-container">
                 <i class="fas fa-exclamation-triangle"></i>
@@ -133,6 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         return;
     }
+
 
 
 
@@ -162,17 +366,30 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Generating names...</p>
         </div>
     `;
+
+     
+     // 获取生成数量
+     const nameCount = window.selectedNameCount || 9;
+     console.log(`生成数量: ${nameCount}`);
+     
+     if (window.elfGeneratorInstance) {
+ console.log("elfGeneratorInstance存在，设置选项...");
+    window.elfGeneratorInstance.setBloodline(formattedBloodline);
+    window.elfGeneratorInstance.setGender(gender);
     
-    if (window.elfGeneratorInstance) {
-        console.log("elfGeneratorInstance存在，设置选项...");
-        window.elfGeneratorInstance.setBloodline(formattedBloodline);
-        window.elfGeneratorInstance.setGender(gender);
-    } else {
-        console.error("Elf Name Generator instance not found.");
+    // 添加姓氏开关状态设置
+    const surnameToggle = document.getElementById('surname-toggle');
+    if (surnameToggle) {
+        window.elfGeneratorInstance.setSurnameEnabled(surnameToggle.checked);
+        console.log(`姓氏开关状态: ${surnameToggle.checked}`);
+    }
+
+     }else {
+        handleError("Elf Name Generator instance not found.");
         resultsContainer.innerHTML = `
             <div class="error-container">
-                <i class="fas fa-cogs"></i>
-                <p>Name generator is not initialized. Please refresh the page.</p>
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Name generator not initialized. Please refresh the page.</p>
             </div>
         `;
         // 恢复生成按钮状态
@@ -183,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 设置超时处理
     const timeoutId = setTimeout(() => {
-        console.error('Name generation timeout');
+        handleError('Name generation timeout');
         resultsContainer.innerHTML = `
             <div class="error-container">
                 <i class="fas fa-clock"></i>
@@ -207,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             try {
                 console.log("调用generateBatch生成名字...");
-                const names = window.elfGeneratorInstance.generateBatch();
+                const names = window.elfGeneratorInstance.generateBatch(window.selectedNameCount || 9);
                 console.log("生成结果:", names);
                 
                 // 清除超时
@@ -215,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // 检查是否生成失败
                 if (names && names.failed) {
-                    console.error("生成名字失败:", names.reason);
+                    handleError("生成名字失败:", names.reason);
                     resultsContainer.innerHTML = `
                         <div class="error-container">
                             <i class="fas fa-exclamation-circle"></i>
@@ -242,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 清除超时
                 clearTimeout(timeoutId);
                 
-                console.error('Name generation error:', error);
+                handleError('Name generation error:', error);
                 resultsContainer.innerHTML = `
                     <div class="error-container">
                         <i class="fas fa-exclamation-circle"></i>
@@ -260,12 +477,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 generateBtn.disabled = false;
                 generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Names';
             }
-        }, 0);
+        }, 100);
     } catch (error) {
         // 清除超时
         clearTimeout(timeoutId);
         
-        console.error('Name generation error:', error);
+        handleError('Name generation error:', error);
         resultsContainer.innerHTML = `
             <div class="error-container">
                 <i class="fas fa-exclamation-circle"></i>
@@ -285,7 +502,85 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } 
 
-    // ... existing code ...
+    // 添加模式切换按钮事件监听器
+    const modeToggle = document.getElementById('mode-toggle');
+    const advancedOptions = document.getElementById('advanced-options');
+    if (modeToggle) {
+        modeToggle.addEventListener('click', function() {
+            const isBasic = this.classList.contains('basic');
+            
+            if (isBasic) {
+                // 当前是基础模式，切换到高级模式
+                this.classList.remove('basic');
+                this.classList.add('advanced');
+                this.querySelector('.mode-text').textContent = 'Switch to Basic';
+                this.querySelector('.mode-indicator i').className = 'fas fa-chevron-down';
+                
+                // 显示高级选项
+                if (advancedOptions) {
+                    advancedOptions.classList.remove('hidden');
+                }
+                
+                showNotification('Switched to Advanced Mode', 'success');
+            } else {
+                // 当前是高级模式，切换到基础模式
+                        this.classList.remove('advanced');
+                        this.classList.add('basic');
+                        this.querySelector('.mode-text').textContent = 'Switch to Advanced';
+                        this.querySelector('.mode-indicator i').className = 'fas fa-chevron-right';
+
+                        // 隐藏高级选项
+                        if (advancedOptions) {
+                            advancedOptions.classList.add('hidden');
+                        }
+
+                        // 🔥 完全重置生成器设置
+                        if (window.elfGeneratorInstance) {
+                            window.elfGeneratorInstance.setStyle(null);
+                            window.elfGeneratorInstance.setMeaningPreference('');
+                            window.elfGeneratorInstance.setSurnameEnabled(false);  // 改为false
+                        }
+
+                        // 🔥 彻底清理UI状态
+                        document.querySelectorAll('.style-option').forEach(opt => {
+                            opt.classList.remove('active');
+                            // 移除所有风格选择的视觉状态
+                        });
+
+                        document.querySelectorAll('.meaning-tag').forEach(tag => {
+                            tag.classList.remove('active');
+                            // 移除所有含义选择的视觉状态
+                        });
+
+                        // 🔥 确保"Any"含义标签被选中
+                        const anyMeaningTag = document.querySelector('.meaning-tag[data-meaning=""]');
+                        if (anyMeaningTag) {
+                            anyMeaningTag.classList.add('active');
+                        }
+
+                       // 🔥 重置姓氏开关
+                        const surnameToggle = document.getElementById('surname-toggle');
+                        if (surnameToggle) {
+                            surnameToggle.checked = false;  // 改为false
+                            const label = surnameToggle.nextElementSibling;
+                            if (label) {
+                                label.textContent = 'Include Surname';
+                            }
+                        }
+
+                // 🔥 同步 advancedMasterToggle 状态
+                const advancedMasterToggle = document.getElementById('advanced-master-toggle');
+                if (advancedMasterToggle) {
+                    advancedMasterToggle.checked = false;
+                    // 触发change事件确保完全重置
+                    advancedMasterToggle.dispatchEvent(new Event('change'));
+                }
+
+                showNotification('Switched to Basic Mode. All settings reset to default.', 'info');
+                   }
+        });
+    }
+ 
     function toggleFavoriteInModal(name) {
         const favoriteIndex = favorites.findIndex(fav => fav.name === name);
         const nameCardInResults = document.querySelector(`.name-card[data-name="${name}"]`);
@@ -305,11 +600,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             showNotification(`Removed "${name}" from favorites`, 'success');
         } else {
+            if (favorites.length >= MAX_FAVORITES) {
+                showNotification(`Favorites limit reached (${MAX_FAVORITES}). Please remove some favorites first.`, 'error');
+                return;
+            }
             // **关键修改：直接从模态框的元素中获取含义和发音**
             const meaning = modalMeaning.textContent || ''; // 从 id="modal-meaning" 的元素获取
             const pronunciation = modalPronunciation.textContent || ''; // 从 id="modal-pronunciation" 的元素获取
-            
-            favorites.push({ name, meaning, pronunciation }); // 使用获取到的信息
+            const usage = modalUsage.textContent || ''; // 添加这行
+
+            favorites.push({ name, meaning, pronunciation,usage}); // 使用获取到的信息
             
             modalSaveBtn.innerHTML = '<i class="fas fa-heart"></i> Saved';
             modalSaveBtn.classList.add('saved');
@@ -338,11 +638,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let html = '<div class="name-results-grid">';
         names.forEach(nameObj => {
+             // 🔥 关键修复：动态生成缺失的字段
+            if (!nameObj.pronunciation) {
+                nameObj.pronunciation = generatePronunciation(nameObj.name);
+            }
+            if (!nameObj.usage) {
+                nameObj.usage = generateUsageSuggestions(nameObj.name);
+            }
             const isFavorite = favorites.some(fav => fav.name === nameObj.name);
             // const favoriteClass = isFavorite ? 'favorite' : ''; // 'favorite' class on name-card might be redundant if only button state changes
             
             html += `
-                <div class="name-card" data-name="${nameObj.name}" data-meaning="${nameObj.meaning || ''}" data-pronunciation="${nameObj.pronunciation || ''}">
+                <div class="name-card" data-name="${nameObj.name}" data-meaning="${nameObj.meaning || ''}" data-pronunciation="${nameObj.pronunciation || ''}" data-usage="${nameObj.usage || ''}">
                     <span class="name-text">${nameObj.name}</span>
                     <div class="card-actions">
                         <button class="speak-btn" title="spaekName">
@@ -361,21 +668,51 @@ document.addEventListener('DOMContentLoaded', () => {
         html += '</div>';
         resultsContainer.innerHTML = html;
         
-        document.querySelectorAll('.name-text').forEach(nameText => {
-            nameText.addEventListener('click', showNameDetails);
+        resultsContainer.querySelectorAll('.name-text').forEach(nameText => {
+            console.log('Adding click listener to:', nameText); // 调试日志
+            nameText.addEventListener('click', function(e) {
+                console.log('Name text clicked!', e.target); // 调试日志
+                showNameDetails(e);
+            });
         });
         
-        document.querySelectorAll('.speak-btn').forEach(btn => {
+        resultsContainer.querySelectorAll('.speak-btn').forEach(btn => {
             btn.addEventListener('click', speakName);
         });
 
-        document.querySelectorAll('.save-btn').forEach(btn => {
+        resultsContainer.querySelectorAll('.save-btn').forEach(btn => {
             btn.addEventListener('click', toggleFavorite);
         });
         
-        document.querySelectorAll('.copy-btn').forEach(btn => {
+        resultsContainer.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', copyName);
         });
+    }
+    function handleError(error, userMessage = 'An error occurred') {
+        handleError(error);
+        showNotification(userMessage, 'error');
+    }
+    // 修改原有的 showNameDetails 函数
+    function showNameDetails(e) {
+        console.log('showNameDetails called with event:', e); // 调试日志
+        console.log('Event target:', e.target); // 调试日志
+        
+        const nameCard = e.target.closest('.name-card');
+        console.log('Found nameCard:', nameCard); // 调试日志
+        
+        if (!nameCard) {
+            console.log('No nameCard found, returning'); // 调试日志
+            return;
+        }
+        
+        const nameData = {
+            name: nameCard.getAttribute('data-name'),
+            meaning: nameCard.getAttribute('data-meaning'),
+            pronunciation: nameCard.getAttribute('data-pronunciation')
+        };
+        
+        console.log('Name data:', nameData); // 调试日志
+        showNameDetailsFromData(nameData);
     }
     // ... existing code ...
     function toggleFavorite(e) {
@@ -387,9 +724,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = nameCard.getAttribute('data-name');
         const meaning = nameCard.getAttribute('data-meaning') || '';
         const pronunciation = nameCard.getAttribute('data-pronunciation') || '';
+        const usage = nameCard.getAttribute('data-usage') || ''; // 添加这行
         
         const favoriteIndex = favorites.findIndex(fav => fav.name === name);
-        
+
         if (favoriteIndex > -1) {
             // Remove from favorites
             favorites.splice(favoriteIndex, 1);
@@ -398,8 +736,12 @@ document.addEventListener('DOMContentLoaded', () => {
             saveButton.title = 'saveName'; //  Consider changing title to 'Save Name' or similar for consistency if other titles are in English
             showNotification(`"${name}" removed from favorites`, 'success'); // Added notification
         } else {
-            // Add to favorites
-            favorites.push({ name, meaning, pronunciation });
+ 
+            if (favorites.length >= MAX_FAVORITES) {
+                showNotification(`Favorites limit reached (${MAX_FAVORITES}). Please remove some favorites first.`, 'error');
+                return;
+            }
+            favorites.push({ name, meaning, pronunciation,usage});
             saveButton.classList.add('saved');
             saveButton.innerHTML = '<i class="fas fa-heart"></i>';
             saveButton.title = 'Saved';
@@ -416,34 +758,10 @@ document.addEventListener('DOMContentLoaded', () => {
             modalSaveBtn.classList.toggle('saved', favoriteIndex === -1);
         }
     }
-    // ... existing code ...
 
 
- // ... existing code ...
-    function showNameDetails(e) {
-        const nameCard = e.target.closest('.name-card');
-        if (!nameCard || !modalName || !modalMeaning || !modalPronunciation || !modalUsage || !modalSaveBtn || !nameModal) return;
 
-        const name = nameCard.getAttribute('data-name');
-        const meaning = nameCard.getAttribute('data-meaning') || 'The meaning of this elven name has not been recorded.';
-        const pronunciation = nameCard.getAttribute('data-pronunciation') || generatePronunciation(name); 
-        const usage = generateUsageSuggestions(name); 
-
-        modalName.textContent = name;
-        modalMeaning.textContent = meaning;
-        modalPronunciation.textContent = pronunciation;
-        modalUsage.textContent = usage;
-        
-        const isFavorite = favorites.some(fav => fav.name === name);
-        modalSaveBtn.innerHTML = isFavorite ? 
-            '<i class="fas fa-heart"></i> Saved' :  // Changed to Chinese
-            '<i class="far fa-heart"></i> Save';   // Changed to Chinese
-        modalSaveBtn.classList.toggle('saved', isFavorite);
-        // REMOVED: modalSaveBtn.onclick = () => toggleFavoriteInModal(name); 
-        
-        nameModal.classList.add('active');
-    }
-// ... existing code ...
+       
 
     const modalSpeakBtn = document.getElementById('modal-speak');
     if (modalSpeakBtn) {
@@ -488,8 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Placeholder for copyCurrentName - you'll need to complete this
    
-// 统一的复制函数
-// ... existing code ...
+
 
 // ... existing code ...
 function copyNameToClipboard(name, buttonElement) { // Removed showText parameter and UI update logic
@@ -498,7 +815,7 @@ function copyNameToClipboard(name, buttonElement) { // Removed showText paramete
             showNotification(`Copied "${name}" to clipboard!`, 'success');
             return true; // Indicate success
         }).catch(err => {
-            console.error('Failed to copy: ', err);
+            handleError('Failed to copy: ', err);
             showNotification('Failed to copy name.', 'error');
             return false; // Indicate failure
         });
@@ -514,7 +831,7 @@ function copyNameToClipboard(name, buttonElement) { // Removed showText paramete
             document.body.removeChild(textArea);
             return true; // Indicate success
         } catch (err) {
-            console.error('Fallback failed to copy: ', err);
+            handleError('Fallback failed to copy: ', err);
             showNotification('Failed to copy name using fallback.', 'error');
             document.body.removeChild(textArea);
             return false; // Indicate failure
@@ -676,53 +993,114 @@ function copyNameToClipboard(name, buttonElement) { // Removed showText paramete
             themeContainer.appendChild(hologramElement);
         }
     }
+        // 导出收藏功能
+        function exportFavorites() {
+
+            // 生成导出内容
+            const currentDate = new Date().toLocaleDateString('en-US');
+            let content = `My Elf Name Collection\n`;
+            content += `Export Date: ${currentDate}\n`;
+            content += `Total Names: ${favorites.length}\n`;
+            content += `${'='.repeat(30)}\n\n`;
+            
+            favorites.forEach((fav, index) => {
+                content += `${index + 1}. ${fav.name}\n`;
+                if (fav.meaning) {
+                    content += `   Meaning: ${fav.meaning}\n`;
+                }
+                if (fav.pronunciation) {
+                    content += `   Pronunciation: ${fav.pronunciation}\n`;
+                }
+                if (fav.usage) {
+                    content += `   Usage Ideas: ${fav.usage}\n`;
+                }
+                content += `\n`;
+            });
+            
+            content += `\nExported from: Elf Name Generator\n`;
+            content += `URL: ${window.location.href}`;
+        
+            // 创建并下载文件
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            
+            // 生成文件名：Elf_Names_YYYY-MM-DD.txt
+            const dateStr = new Date().toISOString().split('T')[0];
+            a.download = `Elf_Names_${dateStr}.txt`;
+            a.href = url;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+            
+            // 显示成功提示（如果有通知系统）
+            if (typeof showNotification === 'function') {
+                showNotification('Favorites exported successfully!', 'success');
+            }
+       }
+
 
     // Placeholder for renderFavorites - you'll need to complete this
     function renderFavorites() {
         if (!favoritesContainer || !favoritesCount) return;
-        
-        favoritesCount.textContent = `(${favorites.length})`;
-        
-        // Show or hide the "Clear All" button based on whether there are favorites
-        if (clearFavoritesBtn) {
-            clearFavoritesBtn.style.display = favorites.length > 0 ? 'inline-flex' : 'none';
-        }
+    
+    // Display count with limit
+    favoritesCount.textContent = `(${favorites.length}/${MAX_FAVORITES})`;
+    
+    // Show warning when approaching limit
+    if (favorites.length >= MAX_FAVORITES * 0.9) {
+        favoritesCount.style.color = 'var(--warning-color, #ff9800)';
+    } else {
+        favoritesCount.style.color = '';
+    }
+    
+    // Show or hide buttons based on favorites count
+    if (clearFavoritesBtn) {
+        clearFavoritesBtn.style.display = favorites.length > 0 ? 'inline-flex' : 'none';
+    }
+    if (exportFavoritesBtn) {
+        exportFavoritesBtn.style.display = favorites.length > 0 ? 'inline-flex' : 'none';
+    }
 
-        if (favorites.length === 0) {
-            favoritesContainer.innerHTML = "<div class=\"empty-favorites-message\">You haven't saved any names yet</div>";
-            return;
-        }
+    if (favorites.length === 0) {
+        favoritesContainer.innerHTML = `<div class="empty-favorites-message">
+                                <p>You haven't saved any names yet</p>
+                                <div class="placeholder-decoration">♡</div>
+                    </div>`;
+        return;
+    }
 
-        let favoritesHtml = '<ul class="favorites-list">';
-        favorites.forEach(fav => {
-            favoritesHtml += `
-                <li class="favorite-item" data-name="${fav.name}">
-                    <span class="favorite-name-text">${fav.name}</span>
-                    <div class="favorite-item-actions">
-                        <button class="speak-favorite-btn" title="朗读名字">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                        <button class="copy-favorite-btn" title="复制名字">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                        <button class="remove-favorite-btn" title="移除收藏">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-                </li>
-            `;
+    let favoritesHtml = '<ul class="favorites-list">';
+    favorites.forEach(fav => {
+        favoritesHtml += `
+            <li class="favorite-item" data-name="${fav.name}">
+                <span class="favorite-name-text">${fav.name}</span>
+                <div class="favorite-item-actions">
+                    <button class="speak-favorite-btn" title="Speak name">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="copy-favorite-btn" title="Copy name">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <button class="remove-favorite-btn" title="Remove favorite">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </li>
+        `;
+    });
+    favoritesHtml += '</ul>';
+    favoritesContainer.innerHTML = favoritesHtml;
+
+    // Add event listeners for favorite actions
+    favoritesContainer.querySelectorAll('.remove-favorite-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const nameToRemove = btn.closest('.favorite-item').getAttribute('data-name');
+            removeFromFavorites(nameToRemove);
         });
-        favoritesHtml += '</ul>';
-        favoritesContainer.innerHTML = favoritesHtml;
-
-        document.querySelectorAll('.remove-favorite-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const nameToRemove = e.currentTarget.closest('.favorite-item').getAttribute('data-name');
-                removeFromFavorites(nameToRemove);
-            });
-        });
-
-        document.querySelectorAll('.speak-favorite-btn').forEach(btn => {
+    });
+    favoritesContainer.querySelectorAll('.speak-favorite-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const nameCard = e.target.closest('.favorite-item');
                 if (!nameCard) return;
@@ -731,10 +1109,67 @@ function copyNameToClipboard(name, buttonElement) { // Removed showText paramete
             });
         });
 
-        document.querySelectorAll('.copy-favorite-btn').forEach(btn => { // Add event listener for new copy button
+        favoritesContainer.querySelectorAll('.copy-favorite-btn').forEach(btn => { // Add event listener for new copy button
             btn.addEventListener('click', copyFavoriteName);
         });
+
+            // 为收藏的名字添加点击事件
+            favoritesContainer.querySelectorAll('.favorite-name-text').forEach(nameText => {
+            nameText.addEventListener('click', (e) => {
+                const favoriteItem = e.target.closest('.favorite-item');
+                if (!favoriteItem) return;
+                
+                const name = favoriteItem.getAttribute('data-name');
+                const favoriteData = favorites.find(fav => fav.name === name);
+                
+                if (favoriteData) {
+                    showNameDetailsFromData(favoriteData);
+                }
+            });
+        });
+        
     }
+
+    function showNameDetailsFromData(nameData) {
+        console.log('showNameDetailsFromData called with:', nameData);
+        
+        if (!modalName || !modalMeaning || !modalPronunciation || !modalUsage || !modalSaveBtn || !nameModal) {
+            console.log('Modal elements not ready');
+            console.log('Elements check:', {
+                modalName: !!modalName,
+                modalMeaning: !!modalMeaning,
+                modalPronunciation: !!modalPronunciation,
+                modalUsage: !!modalUsage,
+                modalSaveBtn: !!modalSaveBtn,
+                nameModal: !!nameModal
+            });
+            return;
+        }
+        
+        const name = nameData.name;
+        const meaning = nameData.meaning || 'The meaning of this elven name has not been recorded.';
+        const pronunciation = nameData.pronunciation || generatePronunciation(name);
+        const usage = generateUsageSuggestions(name);
+        
+        modalName.textContent = name;
+        modalMeaning.textContent = meaning;
+        modalPronunciation.textContent = pronunciation;
+        modalUsage.textContent = usage;
+        
+        const isFavorite = favorites.some(fav => fav.name === name);
+        modalSaveBtn.innerHTML = isFavorite ? 
+            '<i class="fas fa-heart"></i> Saved' :
+            '<i class="far fa-heart"></i> Save';
+        modalSaveBtn.classList.toggle('saved', isFavorite);
+        
+        console.log('About to add active class to modal');
+        nameModal.classList.add('active');
+        console.log('Modal classes after adding active:', nameModal.className);
+        console.log('Modal display style:', window.getComputedStyle(nameModal).display);
+
+        
+    }
+
 
     function copyFavoriteName(event) {
         const favoriteItem = event.currentTarget.closest('.favorite-item');
@@ -761,43 +1196,43 @@ function copyNameToClipboard(name, buttonElement) { // Removed showText paramete
             // Add notification - simplified call
             showNotification(`Copied "${name}" to clipboard`, 'success');
         }).catch(err => {
-            console.error('Failed to copy favorite name: ', err);
+            handleError('Failed to copy favorite name: ', err);
             
             // Add error notification - simplified call
             showNotification('Failed to copy name. Please try again.', 'error');
         });
     }
 
-   // ... existing code ...
-function clearAllFavorites() {
-    if (confirm('Are you sure you want to remove all favorite names?')) { // Confirmation dialog
-        if (favorites.length === 0) {
-            showNotification('Favorites list is already empty.', 'error'); // Added notification for empty list
-            return;
-        }
-        favorites = [];
-        localStorage.setItem('elfFavorites', JSON.stringify(favorites));
-        renderFavorites();
-        showNotification('All favorites cleared', 'success'); // Added notification
+    // ... existing code ...
+    function clearAllFavorites() {
+        if (confirm('Are you sure you want to remove all favorite names?')) { // Confirmation dialog
+            if (favorites.length === 0) {
+                showNotification('Favorites list is already empty.', 'error'); // Added notification for empty list
+                return;
+            }
+            favorites = [];
+            localStorage.setItem('elfFavorites', JSON.stringify(favorites));
+            renderFavorites();
+            showNotification('All favorites cleared', 'success'); // Added notification
 
-        // Update save buttons on all currently displayed name cards in the results section
-        document.querySelectorAll('.name-card .save-btn.saved').forEach(btn => {
-            btn.classList.remove('saved');
-            btn.innerHTML = '<i class="far fa-heart"></i>';
-            btn.title = 'saveName'; // Consider changing title to 'Save Name'
-        });
-        // Update modal save button if modal is open
-        if (nameModal && nameModal.classList.contains('active')) {
-             const currentModalName = modalName.textContent;
-             const isCurrentModalNameFavorite = favorites.some(fav => fav.name === currentModalName);
-             modalSaveBtn.innerHTML = isCurrentModalNameFavorite ? 
-                '<i class="fas fa-heart"></i> Saved' : 
-                '<i class="far fa-heart"></i> Save';
-             modalSaveBtn.classList.toggle('saved', isCurrentModalNameFavorite);
+            // Update save buttons on all currently displayed name cards in the results section
+            resultsContainer.querySelectorAll('.name-card .save-btn.saved').forEach(btn => {
+                btn.classList.remove('saved');
+                btn.innerHTML = '<i class="far fa-heart"></i>';
+                btn.title = 'saveName'; // Consider changing title to 'Save Name'
+            });
+            // Update modal save button if modal is open
+            if (nameModal && nameModal.classList.contains('active')) {
+                const currentModalName = modalName.textContent;
+                const isCurrentModalNameFavorite = favorites.some(fav => fav.name === currentModalName);
+                modalSaveBtn.innerHTML = isCurrentModalNameFavorite ? 
+                    '<i class="fas fa-heart"></i> Saved' : 
+                    '<i class="far fa-heart"></i> Save';
+                modalSaveBtn.classList.toggle('saved', isCurrentModalNameFavorite);
+            }
         }
     }
-}
-// ... existing code ...
+    // ... existing code ...
     
     // Placeholder for speakName - you'll need to complete this
     function speakText(text) { // General speak function
@@ -857,16 +1292,85 @@ function clearAllFavorites() {
         speakText(nameToSpeak); // Use the general speakText function
     }
 
-    // Placeholder for generatePronunciation - you'll need to complete this
     function generatePronunciation(name) {
-        // A simple placeholder. Replace with your actual pronunciation logic.
-        return name.split('').join('-').toLowerCase(); 
+        if (!name || typeof name !== 'string') return '';
+        
+        const syllables = splitIntoSyllables(name.toLowerCase());
+        
+        // 简单的音节连接，用连字符分隔
+        return syllables.map(syllable => {
+            // 首字母大写，便于阅读
+            return syllable.charAt(0).toUpperCase() + syllable.slice(1);
+        }).join('-');
+    }
+
+    // 简化的音节分割函数
+    function splitIntoSyllables(word) {
+        if (!word) return [];
+        
+        const vowels = 'aeiouAEIOU';
+        const syllables = [];
+        let currentSyllable = '';
+        
+        for (let i = 0; i < word.length; i++) {
+            const char = word[i];
+            const isVowel = vowels.includes(char);
+            const nextChar = word[i + 1];
+            const nextIsVowel = nextChar && vowels.includes(nextChar);
+            
+            currentSyllable += char;
+            
+            // 音节分割规则：
+            // 1. 元音后跟辅音，且辅音后还有元音时分割
+            // 2. 连续元音时可能分割（除了常见组合）
+            if (isVowel && nextChar && !nextIsVowel) {
+                // 元音后的辅音
+                const consonantCluster = getConsonantCluster(word, i + 1);
+                if (consonantCluster.length === 1 && i + 2 < word.length) {
+                    // 单个辅音，在辅音前分割
+                    syllables.push(currentSyllable);
+                    currentSyllable = '';
+                }
+            } else if (isVowel && nextIsVowel) {
+                // 连续元音，检查是否是常见组合
+                const vowelPair = char + nextChar;
+                if (!['ae', 'ai', 'au', 'ea', 'ei', 'ie', 'oa', 'oo', 'ou', 'ue'].includes(vowelPair)) {
+                    // 不是常见组合，分割
+                    syllables.push(currentSyllable);
+                    currentSyllable = '';
+                }
+            }
+        }
+        
+        // 添加最后一个音节
+        if (currentSyllable) {
+            syllables.push(currentSyllable);
+        }
+        
+        // 确保至少有一个音节
+        return syllables.length > 0 ? syllables : [word];
+    }
+
+    // 获取辅音群
+    function getConsonantCluster(word, startIndex) {
+        const vowels = 'aeiouAEIOU';
+        let cluster = '';
+        
+        for (let i = startIndex; i < word.length; i++) {
+            if (vowels.includes(word[i])) {
+                break;
+            }
+            cluster += word[i];
+        }
+        
+        return cluster;
     }
 
     // Placeholder for generateUsageSuggestions - you'll need to complete this
     function generateUsageSuggestions(name) {
         return `The name ${name} could be used for a noble warrior or a wise mage. It evokes a sense of ancient power.`;
     }
+    
 
     // Call init to set everything up
     init();
@@ -880,8 +1384,102 @@ function clearAllFavorites() {
                 showNotification('Link copied to clipboard!', 'success');
             }).catch(err => {
                 showNotification('Failed to copy link.', 'error');
-                console.error('Failed to copy link: ', err);
+                handleError('Failed to copy link: ', err);
             });
         });
     }
+    // 高级选项总开关功能
+const advancedMasterToggle = document.getElementById('advanced-master-toggle');
+const advancedStatus = document.getElementById('advanced-status');
+const switchStatus = document.getElementById('switch-status');
+const advancedOptionsWrapper = document.getElementById('advanced-options-wrapper');
+
+if (advancedMasterToggle && advancedStatus && switchStatus && advancedOptionsWrapper) {
+    // 初始状态
+    let isAdvancedEnabled = false;
+    
+    advancedMasterToggle.addEventListener('change', function() {
+        isAdvancedEnabled = this.checked;
+        updateAdvancedOptionsState(isAdvancedEnabled);
+    });
+    
+    function updateAdvancedOptionsState(enabled) {
+        if (enabled) {
+            // 启用高级选项
+            advancedOptionsWrapper.classList.remove('disabled');
+            advancedOptionsWrapper.classList.add('enabled');
+            advancedStatus.textContent = 'Advanced Mode';
+            advancedStatus.classList.add('advanced-mode');
+            
+            switchStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Advanced options are enabled. Customize your name generation preferences.</span>';
+            switchStatus.classList.add('enabled');
+            
+            // 应用默认的高级设置
+            if (window.elfGeneratorInstance) {
+                // 设置默认风格（如果有的话）
+                const firstStyleOption = document.querySelector('.style-option');
+                if (firstStyleOption) {
+                    firstStyleOption.click(); // 触发默认风格选择
+                }
+                
+                // 确保姓氏开关状态正确
+                const surnameToggle = document.getElementById('surname-toggle');
+                if (surnameToggle) {
+                    window.elfGeneratorInstance.setSurnameEnabled(surnameToggle.checked);
+                }
+            }
+            
+            // 显示启用提示
+            showNotification('Advanced options enabled! You can now customize styles and preferences.', 'success');
+            
+        } else {
+            // 禁用高级选项
+            advancedOptionsWrapper.classList.remove('enabled');
+            advancedOptionsWrapper.classList.add('disabled');
+            advancedStatus.textContent = 'Basic Mode';
+            advancedStatus.classList.remove('advanced-mode');
+            
+            switchStatus.innerHTML = '<i class="fas fa-info-circle"></i><span>Advanced options are disabled. Toggle to enable custom settings.</span>';
+            switchStatus.classList.remove('enabled');
+            
+            // 重置为基础设置
+            if (window.elfGeneratorInstance) {
+                window.elfGeneratorInstance.setStyle(null); // 重置风格
+                window.elfGeneratorInstance.setMeaningPreference(''); // 重置含义偏好
+                window.elfGeneratorInstance.setSurnameEnabled(false); // 改为false
+            }
+            
+            // 重置UI状态
+            document.querySelectorAll('.style-option').forEach(opt => opt.classList.remove('active'));
+            document.querySelectorAll('.meaning-tag').forEach(tag => tag.classList.remove('active'));
+            const anyMeaningTag = document.querySelector('.meaning-tag[data-meaning=""]');
+            if (anyMeaningTag) anyMeaningTag.classList.add('active');
+            
+            showNotification('Switched to basic mode. Using default name generation settings.', 'info');
+        }
+    }
+    
+    // 修改现有的高级选项展开逻辑
+    const originalCollapsibleHandler = collapsibleLegend.onclick;
+    collapsibleLegend.addEventListener('click', function(e) {
+        const isExpanded = advancedFieldset.classList.contains('expanded');
+        
+        if (isExpanded) {
+            advancedFieldset.classList.remove('expanded');
+            advancedContent.style.display = 'none';
+        } else {
+            advancedFieldset.classList.add('expanded');
+            advancedContent.style.display = 'block';
+            
+            // 如果是第一次展开，显示提示
+            if (!advancedMasterToggle.checked) {
+                setTimeout(() => {
+                    showNotification('Tip: Enable the master switch to activate advanced options!', 'info');
+                }, 500);
+            }
+        }
+    });
+}
+
 });
+

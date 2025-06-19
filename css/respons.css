@@ -236,3 +236,233 @@
         margin: 5% auto;
     }
 }
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .control-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .compact-controls {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .style-selector {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .syllable-range-container {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .syllable-display {
+        order: -1;
+    }
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+    .grid-auto-fit {
+        grid-template-columns: 1fr;
+    }
+    
+    .gender-button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .bloodline-selector {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+    .results-header {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .results-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: var(--spacing-md);
+    }
+    
+    .section-base {
+        padding: var(--spacing-md);
+    }
+    
+    .name-card,
+    .favorite-item {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        text-align: center;
+    }
+    
+    .card-actions,
+    .favorite-item-actions {
+        justify-content: center;
+    }
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .hero-intro {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    .intro-content p {
+        font-size: var(--font-size-md);
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .use-cases-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .feature-card,
+    .use-case-card {
+        padding: var(--spacing-md);
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-intro {
+        padding: var(--spacing-md);
+    }
+    
+    .features-section {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    .feature-card h3,
+    .use-case-card h4 {
+        font-size: var(--font-size-md);
+    }
+    
+    .feature-card p,
+    .use-case-card p {
+        font-size: var(--font-size-sm);
+    }
+}
+/* 在现有的响应式样式中添加 */
+@media (max-width: 768px) {
+    .hero-intro,
+    .features-section {
+        margin-left: var(--spacing-md);
+        margin-right: var(--spacing-md);
+        width: calc(100% - 2 * var(--spacing-md));
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-intro,
+    .features-section {
+        margin-left: var(--spacing-sm);
+        margin-right: var(--spacing-sm);
+        width: calc(100% - 2 * var(--spacing-sm));
+    }
+}
+@media (max-width: 768px) {
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-md); /* 移动端适当减小 */
+    }
+    
+    .feature-card h3 {
+        margin-bottom: var(--spacing-sm); /* 移动端保持紧凑 */
+        font-size: var(--font-size-md);
+    }
+    .hero-intro {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+
+}
+
+@media (max-width: 480px) {
+    .feature-icon {
+        font-size: 1.8rem;
+        margin-bottom: var(--spacing-sm);
+    }
+}
+/* Lore Section 响应式优化 */
+@media (max-width: 768px) {
+    .lore-section h3 {
+        font-size: var(--font-size-lg);
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .lore-section h3:first-of-type {
+        margin-top: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .lore-section h3 {
+        font-size: var(--font-size-md);
+        margin-top: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .lore-section h3::after {
+        width: 40px;
+        height: 1px;
+    }
+}
+@media (max-width: 768px) {
+    .hero-intro {
+        padding: var(--spacing-lg) var(--spacing-md);
+        margin-bottom: var(--spacing-lg); /* 减小底部边距 */
+    }
+    
+    .intro-content p {
+        font-size: var(--font-size-md);
+        line-height: 1.7; /* 稍微减小行高 */
+    }
+    
+    .subtitle {
+        font-size: calc(var(--font-size-md) + 0.1rem); /* 稍微调整字体大小 */
+        margin-bottom: var(--spacing-sm); /* 减小底部边距 */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-intro {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md); /* 进一步减小底部边距 */
+    }
+    
+    .intro-content p {
+        font-size: calc(var(--font-size-md) - 0.05rem); /* 稍微减小字体 */
+        line-height: 1.6; /* 减小行高以适应小屏幕 */
+    }
+    
+    .subtitle {
+        font-size: var(--font-size-md);
+    }
+}
