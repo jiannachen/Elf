@@ -9,7 +9,6 @@
 
 - `js/animations.js`     - 页面背景的粒子特效代码
 - `js/name-generator.js`     - 页面的精灵名字生成核心算法代码
-- `js/advanced-options.js`    - 血统，性别，主题和高级选项代码、
 - `js/script.js`            - 名字生成，朗读，复制，保存和删除等功能代码
 
 `css/`

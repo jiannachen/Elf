@@ -1,96 +1,33 @@
-@media (max-width: 480px) {
-    body {
-        font-size: 0.9rem; /* 调整基础字体大小 */
-    }
+/* ===== 响应式样式文件 ===== */
 
-    h1 {
-        font-size: clamp(2rem, 4vw, 2.8rem); /* 调整h1字体大小 */
-    }
-
-    h2 {
-        font-size: clamp(1.5rem, 3.5vw, 2rem); /* 调整h2字体大小 */
-    }
-
-    section {
-        padding: var(--spacing-md); /* 之前是 var(--spacing-lg)，可以适当减小 */
-    }
-    
-    .gender-button-group {
-        flex-direction: column;
-    }
-    
-    .gender-btn {
-        width: 100%;
-        margin-bottom: var(--spacing-xs); /* 为堆叠的按钮添加一些间距 */
-    }
-    .gender-btn:last-child {
-        margin-bottom: 0;
-    }
-    
-    .name-results-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-sm); /* 减小网格间距 */
-    }
-    
-    .examples-grid,
-    .lore-grid,
-    .faq-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md); /* 减小网格间距 */
-    }
-    
-    .name-text {
-        font-size: 0.9rem; /* 已有，可以根据需要微调 */
-        max-width: 60%; /* 稍微调整以适应更小的屏幕 */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    .bloodline-selector {
-        grid-template-columns: 1fr;
-    }
-
-    .action-btn {
-        padding: var(--spacing-sm) var(--spacing-md); /* 减小内边距 */
-        font-size: var(--font-size-md); /* 减小字体大小 */
-        min-width: 200px; /* 可以根据需要调整最小宽度 */
-        width: 90%; /* 让按钮在小屏幕上更宽 */ 
-        margin-top: var(--spacing-md);
-        margin-bottom: var(--spacing-md);
-    }
-
-    .modal-content {
-        margin: 10% auto; /* 调整上下边距 */
-        padding: var(--spacing-md); /* 进一步减小内边距 */
-        width: 95%; /* 允许更宽一点 */
-    }
-
-    .modal-actions .primary-btn,
-    .modal-actions .secondary-btn {
-        width: 100%; /* 确保按钮在堆叠时占满宽度 */
-        margin-bottom: var(--spacing-sm); /* 为堆叠的按钮添加间距 */
-    }
-
-    .modal-actions .secondary-btn:last-child {
-        margin-bottom: 0;
-    }
-
-    .card-actions {
-        gap: 2px; /* 稍微减小卡片内操作按钮的间距 */
-    }
-
-    .copy-btn, .action-btn, .speak-btn, .save-btn, 
-    .speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn { /* 确保所有卡片内小按钮都应用调整 */
-        width: 30px; /* 略微调整大小 */
-        height: 30px;
-        font-size: 0.8rem;
-    }
-
-
-}
-
-/* Responsive adjustments */
+/* 基础响应式调整 - 768px 断点 */
 @media (max-width: 768px) {
+    /* 基础布局 */
+    body {
+        font-size: 0.9rem;
+    }
+    
+    h1 {
+        font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+    
+    h2 {
+        font-size: clamp(1.5rem, 3.5vw, 2rem);
+    }
+    
+    section {
+        padding: var(--spacing-md);
+    }
+    
+    main {
+        padding: var(--spacing-md);
+    }
+    
+    .section-base {
+        padding: var(--spacing-md);
+    }
+    
+    /* 主题切换器 */
     .theme-switcher {
         top: 10px;
         right: 10px;
@@ -101,60 +38,24 @@
         height: 32px;
     }
     
-    .modal-content {
-        margin: 15% auto;
-        padding: var(--spacing-lg);
-    }
-    
-    .modal-actions {
+    /* 性别选择器 */
+    .gender-button-group {
         flex-direction: column;
         align-items: center;
     }
     
-    .secondary-btn { /* 这会影响所有 secondary-btn，包括 #clear-favorites-btn 和 #regenerate-btn */
+    .gender-btn {
         width: 100%;
-        margin-bottom: var(--spacing-sm);
+        margin-bottom: var(--spacing-xs);
     }
-    .results-actions .secondary-btn:last-child, /* 避免最后一个按钮也有下边距 */
-    .modal-actions .secondary-btn:last-child {
+    
+    .gender-btn:last-child {
         margin-bottom: 0;
     }
     
-    .name-card {
-        padding: var(--spacing-sm);
-    }
-    
-    .card-actions {
-        gap: 4px;
-    }
-    .secondary-btn { /* 这会影响所有 secondary-btn */
-        width: 100%;
-        margin-bottom: var(--spacing-sm);
-    }
-    .results-actions .secondary-btn:last-child, /* 避免最后一个按钮也有下边距 */
-    .modal-actions .secondary-btn:last-child {
-        margin-bottom: 0;
-    }
-
-    /* 为 clear-favorites-btn 添加特定样式以覆盖 width: 100% */
-    #clear-favorites-btn {
-        width: auto; /* 恢复其自动宽度 */
-       
-        font-size: var(--font-size-sm); /* 保持或调整字体大小 */
-        margin-bottom: 0; /* 如果它不需要额外的下边距 */
-    }
-    
-    /* 注意：这里的 .action-btn 指的是卡片内部的小按钮，而不是主生成按钮 */
-    /* 主生成按钮的 .action-btn 样式在 480px 断点中处理 */
-    .copy-btn, .card-actions .action-btn, .speak-btn, .save-btn, 
-    .speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 0.9rem;
-    }
-
+    /* 血统选择器 */
     .bloodline-selector {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
     
     .bloodline-option {
@@ -173,87 +74,25 @@
     .bloodline-desc {
         font-size: 0.8rem;
     }
-    .advanced-options-content {
+    
+    /* 网格布局 */
+    .grid-auto-fit,
+    .name-results-grid,
+    .favorites-list,
+    .examples-grid,
+    .lore-grid,
+    .faq-grid,
+    .features-grid,
+    .use-cases-grid,
+    .name-examples-grid {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
     }
-    .name-results-grid,
-    .favorites-list {
-        grid-template-columns: 1fr; /* 在768px时已经是1列，480px时也是，这里保持一致 */
-    }
-    .range-container {
-        flex-direction: column;
-        align-items: stretch;
-        gap: var(--spacing-sm);
-    }
     
-    .range-value {
-        align-self: center;
-    }
-}
-
-/* 可以考虑为更小的屏幕添加断点，例如 360px */
-@media (max-width: 360px) {
-    body {
-        font-size: 0.85rem;
-    }
-    h1 {
-        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-    }
-    h2 {
-        font-size: clamp(1.3rem, 3vw, 1.8rem);
-    }
-    section {
-        padding: var(--spacing-sm);
-    }
-    .name-text {
-        max-width: 55%;
-    }
-    .action-btn { /* 主生成按钮 */
-        padding: 6px 8px;
-        font-size: 0.8rem;
-      
-        display: flex; /* 或者 block，如果内部元素对齐已通过其他方式处理 */
-        align-items: center;
-        justify-content: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        gap: var(--spacing-xs);
-        margin-left: auto; /* 实现居中 */
-        margin-right: auto; /* 实现居中 */
-        margin-top: var(--spacing-md);
-        margin-bottom: var(--spacing-md);
-    }
-    .copy-btn, .card-actions .action-btn, .speak-btn, .save-btn, 
-    .speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn { /* 卡片内小按钮 */
-        width: 28px;
-        height: 28px;
-        font-size: 0.75rem;
-    }
-    .modal-content {
-        padding: var(--spacing-sm);
-        margin: 5% auto;
-    }
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .control-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal-content {
-        width: 95%;
-        max-height: 90vh;
-    }
-    
-    .modal-footer {
-        flex-direction: column;
-        gap: var(--spacing-sm);
-    }
-    
-    .compact-controls {
+    /* 控制面板 */
+    .control-row,
+    .compact-controls,
+    .advanced-options-content {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
     }
@@ -262,31 +101,20 @@
         grid-template-columns: repeat(2, 1fr);
     }
     
+    .range-container,
     .syllable-range-container {
         flex-direction: column;
+        align-items: stretch;
         gap: var(--spacing-sm);
     }
     
+    .range-value,
     .syllable-display {
+        align-self: center;
         order: -1;
     }
-}
-
-/* ===== 响应式设计 ===== */
-@media (max-width: 768px) {
-    .grid-auto-fit {
-        grid-template-columns: 1fr;
-    }
     
-    .gender-button-group {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .bloodline-selector {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-    
+    /* 结果区域 */
     .results-header {
         flex-direction: column;
         gap: var(--spacing-sm);
@@ -295,17 +123,219 @@
     .results-actions {
         justify-content: center;
     }
+    
+    .name-card {
+        padding: var(--spacing-sm);
+    }
+    
+    .card-actions {
+        gap: 4px;
+    }
+    
+    /* 按钮样式 */
+    .secondary-btn {
+        width: 100%;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .results-actions .secondary-btn:last-child,
+    .modal-actions .secondary-btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    #clear-favorites-btn {
+        width: auto;
+        font-size: var(--font-size-sm);
+        margin-bottom: 0;
+    }
+    
+    .copy-btn, .card-actions .action-btn, .speak-btn, .save-btn,
+    .speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+    
+    /* 模态框 */
+    .modal-content {
+        margin: 15% auto;
+        padding: var(--spacing-lg);
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .modal-actions,
+    .modal-footer {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+    
+    /* 英雄区域 */
+    .hero-intro {
+        padding: var(--spacing-lg) var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+        margin-left: var(--spacing-md);
+        margin-right: var(--spacing-md);
+        width: calc(100% - 2 * var(--spacing-md));
+    }
+    
+    .intro-content p {
+        font-size: var(--font-size-md);
+        line-height: 1.7;
+    }
+    
+    .subtitle {
+        font-size: calc(var(--font-size-md) + 0.1rem);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    /* 功能区域 */
+    .features-section {
+        padding: var(--spacing-lg) var(--spacing-md);
+        margin-left: var(--spacing-md);
+        margin-right: var(--spacing-md);
+        width: calc(100% - 2 * var(--spacing-md));
+    }
+    
+    .feature-card,
+    .use-case-card {
+        padding: var(--spacing-md);
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .feature-card h3 {
+        margin-bottom: var(--spacing-sm);
+        font-size: var(--font-size-md);
+    }
+    
+    /* 高亮项目 */
+    .highlight-item {
+        padding: calc(var(--spacing-xs) * 1.2) var(--spacing-sm);
+        font-size: 0.85rem;
+        border-radius: 16px;
+    }
+    
+    .highlight-item i {
+        font-size: 0.85rem;
+    }
+    
+    /* 知识区域 */
+    .lore-section h3 {
+        font-size: var(--font-size-lg);
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .lore-section h3:first-of-type {
+        margin-top: var(--spacing-md);
+    }
+    
+    /* FAQ 区域 */
+    .faq-section {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    .faq-question {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .faq-answer {
+        padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
+    }
+    
+    .faq-item.active .faq-answer {
+        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md) var(--spacing-md);
+    }
+    
+    /* 种族文化指南 */
+    .race-culture-guide {
+        padding: 2rem;
+    }
+    
+    .race-selector {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .race-tab {
+        padding: 0.75rem 1rem;
+    }
 }
 
+/* 小屏幕优化 - 480px 断点 */
 @media (max-width: 480px) {
-    main {
+    /* 基础调整 */
+    body {
+        font-size: 0.9rem;
+    }
+    
+    h1 {
+        font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+    
+    h2 {
+        font-size: clamp(1.5rem, 3.5vw, 2rem);
+    }
+    
+    section {
         padding: var(--spacing-md);
     }
     
-    .section-base {
-        padding: var(--spacing-md);
+    /* 布局调整 */
+    .name-text {
+        font-size: 0.9rem;
+        max-width: 60%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     
+    .bloodline-selector {
+        grid-template-columns: 1fr;
+    }
+    
+    /* 按钮调整 */
+    .action-btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-md);
+        min-width: 200px;
+        width: 90%;
+        margin: var(--spacing-md) auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .copy-btn, .card-actions .action-btn, .speak-btn, .save-btn,
+    .speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    /* 模态框调整 */
+    .modal-content {
+        margin: 10% auto;
+        padding: var(--spacing-md);
+        width: 95%;
+    }
+    
+    .modal-actions .primary-btn,
+    .modal-actions .secondary-btn {
+        width: 100%;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .modal-actions .secondary-btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* 卡片布局 */
     .name-card,
     .favorite-item {
         flex-direction: column;
@@ -316,46 +346,38 @@
     .card-actions,
     .favorite-item-actions {
         justify-content: center;
+        gap: 2px;
     }
-}
-
-/* 响应式优化 */
-@media (max-width: 768px) {
+    
+    /* 英雄区域 */
     .hero-intro {
-        padding: var(--spacing-lg) var(--spacing-md);
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+        margin-left: var(--spacing-sm);
+        margin-right: var(--spacing-sm);
+        width: calc(100% - 2 * var(--spacing-sm));
     }
     
     .intro-content p {
+        font-size: calc(var(--font-size-md) - 0.05rem);
+        line-height: 1.6;
+    }
+    
+    .subtitle {
         font-size: var(--font-size-md);
     }
     
-    .features-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
-    }
-    
-    .use-cases-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
-    }
-    
-    .feature-card,
-    .use-case-card {
-        padding: var(--spacing-md);
+    /* 功能区域 */
+    .features-section {
+        padding: var(--spacing-lg) var(--spacing-md);
+        margin-left: var(--spacing-sm);
+        margin-right: var(--spacing-sm);
+        width: calc(100% - 2 * var(--spacing-sm));
     }
     
     .feature-icon {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-intro {
-        padding: var(--spacing-md);
-    }
-    
-    .features-section {
-        padding: var(--spacing-lg) var(--spacing-md);
+        font-size: 1.8rem;
+        margin-bottom: var(--spacing-sm);
     }
     
     .feature-card h3,
@@ -367,62 +389,33 @@
     .use-case-card p {
         font-size: var(--font-size-sm);
     }
-}
-/* 在现有的响应式样式中添加 */
-@media (max-width: 768px) {
-    .hero-intro,
-    .features-section {
-        margin-left: var(--spacing-md);
-        margin-right: var(--spacing-md);
-        width: calc(100% - 2 * var(--spacing-md));
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-intro,
-    .features-section {
-        margin-left: var(--spacing-sm);
-        margin-right: var(--spacing-sm);
-        width: calc(100% - 2 * var(--spacing-sm));
-    }
-}
-@media (max-width: 768px) {
-    .feature-icon {
-        font-size: 2rem;
-        margin-bottom: var(--spacing-md); /* 移动端适当减小 */
+    
+    /* 高亮项目 */
+    .feature-highlights {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-md);
     }
     
-    .feature-card h3 {
-        margin-bottom: var(--spacing-sm); /* 移动端保持紧凑 */
-        font-size: var(--font-size-md);
-    }
-    .hero-intro {
-        padding: var(--spacing-lg) var(--spacing-md);
-    }
-    
-
-}
-
-@media (max-width: 480px) {
-    .feature-icon {
-        font-size: 1.8rem;
-        margin-bottom: var(--spacing-sm);
-    }
-}
-/* Lore Section 响应式优化 */
-@media (max-width: 768px) {
-    .lore-section h3 {
-        font-size: var(--font-size-lg);
-        margin-top: var(--spacing-lg);
-        margin-bottom: var(--spacing-md);
+    .highlight-item {
+        justify-content: center;
+        padding: var(--spacing-sm) var(--spacing-md);
+        min-width: unset;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+        gap: var(--spacing-sm);
     }
     
-    .lore-section h3:first-of-type {
-        margin-top: var(--spacing-md);
+    .highlight-item .highlight-text {
+        font-size: 0.9rem;
     }
-}
-
-@media (max-width: 480px) {
+    
+    .highlight-item i {
+        margin-right: 0.4em;
+    }
+    
+    /* 知识区域 */
     .lore-section h3 {
         font-size: var(--font-size-md);
         margin-top: var(--spacing-md);
@@ -433,36 +426,103 @@
         width: 40px;
         height: 1px;
     }
-}
-@media (max-width: 768px) {
-    .hero-intro {
-        padding: var(--spacing-lg) var(--spacing-md);
-        margin-bottom: var(--spacing-lg); /* 减小底部边距 */
+    
+    /* 种族文化指南 */
+    .race-culture-guide {
+        padding: 1.5rem;
+        margin: 2rem 0;
     }
     
-    .intro-content p {
-        font-size: var(--font-size-md);
-        line-height: 1.7; /* 稍微减小行高 */
-    }
-    
-    .subtitle {
-        font-size: calc(var(--font-size-md) + 0.1rem); /* 稍微调整字体大小 */
-        margin-bottom: var(--spacing-sm); /* 减小底部边距 */
+    .name-example {
+        min-height: 100px;
+        padding: 0.75rem;
     }
 }
 
-@media (max-width: 480px) {
-    .hero-intro {
-        padding: var(--spacing-md);
-        margin-bottom: var(--spacing-md); /* 进一步减小底部边距 */
+/* 超小屏幕优化 - 360px 断点 */
+@media (max-width: 360px) {
+    body {
+        font-size: 0.85rem;
     }
     
-    .intro-content p {
-        font-size: calc(var(--font-size-md) - 0.05rem); /* 稍微减小字体 */
-        line-height: 1.6; /* 减小行高以适应小屏幕 */
+    h1 {
+        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
     }
     
-    .subtitle {
+    h2 {
+        font-size: clamp(1.3rem, 3vw, 1.8rem);
+    }
+    
+    section {
+        padding: var(--spacing-sm);
+    }
+    
+    .name-text {
+        max-width: 55%;
+    }
+    
+    .action-btn {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        gap: var(--spacing-xs);
+    }
+    
+    .copy-btn, .card-actions .action-btn, .speak-btn, .save-btn,
+    .speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
+    
+    .modal-content {
+        padding: var(--spacing-sm);
+        margin: 5% auto;
+    }
+    
+    .feature-highlights {
+        gap: var(--spacing-sm);
+    }
+    
+    .highlight-item {
+        padding: calc(var(--spacing-xs) * 1.5) var(--spacing-sm);
+        font-size: 0.8rem;
+    }
+    
+    .highlight-item i {
+        font-size: 0.8rem;
+    }
+}
+
+/* 大屏幕优化 - 1024px 断点 */
+@media (max-width: 1024px) {
+    .faq-container {
+        grid-template-columns: 1fr;
+        max-width: 800px;
+    }
+    
+    .faq-question h3 {
         font-size: var(--font-size-md);
+    }
+    
+    .faq-answer p {
+        font-size: var(--font-size-md);
+    }
+    
+    .race-selector {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .name-examples-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+    }
+    
+    .feature-highlights {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--spacing-md);
     }
 }

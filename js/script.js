@@ -284,6 +284,15 @@ function initNameCountSelector() {
                 document.querySelectorAll('.theme-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-theme') === bloodline);
                 });
+                // 🆕 添加血统切换通知功能
+                const bloodlineNames = {
+                    'high-elf': 'High Elves',
+                    'wood-elf': 'Wood Elves', 
+                    'dark-elf': 'Dark Elves',
+                    'half-elf': 'Half-Elves'
+                };
+                const bloodlineName = bloodlineNames[bloodline] || bloodline;
+                showNotification(`Switched to ${bloodlineName}`, 'success');
             });
         });
         
@@ -639,11 +648,11 @@ function initNameCountSelector() {
         let html = '<div class="name-results-grid">';
         names.forEach(nameObj => {
              // 🔥 关键修复：动态生成缺失的字段
-            if (!nameObj.pronunciation) {
+             if (!nameObj.pronunciation) {
                 nameObj.pronunciation = generatePronunciation(nameObj.name);
             }
             if (!nameObj.usage) {
-                nameObj.usage = generateUsageSuggestions(nameObj.name);
+                nameObj.usage = window.elfGeneratorInstance.generateUltimateUsage(nameObj.name);
             }
             const isFavorite = favorites.some(fav => fav.name === nameObj.name);
             // const favoriteClass = isFavorite ? 'favorite' : ''; // 'favorite' class on name-card might be redundant if only button state changes
@@ -708,7 +717,8 @@ function initNameCountSelector() {
         const nameData = {
             name: nameCard.getAttribute('data-name'),
             meaning: nameCard.getAttribute('data-meaning'),
-            pronunciation: nameCard.getAttribute('data-pronunciation')
+            pronunciation: nameCard.getAttribute('data-pronunciation'),
+            usage: nameCard.getAttribute('data-usage')
         };
         
         console.log('Name data:', nameData); // 调试日志
@@ -1149,8 +1159,22 @@ function copyNameToClipboard(name, buttonElement) { // Removed showText paramete
         const name = nameData.name;
         const meaning = nameData.meaning || 'The meaning of this elven name has not been recorded.';
         const pronunciation = nameData.pronunciation || generatePronunciation(name);
-        const usage = generateUsageSuggestions(name);
-        
+        // 生成usage描述
+        let usage;
+        if (nameData.usage) {
+            usage = nameData.usage;
+        } else {
+            // 创建临时名字对象用于生成usage
+            const tempNameObj = {
+                name: name,
+                meaning: meaning,
+                bloodline: nameData.bloodline || 'High Elf' // 默认血统
+            };
+            const usageObj = window.elfGeneratorInstance.generateUltimateUsage(tempNameObj);
+            usage = usageObj.summary; // 使用 summary 属性
+        }
+
+
         modalName.textContent = name;
         modalMeaning.textContent = meaning;
         modalPronunciation.textContent = pronunciation;
@@ -1366,11 +1390,66 @@ function copyNameToClipboard(name, buttonElement) { // Removed showText paramete
         return cluster;
     }
 
-    // Placeholder for generateUsageSuggestions - you'll need to complete this
-    function generateUsageSuggestions(name) {
-        return `The name ${name} could be used for a noble warrior or a wise mage. It evokes a sense of ancient power.`;
+
+    // 在文件顶部添加一个用于存储已生成demo名字的集合
+    let usedDemoNames = new Set();
+
+    // 修改 generateDemoName 函数
+    function generateDemoName() {
+        if (window.elfGeneratorInstance) {
+            const maxAttempts = 10; // 最大尝试次数
+            let attempts = 0;
+            let demoName;
+            
+            try {
+                // 循环生成直到获得不重复的名字或达到最大尝试次数
+                do {
+                    demoName = window.elfGeneratorInstance.generate();
+                    attempts++;
+                } while (usedDemoNames.has(demoName.name) && attempts < maxAttempts);
+                
+                // 如果达到最大尝试次数仍然重复，清空历史记录并使用当前名字
+                if (attempts >= maxAttempts && usedDemoNames.has(demoName.name)) {
+                    usedDemoNames.clear();
+                    console.log('Demo names history cleared due to too many duplicates');
+                }
+                
+                // 将新名字添加到已使用集合中
+                usedDemoNames.add(demoName.name);
+                
+                const nameDisplay = document.querySelector('.generated-name');
+                const meaningDisplay = document.querySelector('.name-meaning');
+                const descriptionDisplay = document.querySelector('.name-description');
+                
+                if (nameDisplay && meaningDisplay && descriptionDisplay) {
+                    nameDisplay.textContent = demoName.name;
+                    meaningDisplay.textContent = `"${demoName.meaning}"`;
+                    // 生成usage描述
+                    let usage;
+                    if (demoName.usage) {
+                        usage = demoName.usage;
+                    } else {
+                        window.elfGeneratorInstance.generateUltimateUsage(demoName);
+                        usage = demoName.usage;
+                    }
+                    descriptionDisplay.textContent = usage;
+                    
+                    const demoContainer = document.querySelector('.demo-name-display');
+                    if (demoContainer) {
+                        demoContainer.style.opacity = '0.5';
+                        setTimeout(() => {
+                            demoContainer.style.opacity = '1';
+                        }, 200);
+                    }
+
+                }
+            } catch (error) {
+                console.error('Demo name generation failed:', error);
+                showNotification('Failed to generate demo name', 'error');
+            }
+        }
     }
-    
+
 
     // Call init to set everything up
     init();
@@ -1480,6 +1559,130 @@ if (advancedMasterToggle && advancedStatus && switchStatus && advancedOptionsWra
         }
     });
 }
+    const faqItems = document.querySelectorAll('.faq-item');
+        
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            // 关闭其他已打开的FAQ项目
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // 切换当前项目的状态
+            item.classList.toggle('active');
+        });
+    });
 
+    // 默认展开第一个FAQ项目
+    if (faqItems.length > 0) {
+        faqItems[0].classList.add('active');
+    }
+
+    function initRaceSelector() {
+        const raceTabs = document.querySelectorAll('.race-tab');
+        const racePanels = document.querySelectorAll('.race-panel');
+        
+        if (raceTabs.length === 0 || racePanels.length === 0) return;
+        
+        raceTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const targetRace = this.getAttribute('data-race');
+                
+                // 移除所有活动状态
+                raceTabs.forEach(t => t.classList.remove('active'));
+                racePanels.forEach(p => {
+                    p.classList.remove('active');
+                    p.style.opacity = '0';
+                    p.style.transform = 'translateY(20px)';
+                });
+                
+                // 添加当前选中状态
+                this.classList.add('active');
+                
+                // 延迟显示新面板，创建平滑过渡效果
+                setTimeout(() => {
+                    const targetPanel = document.getElementById(targetRace + '-panel');
+                    if (targetPanel) {
+                        targetPanel.classList.add('active');
+                        targetPanel.style.opacity = '1';
+                        targetPanel.style.transform = 'translateY(0)';
+                    }
+                }, 150);
+                
+                // 添加点击反馈效果
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+        
+               
+            });
+            
+            // 添加键盘支持
+            tab.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+    }
+    
+    // 增强的种族面板切换动画
+    function enhanceRacePanelAnimations() {
+        const racePanels = document.querySelectorAll('.race-panel');
+        
+        racePanels.forEach(panel => {
+            // 为每个面板添加过渡样式
+            panel.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            panel.style.opacity = panel.classList.contains('active') ? '1' : '0';
+            panel.style.transform = panel.classList.contains('active') ? 'translateY(0)' : 'translateY(20px)';
+        });
+    }
+    
+    // 种族选择器键盘导航
+    function initRaceKeyboardNavigation() {
+        const raceTabs = document.querySelectorAll('.race-tab');
+        
+        raceTabs.forEach((tab, index) => {
+            tab.addEventListener('keydown', function(e) {
+                let targetIndex;
+                
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        targetIndex = index > 0 ? index - 1 : raceTabs.length - 1;
+                        raceTabs[targetIndex].focus();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        targetIndex = index < raceTabs.length - 1 ? index + 1 : 0;
+                        raceTabs[targetIndex].focus();
+                        break;
+                    case 'Home':
+                        e.preventDefault();
+                        raceTabs[0].focus();
+                        break;
+                    case 'End':
+                        e.preventDefault();
+                        raceTabs[raceTabs.length - 1].focus();
+                        break;
+                }
+            });
+        });
+    }
+    initRaceSelector();
+    enhanceRacePanelAnimations();
+    initRaceKeyboardNavigation();
+     // 在现有事件监听器后添加（大约第265行之后）
+     const demoGenerateBtn = document.querySelector('.demo-generate-btn');
+     if (demoGenerateBtn) {
+         demoGenerateBtn.addEventListener('click', function() {
+             generateDemoName();
+         });
+     }
 });
-

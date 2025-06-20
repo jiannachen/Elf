@@ -1058,8 +1058,369 @@ class AdvancedElfNameGenerator {
    }
 }
 
+
+// Ultimate Usage Generator - Fusion optimized intelligent name description system
+class UltimateUsageGenerator {
+    constructor() {
+        // Streamlined feature matrix - minimized data structure
+        this.featureMatrix = {
+            // Lineage trait mapping
+            lineage: {
+                noble: { 
+                    traits: ['noble', 'elegant', 'majestic'], 
+                    roles: ['aristocrat', 'lord', 'court mage'], 
+                    abilities: ['leadership', 'charisma', 'diplomacy'] 
+                },
+                exile: { 
+                    traits: ['resilient', 'independent', 'mysterious'], 
+                    roles: ['wanderer', 'hermit', 'avenger'], 
+                    abilities: ['survival', 'stealth', 'adaptation'] 
+                },
+                wanderer: { 
+                    traits: ['free-spirited', 'curious', 'brave'], 
+                    roles: ['explorer', 'ranger', 'bard'], 
+                    abilities: ['exploration', 'social skills', 'adventure'] 
+                },
+                balanced: { 
+                    traits: ['balanced', 'wise', 'harmonious'], 
+                    roles: ['scholar', 'mediator', 'guardian'], 
+                    abilities: ['insight', 'balance', 'healing'] 
+                },
+                scholarly: { 
+                    traits: ['learned', 'rational', 'focused'], 
+                    roles: ['scholar', 'researcher', 'librarian'], 
+                    abilities: ['research', 'memory', 'analysis'] 
+                },
+                celestial: { 
+                    traits: ['divine', 'pure', 'radiant'], 
+                    roles: ['cleric', 'angel', 'light bearer'], 
+                    abilities: ['healing', 'purification', 'prophecy'] 
+                }
+            },
+            
+            // Semantic feature mapping
+            semantic: {
+                light: { essence: 'radiance', power: 'illumination', domain: 'celestial realm' },
+                nature: { essence: 'wilderness', power: 'growth', domain: 'ancient forest' },
+                shadow: { essence: 'darkness', power: 'concealment', domain: 'shadow realm' },
+                fire: { essence: 'flame', power: 'burning', domain: 'elemental forge' },
+                water: { essence: 'flow', power: 'purification', domain: 'endless ocean' },
+                moon: { essence: 'lunar energy', power: 'transformation', domain: 'night sky' },
+                star: { essence: 'starlight', power: 'guidance', domain: 'cosmic void' },
+                wind: { essence: 'breeze', power: 'freedom', domain: 'sky realm' },
+                earth: { essence: 'stone', power: 'stability', domain: 'mountain peaks' }
+            },
+            
+            // Phonetic feature mapping
+            phonetic: {
+                melodic: 'melodiously beautiful',
+                strong: 'powerfully resonant',
+                mystical: 'mysteriously enchanting',
+                gentle: 'gently flowing',
+                ancient: 'anciently profound',
+                ethereal: 'ethereally graceful'
+            }
+        };
+        
+        // Dynamic template pool - composable description fragments
+       this.templatePool = {
+            archetype: [
+                '{name}, a {phonetic} name, is destined for the role of {role}',
+                'Bearer of the name {name}, {phonetic} in nature, is fated to become {role}',
+                'The {phonetic} name {name} foretells the destiny of {role}'
+            ],
+            traits: [
+                'Possessing a {trait1} and {trait2} nature, gifted with exceptional talents',
+                'Known for being {trait1}, while embodying {trait2} qualities',
+                'Combining the dual essence of {trait1} and {trait2} characteristics'
+            ],
+            abilities: [
+                'Master of {ability1} arts, excelling in {ability2} skills',
+                'Naturally gifted in {ability1}, with superior {ability2} capabilities',
+                'Wielding the mysteries of {ability1}, outstanding in {ability2} techniques'
+            ],
+            background: [
+                'Legend speaks of origins from the depths of {domain}, carrying the power of {essence}',
+                'Said to have mystical connections to {domain}, able to harness the force of {essence}',
+                'Ancient magic of {domain} flows through their bloodline, with {essence} as their power source'
+            ],
+            destiny: [
+                'Destiny guides them to {power} all things, writing legends within {domain}',
+                'Fated to use the ability of {power} to protect the harmony of {domain}',
+                'Will create miracles in {domain} through the force of {power}'
+            ]
+        };
+        // Deduplication mechanism - feature fingerprint cache
+        this.usedFingerprints = new Set();
+        this.templateUsage = new Map();
+    }
+    
+    // Intelligent feature extraction
+    extractFeatures(nameObj) {
+        const { name, meaning, lineage, components, gender} = nameObj;
+        
+        // Lineage features
+        const lineageFeatures = this.featureMatrix.lineage[lineage] || this.featureMatrix.lineage.balanced;
+        
+        // Semantic feature extraction
+        const meaningLower = (meaning || '').toLowerCase();
+        let semanticFeatures = null;
+        
+        for (const [key, features] of Object.entries(this.featureMatrix.semantic)) {
+            if (meaningLower.includes(key) || meaningLower.includes(features.essence)) {
+                semanticFeatures = features;
+                break;
+            }
+        }
+        let componentTags = [];
+        if (components) {
+            if (components.prefix && components.prefix.tags) {
+                componentTags.push(...components.prefix.tags);
+            }
+            if (components.suffix && components.suffix.tags) {
+                componentTags.push(...components.suffix.tags);
+            }
+            if (components.infix && components.infix.tags) {
+                componentTags.push(...components.infix.tags);
+            }
+        }
+        // Default semantic features
+        if (!semanticFeatures) {
+            const semanticKeys = Object.keys(this.featureMatrix.semantic);
+            const randomKey = semanticKeys[Math.floor(Math.random() * semanticKeys.length)];
+            semanticFeatures = this.featureMatrix.semantic[randomKey];
+        }
+        
+        // Phonetic feature analysis
+        const phoneticFeature = this.analyzePhonetics(name);
+        
+        return {
+            lineage: lineageFeatures,
+            semantic: semanticFeatures,
+            phonetic: phoneticFeature,
+            name: name,
+            gender: gender || 'neutral',
+            componentTags: [...new Set(componentTags)]
+        };
+    }
+    
+    // Phonetic feature analysis
+    analyzePhonetics(name) {
+        const vowels = (name.match(/[aeiouAEIOU]/g) || []).length;
+        const consonants = name.length - vowels;
+        const hasFlow = /[lrn]/i.test(name);
+        const hasStrong = /[kgtpb]/i.test(name);
+        
+        if (vowels > consonants && hasFlow) return this.featureMatrix.phonetic.melodic;
+        if (hasStrong && consonants > vowels) return this.featureMatrix.phonetic.strong;
+        if (name.length > 6) return this.featureMatrix.phonetic.mystical;
+        if (hasFlow) return this.featureMatrix.phonetic.gentle;
+        if (/th|ph|ch/i.test(name)) return this.featureMatrix.phonetic.ancient;
+        return this.featureMatrix.phonetic.ethereal;
+    }
+    
+    // Generate feature fingerprint (for deduplication)
+    generateFingerprint(features) {
+        return `${features.lineage.traits[0]}-${features.semantic.essence}-${features.phonetic.slice(0, 2)}`;
+    }
+    
+    // Intelligent template selection (avoid repetition)
+    selectTemplate(templateType, fingerprint) {
+        const templates = this.templatePool[templateType];
+        const usageKey = `${templateType}-${fingerprint}`;
+        
+        let usedIndices = this.templateUsage.get(usageKey) || [];
+        
+        // Reset usage record if all templates have been used
+        if (usedIndices.length >= templates.length) {
+            usedIndices = [];
+        }
+        
+        // Select unused template
+        let availableIndices = templates.map((_, i) => i).filter(i => !usedIndices.includes(i));
+        const selectedIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+        
+        // Update usage record
+        usedIndices.push(selectedIndex);
+        this.templateUsage.set(usageKey, usedIndices);
+        
+        return templates[selectedIndex];
+    }
+    
+    // Dynamic variable replacement
+    replaceVariables(template, features) {
+        const genderPronouns = {
+            male: { he: 'he', his: 'his', him: 'him' },
+            female: { he: 'she', his: 'her', him: 'her' },
+            neutral: { he: 'they', his: 'their', him: 'them' }
+        };
+        const pronouns = genderPronouns[features.gender] || genderPronouns.neutral;
+        return template
+        .replace('{name}', features.name)
+        .replace('{phonetic}', features.phonetic)
+        .replace('{role}', this.randomChoice(features.lineage.roles))
+        .replace('{trait1}', this.randomChoice(features.lineage.traits))
+        .replace('{trait2}', this.randomChoice(features.lineage.traits.filter(t => t !== features.lineage.traits[0])))
+        .replace('{ability1}', this.randomChoice(features.lineage.abilities))
+        .replace('{ability2}', this.randomChoice(features.lineage.abilities.filter(a => a !== features.lineage.abilities[0])))
+        .replace('{essence}', features.semantic.essence)
+        .replace('{power}', features.semantic.power)
+        .replace('{domain}', features.semantic.domain)
+        .replace('{he}', pronouns.he)
+        .replace('{his}', pronouns.his)
+        .replace('{him}', pronouns.him);
+}
+    
+    // Random choice helper function
+    randomChoice(array) {
+        return array[Math.floor(Math.random() * array.length)];
+    }
+    
+    // Main generation function
+    generate(nameObj) {
+        // Feature extraction
+        const features = this.extractFeatures(nameObj);
+        
+        // Generate feature fingerprint
+        const fingerprint = this.generateFingerprint(features);
+        
+        // Check if need to force generate new description (avoid complete repetition)
+        let attempts = 0;
+        let finalFingerprint = fingerprint;
+        
+        while (this.usedFingerprints.has(finalFingerprint) && attempts < 3) {
+            // Slightly adjust features to generate new fingerprint
+            const altFeatures = { ...features };
+            altFeatures.lineage = { ...features.lineage };
+            altFeatures.lineage.traits = [...features.lineage.traits].sort(() => Math.random() - 0.5);
+            finalFingerprint = this.generateFingerprint(altFeatures);
+            attempts++;
+        }
+        
+        // Record used fingerprint
+        this.usedFingerprints.add(finalFingerprint);
+        
+        // Generate each part of description
+        const archetype = this.replaceVariables(
+            this.selectTemplate('archetype', finalFingerprint), features
+        );
+        
+        const traits = this.replaceVariables(
+            this.selectTemplate('traits', finalFingerprint), features
+        );
+        
+        const abilities = this.replaceVariables(
+            this.selectTemplate('abilities', finalFingerprint), features
+        );
+        
+        const background = this.replaceVariables(
+            this.selectTemplate('background', finalFingerprint), features
+        );
+        
+        const destiny = this.replaceVariables(
+            this.selectTemplate('destiny', finalFingerprint), features
+        );
+        
+        // Combine final description
+        return {
+            archetype: archetype,
+            personality: traits,
+            abilities: abilities,
+            background: background,
+            destiny: destiny,
+            summary: `${archetype}. ${traits}, ${abilities}. ${background}, ${destiny}.`
+        };
+    }
+    
+    // Clear cache (optional feature)
+    clearCache() {
+        this.usedFingerprints.clear();
+        this.templateUsage.clear();
+    }
+}
+
 // 创建全局实例
 window.elfGeneratorInstance = new AdvancedElfNameGenerator();
+
+// Create global intelligent description generator instance
+const ultimateUsageGenerator = new UltimateUsageGenerator();
+// 延迟初始化函数
+function initializeUltimateUsage() {
+    if (window.elfGeneratorInstance && !window.elfGeneratorInstance.generateUltimateUsage) {
+        // Add intelligent description generation method
+        window.elfGeneratorInstance.generateUltimateUsage = function(nameObj) {
+            return ultimateUsageGenerator.generate(nameObj);
+        };
+        
+        // Override generate method to automatically add intelligent descriptions
+        const originalGenerate = window.elfGeneratorInstance.generate;
+        window.elfGeneratorInstance.generate = function() {
+            const nameObj = originalGenerate.call(this);
+            if (nameObj) {
+                nameObj.usage = ultimateUsageGenerator.generate(nameObj);
+            }
+            return nameObj;
+        };
+        
+        // Override generateBatch method
+        const originalGenerateBatch = window.elfGeneratorInstance.generateBatch;
+        window.elfGeneratorInstance.generateBatch = function(count) {
+            const nameObjects = originalGenerateBatch.call(this, count);
+            return nameObjects.map(nameObj => {
+                if (nameObj) {
+                    nameObj.usage = ultimateUsageGenerator.generate(nameObj);
+                }
+                return nameObj;
+            });
+        };
+        
+        // Add cache clearing method
+        window.elfGeneratorInstance.clearUsageCache = function() {
+            ultimateUsageGenerator.clearCache();
+        };
+        
+        console.log('UltimateUsageGenerator initialized successfully');
+    }
+}
+
+// 立即尝试初始化
+initializeUltimateUsage();
+
+
+
+if (window.elfGeneratorInstance) {
+    // Add intelligent description generation method
+    window.elfGeneratorInstance.generateUltimateUsage = function(nameObj) {
+        const usageObj = ultimateUsageGenerator.generate(nameObj);
+        return usageObj.summary;
+    };
+    
+    // Override generate method to automatically add intelligent descriptions
+    const originalGenerate = window.elfGeneratorInstance.generate;
+    window.elfGeneratorInstance.generate = function() {
+        const nameObj = originalGenerate.call(this);
+        if (nameObj) {
+            const usageObj = ultimateUsageGenerator.generate(nameObj);
+            nameObj.usage = usageObj.summary;
+        }
+        return nameObj;
+    };
+    
+    // Override generateBatch method
+    const originalGenerateBatch = window.elfGeneratorInstance.generateBatch;
+    window.elfGeneratorInstance.generateBatch = function(count) {
+        const nameObjects = originalGenerateBatch.call(this, count);
+        return nameObjects.map(nameObj => {
+            if (nameObj) {
+                const usageObj = ultimateUsageGenerator.generate(nameObj);
+                nameObj.usage = usageObj.summary;
+            }
+            return nameObj;
+        });
+    };
+}
+
+// ... existing code ...
 
 /**
 * 获取随机名字的便捷函数
