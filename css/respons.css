@@ -526,3 +526,263 @@
         gap: var(--spacing-md);
     }
 }
+/* Mobile Optimization - Compact Layout */
+@media (max-width: 768px) {
+    /* Reduce overall spacing */
+    :root {
+        --spacing-sm: 6px;
+        --spacing-md: 12px;
+        --spacing-lg: 18px;
+        --spacing-xl: 24px;
+    }
+    
+    /* Compact header */
+    .main-header {
+        padding: var(--spacing-md) var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .main-header h1 {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .subtitle {
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    /* Compact feature highlights */
+    .key-features {
+        margin: var(--spacing-sm) 0;
+    }
+    
+    .feature-highlights {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+        justify-content: center;
+    }
+    
+    .highlight-item {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+    
+    .highlight-item i {
+        font-size: 0.7rem;
+    }
+    
+    /* Compact generator section */
+    .generator-section {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .generator-section h2 {
+        font-size: clamp(1.3rem, 4vw, 1.8rem);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .intro-content {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .intro-content p {
+        font-size: var(--font-size-sm);
+        line-height: 1.5;
+    }
+    
+    /* Compact mode toggle */
+    .mode-toggle-container {
+        margin: var(--spacing-sm) 0;
+    }
+    
+    .mode-toggle {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Compact fieldsets */
+    fieldset {
+        margin-bottom: var(--spacing-md);
+        padding: var(--spacing-sm);
+    }
+    
+    fieldset legend {
+        font-size: var(--font-size-md);
+        padding: 0 var(--spacing-sm);
+    }
+    
+    /* Compact bloodline selector */
+    .bloodline-selector {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+    
+    .bloodline-option {
+        padding: var(--spacing-sm);
+        text-align: center;
+    }
+    
+    .bloodline-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .bloodline-option span {
+        font-size: 0.9rem;
+        display: block;
+        margin-bottom: 2px;
+    }
+    
+    .bloodline-desc {
+        font-size: 0.75rem;
+        line-height: 1.2;
+    }
+    
+    /* Compact gender buttons */
+    .gender-button-group {
+        flex-direction: row;
+        gap: var(--spacing-xs);
+    }
+    
+    .gender-btn {
+        flex: 1;
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Compact advanced options */
+    .advanced-options {
+        margin-top: var(--spacing-md);
+    }
+    
+    .option-section {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .style-selector {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xs);
+    }
+    
+    .style-option {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Compact control row */
+    .control-row {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .control-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-sm);
+        background: var(--theme-bg-secondary);
+        border-radius: var(--border-radius);
+    }
+    
+    .control-label {
+        font-size: var(--font-size-sm);
+    }
+    
+    .count-selector {
+        gap: var(--spacing-xs);
+    }
+    
+    .count-btn {
+        padding: 4px 8px;
+        font-size: var(--font-size-sm);
+        min-width: 32px;
+    }
+    
+    /* Compact generate button */
+    .action-btn {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: var(--font-size-md);
+        margin: var(--spacing-md) 0;
+    }
+    
+    /* Compact results area */
+    .results-area {
+        margin-top: var(--spacing-md);
+        padding: var(--spacing-md);
+    }
+    
+    /* Compact footer */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .copyright {
+        text-align: center;
+    }
+    
+    .footer-links {
+        justify-content: center;
+    }
+    
+    .footer-separator {
+        display: none;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    /* Compact floating social links */
+    .floating-social-links {
+        right: 10px;
+        bottom: 10px;
+    }
+    
+    .social-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    
+    .social-tooltip {
+        font-size: 0.75rem;
+        padding: 4px 6px;
+    }
+}
+
+/* Extra small screens - further optimization */
+@media (max-width: 480px) {
+    .bloodline-selector {
+        grid-template-columns: 1fr;
+    }
+    
+    .bloodline-option {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: var(--spacing-sm);
+    }
+    
+    .bloodline-icon {
+        flex-shrink: 0;
+    }
+    
+    .bloodline-text {
+        flex: 1;
+    }
+    
+    .gender-button-group {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .style-selector {
+        grid-template-columns: 1fr;
+    }
+}
