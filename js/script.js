@@ -90,9 +90,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalSaveBtn = document.getElementById('modal-save');
     const modalCopyBtn = document.getElementById('modal-copy');
     const exportFavoritesBtn = document.getElementById('export-favorites-btn'); // 添加导出按钮引用
-    
 
-// 在现有的血统选择事件处理后添加
+    const highlightItems = document.querySelectorAll('.highlight-item');
+
+    highlightItems.forEach(item => {
+        item.addEventListener('click', function(event) {
+            // 检查是否为移动设备（例如，屏幕宽度小于或等于768px）
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+            if (isMobile) {
+                // 阻止默认行为，例如链接跳转
+                event.preventDefault();
+
+                // 如果当前点击的item已经是active状态，则关闭它
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                } else {
+                    // 关闭所有其他active的highlight-item
+                    highlightItems.forEach(otherItem => {
+                        if (otherItem !== this && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    // 激活当前点击的item
+                    this.classList.add('active');
+                }
+            }
+            // 如果不是移动设备，则不干预，让CSS的hover效果生效
+        });
+    });
+
+    
 
 
 
@@ -321,6 +349,7 @@ function initNameCountSelector() {
          initNameCountSelector();
         regenerateBackgroundEffects(); // This function needs to be defined or removed if not used
         renderFavorites(); // This function needs to be defined or removed if not used
+        generateDemoName(); // 在页面加载时生成demo名字
     }
 
 
@@ -1417,7 +1446,7 @@ function copyNameToClipboard(name, buttonElement) { // Removed showText paramete
                 // 将新名字添加到已使用集合中
                 usedDemoNames.add(demoName.name);
                 
-                const nameDisplay = document.querySelector('.generated-name');
+                const nameDisplay = document.getElementById('demo-name-text');
                 const meaningDisplay = document.querySelector('.name-meaning');
                 const descriptionDisplay = document.querySelector('.name-description');
                 
@@ -1453,6 +1482,8 @@ function copyNameToClipboard(name, buttonElement) { // Removed showText paramete
 
     // Call init to set everything up
     init();
+    // 在页面加载或刷新时自动生成名字
+    generateNames();
     // Show notification function
    // Show notification function
     const copyLinkBtn = document.getElementById('copy-link-btn');
@@ -1680,9 +1711,30 @@ if (advancedMasterToggle && advancedStatus && switchStatus && advancedOptionsWra
     initRaceKeyboardNavigation();
      // 在现有事件监听器后添加（大约第265行之后）
      const demoGenerateBtn = document.querySelector('.demo-generate-btn');
+     const demoSpeakBtn = document.querySelector('.demo-speak-btn');
+
      if (demoGenerateBtn) {
          demoGenerateBtn.addEventListener('click', function() {
              generateDemoName();
          });
+     }
+
+     if (demoSpeakBtn) {
+        demoSpeakBtn.addEventListener('click', function() {
+            const nameToSpeak = document.getElementById('demo-name-text').textContent.trim();
+            if (nameToSpeak) {
+                this.classList.add('speaking');
+                const removeAnimation = () => {
+                    demoSpeakBtn.classList.remove('speaking');
+                };
+                const animationTimeout = setTimeout(removeAnimation, 3000);
+                window.speechSynthesis.addEventListener('end', function handler() {
+                    clearTimeout(animationTimeout);
+                    removeAnimation();
+                    window.speechSynthesis.removeEventListener('end', handler);
+                });
+                speakText(nameToSpeak);
+            }
+        });
      }
 });

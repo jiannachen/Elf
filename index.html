@@ -22,9 +22,9 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/respons.css">
     <link rel="stylesheet" href="css/bg.css">
     <link rel="stylesheet" href="css/blood.css">
+    <link rel="stylesheet" href="css/respons.css">
     <link rel="canonical" href="https://www.elfnamegenerator.online">
 </head>
 
@@ -41,25 +41,54 @@
         <!-- 新增：功能亮点列表 -->
     <div class="key-features">
         <div class="feature-highlights">
-            <span class="highlight-item">
+            <span class="highlight-item" aria-expanded="false">
                 <i class="fas fa-layer-group"></i>
                 <span class="highlight-text">Dual Generation Modes</span>
+                <div class="highlight-description">
+                    Seamlessly switch between basic and advanced modes for tailored name generation.
+                </div>
             </span>
             <span class="highlight-item">
                 <i class="fas fa-users"></i>
                 <span class="highlight-text">4 Elven Bloodlines</span>
+                <div class="highlight-description">
+                    Explore distinct naming conventions for High, Wood, Dark, and Half-Elves.
+                </div>
             </span>
             <span class="highlight-item">
                 <i class="fas fa-palette"></i>
                 <span class="highlight-text">Style Customization</span>
+                <div class="highlight-description">
+                    Refine names with specific cultural styles and thematic elements.
+                </div>
+            </span>
+            <span class="highlight-item">
+                <i class="fas fa-book-open"></i>
+                <span class="highlight-text">Meaningful Names</span>
+                <div class="highlight-description">
+                    Generate names with authentic meanings and rich lore backgrounds.
+                </div>
+            </span>
+            <span class="highlight-item">
+                <i class="fas fa-volume-up"></i>
+                <span class="highlight-text">Audio Pronunciation</span>
+                <div class="highlight-description">
+                    Listen to the correct pronunciation of each elven name.
+                </div>
             </span>
             <span class="highlight-item">
                 <i class="fas fa-heart"></i>
                 <span class="highlight-text">Save & Export</span>
+                <div class="highlight-description">
+                    Save your favorite names and export them for later use.
+                </div>
             </span>
             <span class="highlight-item">
                 <i class="fas fa-mobile-alt"></i>
                 <span class="highlight-text">Mobile Friendly</span>
+                <div class="highlight-description">
+                    Enjoy a seamless experience on all devices, from desktop to mobile.
+                </div>
             </span>
         </div>
     </div>
@@ -299,7 +328,11 @@
                     <h4>See <strong>Elf Names with Meanings</strong> in Action</h4>
                     <div class="demo-container">
                         <div class="demo-name-display">
-                            <div class="generated-name">Aelindra Moonwhisper</div>
+                            <div class="generated-name"><span id="demo-name-text">Aelindra Moonwhisper</span>
+                                <button class="speak-btn demo-speak-btn" title="Speak Name">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
                             <div class="name-meaning">"Starlight's Gentle Voice"</div>
                             <div class="name-description">A High Elf sorceress who channels celestial magic through ancient songs</div>
                         </div>
@@ -493,19 +526,55 @@
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>How are elven names structured? <i class="fas fa-chevron-down"></i></h3>
+                        <h3>How does this Elf Name Generator work? <i class="fas fa-chevron-down"></i></h3>
                     </div>
                     <div class="faq-answer">
-                        <p>Elven names typically consist of a personal name followed by a family or house name. They often incorporate natural elements, magical concepts, or ancestral references. Names can vary in length but usually have a melodic, flowing quality.</p>
+                        <p>Our generator uses a sophisticated algorithm to combine various elven linguistic patterns, cultural elements, and thematic meanings to create unique and authentic names. You can customize your generation by choosing bloodline, gender, and advanced style/meaning preferences.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>What makes a good elven name? <i class="fas fa-chevron-down"></i></h3>
+                        <h3>Is this Elf Name Generator free to use? <i class="fas fa-chevron-down"></i></h3>
                     </div>
                     <div class="faq-answer">
-                        <p>Good elven names balance authenticity with pronounceability. They should evoke the cultural essence of the specific elven subrace while being memorable and suitable for your character's personality and background.</p>
+                        <p>Yes, this Elf Name Generator is completely free to use for all your personal and commercial creative projects, including D&D campaigns, fantasy novels, and video games.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I save or export the generated names? <i class="fas fa-chevron-down"></i></h3>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! You can save your favorite generated names to a dedicated "My Favorites" section. From there, you can easily export them as a text file for your convenience.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What types of elf names can I generate? <i class="fas fa-chevron-down"></i></h3>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can generate names for High Elves, Wood Elves, Dark Elves, and Half-Elves. Each bloodline has distinct naming conventions and cultural influences reflected in the generated names.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Are the generated names unique? <i class="fas fa-chevron-down"></i></h3>
+                    </div>
+                    <div class="faq-answer">
+                        <p>While our generator aims for a high degree of uniqueness by combining many elements, it's possible for very similar names to appear over time. However, the vast number of combinations ensures a fresh experience.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How are elven names structured? <i class="fas fa-chevron-down"></i></h3>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Elven names often consist of a personal name and sometimes a house or family name. They frequently incorporate elements related to nature, magic, celestial bodies, or virtues, giving them a melodic and meaningful quality.</p>
                     </div>
                 </div>
                 
@@ -515,33 +584,6 @@
                     </div>
                     <div class="faq-answer">
                         <p>Yes! All names generated here are free to use in your creative projects, whether for tabletop RPGs, fiction writing, video games, or any other creative endeavor.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>How does the meaning system work in this elf name generator? <i class="fas fa-chevron-down"></i></h3>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our <strong>elf name generator with meanings</strong> uses authentic elven linguistic patterns and cultural concepts. Each <strong>meaningful elf name</strong> is crafted to reflect specific themes like nature, magic, celestial elements, or heroic virtues, ensuring your names have genuine cultural depth and storytelling value rooted in fantasy lore.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Can I generate elf names with specific meanings? <i class="fas fa-chevron-down"></i></h3>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Absolutely! Use our advanced mode to select meaning preferences. Whether you want <strong>elf names with meanings</strong> reflecting wisdom, strength, nature, magic, or celestial themes, our generator creates <strong>meaningful elf names</strong> that perfectly match your character concept and enhance your roleplay experience.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>What makes these elf names more meaningful than others? <i class="fas fa-chevron-down"></i></h3>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our <strong>meaningful elf names</strong> are based on authentic fantasy linguistics and cultural research. Unlike random generators, each name tells a story through its meaning, connecting to elven traditions of nature worship, magical mastery, and ancient wisdom that spans millennia.</p>
                     </div>
                 </div>
             </div>
@@ -644,6 +686,71 @@
         ],
                 "keywords": "elf name generator, elven names, fantasy names, RPG names, D&D names, high elf, wood elf, dark elf, half-elf"
             }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does this Elf Name Generator work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our generator uses a sophisticated algorithm to combine various elven linguistic patterns, cultural elements, and thematic meanings to create unique and authentic names. You can customize your generation by choosing bloodline, gender, and advanced style/meaning preferences."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this Elf Name Generator free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this Elf Name Generator is completely free to use for all your personal and commercial creative projects, including D&D campaigns, fantasy novels, and video games."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I save or export the generated names?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely! You can save your favorite generated names to a dedicated \"My Favorites\" section. From there, you can easily export them as a text file for your convenience."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What types of elf names can I generate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can generate names for High Elves, Wood Elves, Dark Elves, and Half-Elves. Each bloodline has distinct naming conventions and cultural influences reflected in the generated names."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the generated names unique?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While our generator aims for a high degree of uniqueness by combining many elements, it's possible for very similar names to appear over time. However, the vast number of combinations ensures a fresh experience."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are elven names structured?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Elven names often consist of a personal name and sometimes a house or family name. They frequently incorporate elements related to nature, magic, celestial bodies, or virtues, giving them a melodic and meaningful quality."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use these names in my game or story?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! All names generated here are free to use in your creative projects, whether for tabletop RPGs, fiction writing, video games, or any other creative endeavor."
+          }
+        }
+      ]
+    }
     </script>
 </body>
 </html>

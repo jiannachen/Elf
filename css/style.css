@@ -223,9 +223,10 @@ main {
 
 .feature-highlights {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the items */
     align-items: center;
-    gap: var(--spacing-sm);
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: var(--spacing-md); /* Increase gap for better spacing and line height */
     max-width: 900px;
     margin: 0 auto;
     padding: var(--spacing-md) 0;
@@ -244,6 +245,46 @@ main {
     white-space: nowrap;
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* Added for positioning tooltip */
+}
+
+.highlight-description {
+    position: absolute;
+    bottom: calc(100% + 10px); /* Position above the item with more space */
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--secondary-dark); /* Darker background for contrast */
+    border: 1px solid var(--primary-gold);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md) var(--spacing-lg); /* Increased padding */
+    font-size: var(--font-size-sm);
+    color: var(--text-light);
+    white-space: normal; /* Allow text to wrap */
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Added transform to transition */
+    z-index: 10; /* Ensure it's above other content */
+    min-width: 200px; /* Increased min-width */
+    max-width: 350px; /* Increased max-width */
+    box-shadow: var(--shadow-md);
+}
+
+.highlight-description::after {
+    content: '';
+    position: absolute;
+    top: 100%; /* Position at the bottom of the tooltip */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px; /* Arrow size */
+    border-style: solid;
+    border-color: var(--secondary-dark) transparent transparent transparent; /* Arrow color matches background */
+}
+
+.highlight-item:hover .highlight-description {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px); /* Subtle float up effect */
 }
 
 
@@ -253,8 +294,6 @@ main {
     font-variant-numeric: lining-nums; /* 使用衬线数字 */
     vertical-align: baseline;
     line-height: 1;
-    position: relative;
-    top: -1px; /* 微调位置，根据需要调整 */
 }
 
 .highlight-item:hover {
@@ -540,7 +579,8 @@ section {
 }
 
 .speak-btn, .save-btn, .copy-btn,
-.speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn {
+.speak-favorite-btn, .copy-favorite-btn, .remove-favorite-btn,
+.demo-speak-btn {
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid transparent;
     color: var(--text-light);
@@ -558,7 +598,8 @@ section {
 }
 
 .speak-btn:hover, .save-btn:hover, .copy-btn:hover,
-.speak-favorite-btn:hover, .copy-favorite-btn:hover, .remove-favorite-btn:hover {
+.speak-favorite-btn:hover, .copy-favorite-btn:hover, .remove-favorite-btn:hover,
+.demo-speak-btn:hover {
     background: var(--theme-hover-bg);
     border-color: var(--border-color);
     color: var(--primary-gold);
@@ -639,6 +680,8 @@ section {
     display: flex;
     gap: var(--spacing-sm);
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .favorites-header {
@@ -757,7 +800,7 @@ section {
     margin: 0 auto;
     text-align: left;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--spacing-lg);
 }
 
@@ -1666,12 +1709,22 @@ body[data-theme="half-elf"] .bloodline-option[data-bloodline="half-elf"].active 
     margin: 0 auto;
 }
 
+.demo-name-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .generated-name {
     font-size: 2.2rem;
     color: var(--primary-gold);
     font-weight: 700;
     margin-bottom: 0.5rem;
     text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .name-meaning {
@@ -1707,7 +1760,7 @@ body[data-theme="half-elf"] .bloodline-option[data-bloodline="half-elf"].active 
 /* 优势网格 - 也调整为四列 */
 .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.2rem;
     margin-top: 2rem;
     max-width: 1200px;
