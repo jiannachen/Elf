@@ -740,14 +740,27 @@
     
     /* Compact floating social links */
     .floating-social-links {
-        right: 10px;
-        bottom: 10px;
+      position: fixed;
+	  right: 20px;
+	  top: 50%;
+	  transform: translateY(-50%);
+	  z-index: 1000;
+	  background: var(--bg-secondary);
+	  padding: 10px;
+	  border-radius: 30px;
+	  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	  backdrop-filter: blur(10px);
+	  width: fit-content;
+    }
+    .social-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+        margin-bottom: 8px; /* Add margin-bottom */
     }
     
-    .social-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 0.9rem;
+    .social-btn:last-child {
+        margin-bottom: 0; /* Remove margin from last child */
     }
     
     .social-tooltip {
@@ -784,5 +797,18 @@
     
     .style-selector {
         grid-template-columns: 1fr;
+    }
+
+    .floating-social-links {
+        right: 5px;
+        bottom: 5px;
+        gap: 4px; /* Even smaller gap */
+        padding: 4px; /* Even smaller padding */
+    }
+
+    .social-btn {
+        width: 28px; /* Even smaller size */
+        height: 28px;
+        font-size: 0.65rem; /* Even smaller font size */
     }
 }
