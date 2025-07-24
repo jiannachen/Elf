@@ -1,4 +1,20 @@
-/* ===== 响应式样式文件 ===== */
+/* ===== 网站响应式样式文件 - 增强移动端体验 ===== */
+
+/* 全局移动端优化 */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* 改进滚动体验 */
+html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+    overscroll-behavior: contain;
+}
 
 /* 大屏幕优化 - 1024px 断点 */
 @media (max-width: 1024px) {
@@ -19,7 +35,7 @@
     }
     
     .race-selector {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
     
     .name-examples-grid {
@@ -35,6 +51,12 @@
     .bloodline-selector {
         /* 在此区间强制2列，避免 3+1 的尴尬布局 */
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .race-selector {
+        /* 5个种族在中等屏幕上保持5列，但稍微紧凑 */
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.8rem;
     }
 }
 
@@ -57,23 +79,70 @@
         padding: 0 var(--spacing-md);
     }
 
+    /* 改进血统选择器 - 滚动体验 */
+    .bloodline-selector {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 12px;
+        padding: 0 var(--spacing-md) var(--spacing-md);
+        margin: 0 -var(--spacing-md);
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
     
+    .bloodline-selector::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .bloodline-option {
+        min-width: 140px;
+        flex-shrink: 0;
+        scroll-snap-align: center;
+        padding: var(--spacing-md) var(--spacing-sm);
+        transition: all 0.3s ease;
+    }
+    
+    .bloodline-option:first-child {
+        margin-left: var(--spacing-md);
+    }
+    
+    .bloodline-option:last-child {
+        margin-right: var(--spacing-md);
+    }
 
-    /* 基础布局 */
+    /* 基础布局和触摸优化 */
     body { font-size: 0.9rem; }
     h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
     h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); }
-    section, main { padding: var(--spacing-md); }
+    section, main { padding: var(--spacing-sm); }
     
-    /* 性别选择器 */
-    .gender-button-group { flex-direction: column; align-items: center; }
-    .gender-btn { width: 100%; margin-bottom: var(--spacing-xs); }
-    .gender-btn:last-child { margin-bottom: 0; }
+    /* 调整各个区域的间距 */
+    .advanced-panel-always-visible {
+        margin-top: var(--spacing-sm);
+        padding: var(--spacing-sm);
+    }
     
-    /* 血统选择器 */
-    .bloodline-selector { grid-template-columns: repeat(2, 1fr); } /* 强制2列 */
+    .panel-header {
+        margin-bottom: var(--spacing-sm);
+        padding-bottom: 6px;
+    }
     
+    .advanced-section {
+        margin-bottom: var(--spacing-sm);
+    }
     
+    /* 性别选择器 - 改进触摸体验 */
+    .gender-button-group { 
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-sm);
+    }
+    .gender-btn { 
+        flex: 1;
+        min-height: 48px; /* 符合触摸标准 */
+        font-size: var(--font-size-sm);
+    }
     
     /* 控制面板 */
     .control-row, .advanced-options-content { grid-template-columns: 1fr; }
@@ -83,9 +152,18 @@
     .results-header { flex-direction: column; gap: var(--spacing-sm); }
     .results-actions { justify-content: center; }
     
-    /* 种族文化指南 */
-    .race-culture-guide { padding: 2rem; }
-    .race-selector { grid-template-columns: repeat(2, 1fr); } /* 调整为2列 */
+    /* 种族文化指南 - 改进标签滚动 */
+    .race-culture-guide { padding: 1.5rem; }
+    .race-selector { 
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-sm);
+        margin: 0 0 var(--spacing-lg);
+    }
+    
+    .race-tab {
+        padding: 0.8rem 0.5rem;
+        font-size: 0.8rem;
+    }
 }
 
 /* 小屏幕/手机优化 - 480px 断点 */
@@ -121,9 +199,19 @@
         text-align: center;
     }
     
-    /* 种族选择器在480px以下显示为1列 */
+    /* 种族选择器在480px以下显示为2列，保持紧凑 */
     .race-selector {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xs);
+    }
+    
+    .race-tab {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.75rem;
+    }
+    
+    .race-tab .race-name {
+        font-size: 0.7rem;
     }
 }
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Selector Test</title>
+    <style>
+        .race-tab {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .race-tab.active {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Race Selector Test</h1>
+    
+    <div class="race-tabs">
+        <button class="race-tab active" data-race="dark-elf" title="Dark Elf">
+            <span>Dark Elf</span>
+        </button>
+        <button class="race-tab" data-race="blood-elf" title="Blood Elf">
+            <span>Blood Elf</span>
+        </button>
+        <button class="race-tab" data-race="wood-elf" title="Wood Elf">
+            <span>Wood Elf</span>
+        </button>
+    </div>
+    
+    <div id="output">
+        <p>Click on a race tab to test functionality.</p>
+    </div>
+    
+    <script>
+        // Test the race selector functionality
+        const raceTabs = document.querySelectorAll('.race-tabs .race-tab');
+        console.log('Found race tabs:', raceTabs.length);
+        
+        if (raceTabs.length > 0) {
+            raceTabs.forEach((tab, index) => {
+                console.log(`Binding event to race tab ${index}:`, tab.getAttribute('data-race'));
+                
+                tab.addEventListener('click', function(e) {
+                    console.log('Race tab clicked:', this.getAttribute('data-race'));
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Remove active state from all tabs
+                    document.querySelectorAll('.race-tabs .race-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const race = this.getAttribute('data-race');
+                    document.getElementById('output').innerHTML = `<p>Selected race: <strong>${race}</strong></p>`;
+                });
+            });
+        } else {
+            console.log('Warning: No race tabs found');
+            document.getElementById('output').innerHTML = '<p style="color: red;">Error: No race tabs found!</p>';
+        }
+    </script>
+</body>
+</html>

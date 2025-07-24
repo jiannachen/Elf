@@ -148,11 +148,219 @@
 
 
 
-/* ===== Gender Selection Styles ===== */
+/* ===== 主要功能区域样式 - 统一的设计系统 ===== */
 
+/* Gender Selection Styles */
+.gender-quick-select {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
 
+.gender-option {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(22, 27, 34, 0.6);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-align: center;
+}
 
+.gender-option:hover {
+    border-color: var(--primary-gold);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    box-shadow: var(--glow-gold);
+}
 
+.gender-option.active {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--primary-gold);
+    color: var(--primary-gold);
+    box-shadow: var(--glow-gold);
+}
+
+.gender-option i {
+    font-size: 1.1em;
+    margin-right: var(--spacing-xs);
+}
+
+/* Style Selection Styles - 与gender-option保持一致的设计 */
+.style-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.style-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: rgba(22, 27, 34, 0.6);
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    text-align: center;
+}
+
+.style-option:hover {
+    border-color: var(--primary-gold);
+    transform: translateY(-2px);
+    box-shadow: var(--glow-gold);
+}
+
+.style-option.active {
+    border-color: var(--primary-gold);
+    background: rgba(22, 27, 34, 0.9);
+    box-shadow: 
+        0 0 20px rgba(212, 175, 55, 0.4),
+        inset 0 0 20px rgba(212, 175, 55, 0.1);
+    border-width: 3px;
+}
+
+.style-option:hover .style-icon {
+    transform: scale(1.1);
+    color: var(--secondary-gold);
+}
+
+.style-option.active .style-icon {
+    color: var(--text-bright) !important;
+    text-shadow: 0 0 8px var(--primary-gold) !important;
+    filter: drop-shadow(0 0 4px var(--primary-gold)) !important;
+}
+
+.style-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 1.5em;
+    color: var(--primary-gold);
+    transition: all var(--transition-medium);
+    margin: 0 auto var(--spacing-sm) auto;
+}
+
+.style-name {
+    font-weight: 600;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.style-desc {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.3;
+}
+
+/* Meaning Tags Styles - 与其他选择器保持统一 */
+.meaning-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+}
+
+.meaning-tag {
+    padding: 6px 12px;
+    background: rgba(22, 27, 34, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+    margin-bottom: var(--spacing-xs);
+}
+
+.meaning-tag:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary-gold);
+    transform: translateY(-1px);
+    box-shadow: var(--glow-gold);
+}
+
+.meaning-tag.active {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--primary-gold);
+    color: var(--primary-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Advanced Options Styles */
+.advanced-options {
+    max-height: 1000px;
+    opacity: 1;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    margin-top: 1.5rem;
+}
+
+.advanced-options.hidden {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+}
+
+.advanced-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.advanced-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--primary-gold);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+}
+
+.advanced-label i {
+    font-size: 1.1em;
+}
+
+/* Settings Row Styles */
+.settings-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.setting-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    min-height: 34px; /* 确保有足够高度容纳toggle-switch */
+}
+
+.setting-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--text-light);
+    font-weight: 500;
+    flex: 1;
+    line-height: 24px; /* 与toggle-switch高度匹配 */
+}
+
+.setting-label i {
+    color: var(--primary-gold);
+}
+
+/* ===== 兼容旧样式系统 ===== */
 .gender-button-group {
     display: flex;
     justify-content: center;
@@ -181,7 +389,7 @@
         rgba(0, 0, 0, 0.2)
     );
     box-shadow: var(--glow-gold);
-    color: var(--text-light); /* 保持文字颜色一致 */
+    color: var(--text-light);
 }
 
 .gender-btn.active {
@@ -694,6 +902,7 @@
 .count-selector {
     display: flex;
     gap: 4px;
+    align-items: center; /* 确保按钮与其他元素对齐 */
 }
 
 .count-btn {

@@ -70,6 +70,24 @@ const styleConfigs = {
     'bridge': {
         weightAdjustments: { nature: 0.5, abstract: 0.5, darkConsonants: 0.2 },
         meaningTags: ['bridge', 'connect', 'link', 'between', 'unite', 'join']
+    },
+    
+    // Blood Elf styles
+    'magister': {
+        weightAdjustments: { nature: 0.2, abstract: 0.8, darkConsonants: 0.3 },
+        meaningTags: ['arcane', 'mastery', 'magic', 'spell', 'power', 'control']
+    },
+    'noble-blood': {
+        weightAdjustments: { nature: 0.1, abstract: 0.9, darkConsonants: 0.1 },
+        meaningTags: ['noble', 'elegance', 'grace', 'refined', 'aristocratic', 'heritage']
+    },
+    'scholar-arcane': {
+        weightAdjustments: { nature: 0.2, abstract: 0.8, darkConsonants: 0.2 },
+        meaningTags: ['knowledge', 'lore', 'study', 'wisdom', 'ancient', 'research']
+    },
+    'refined': {
+        weightAdjustments: { nature: 0.1, abstract: 0.9, darkConsonants: 0.0 },
+        meaningTags: ['perfection', 'beauty', 'art', 'sophisticated', 'cultivated', 'polished']
     }
 };
 
@@ -304,7 +322,8 @@ class IntelligentNameBuilder {
             'highElf': 'light',
             'woodElf': 'nature', 
             'darkElf': 'shadow',
-            'halfElf': Math.random() > 0.5 ? 'light' : 'nature'
+            'halfElf': Math.random() > 0.5 ? 'light' : 'nature',
+            'bloodElf': 'light'  // 血精灵使用光明主题，适合其魔法和贵族背景
         };
         return themeMap[bloodline] || 'light';
     }
@@ -328,7 +347,8 @@ class AdvancedElfNameGenerator {
             highElf: { natureRatio: 0.7, maleSuffixRatio: 0.3, darkConsonantRatio: 0.1 },
             woodElf: { natureRatio: 0.9, maleSuffixRatio: 0.1, darkConsonantRatio: 0.0 },
             darkElf: { natureRatio: 0.2, maleSuffixRatio: 0.5, darkConsonantRatio: 0.8 },
-            halfElf: { natureRatio: 0.5, maleSuffixRatio: 0.4, darkConsonantRatio: 0.3 }
+            halfElf: { natureRatio: 0.5, maleSuffixRatio: 0.4, darkConsonantRatio: 0.3 },
+            bloodElf: { natureRatio: 0.3, maleSuffixRatio: 0.4, darkConsonantRatio: 0.2 }
         };
 
         // 风格预设系统
@@ -375,41 +395,61 @@ class AdvancedElfNameGenerator {
                 { text: "Gyl", meaning: "Golden Radiance", syllables: 1, bloodline: ["highElf"], tags: ["light", "noble"] },
                 { text: "Dar", meaning: "Oak Tree", syllables: 1, bloodline: ["woodElf"], tags: ["forest", "strength"] },
                 { text: "Ayl", meaning: "Morning Breeze", syllables: 1, bloodline: ["woodElf", "halfElf"], tags: ["air", "gentle"] },
-                { text: "Fae", meaning: "Magic", syllables: 1, bloodline: ["highElf"], tags: ["magic", "mystery"] },
-                { text: "Lor", meaning: "Golden", syllables: 1, bloodline: ["highElf"], tags: ["precious", "noble"] },
+                { text: "Fae", meaning: "Magic", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["magic", "mystery"] },
+                { text: "Lor", meaning: "Golden", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["precious", "noble"] },
                 { text: "Nim", meaning: "White", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["pure", "light"] },
                 { text: "Thal", meaning: "Forest", syllables: 1, bloodline: ["woodElf"], tags: ["forest", "wild"] },
-                { text: "Cele", meaning: "Silver Radiance", syllables: 2, bloodline: ["highElf"], tags: ["celestial", "noble"] },
-                { text: "Mith", meaning: "Gray", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["ancient", "wisdom"] },
+                { text: "Cele", meaning: "Silver Radiance", syllables: 2, bloodline: ["highElf", "bloodElf"], tags: ["celestial", "noble"] },
+                { text: "Mith", meaning: "Gray", syllables: 1, bloodline: ["highElf", "halfElf", "bloodElf"], tags: ["ancient", "wisdom"] },
                 { text: "Luin", meaning: "Blue River", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["water", "flow"] },
-                { text: "Aer", meaning: "Ocean Sky", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["air", "vast"] },
+                { text: "Aer", meaning: "Ocean Sky", syllables: 1, bloodline: ["highElf", "halfElf", "bloodElf"], tags: ["air", "vast"] },
                 { text: "Lith", meaning: "Dust Sand", syllables: 1, bloodline: ["woodElf", "darkElf"], tags: ["earth", "ancient"] },
-                { text: "Sol", meaning: "Sun", syllables: 1, bloodline: ["highElf"], tags: ["light", "power"] },
+                { text: "Sol", meaning: "Sun", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["light", "power"] },
                 { text: "Taur", meaning: "Great Forest", syllables: 1, bloodline: ["woodElf"], tags: ["forest", "vast"] },
                 { text: "Eryn", meaning: "Woodland", syllables: 2, bloodline: ["woodElf"], tags: ["forest", "home"] },
-                { text: "Gael", meaning: "Gentle Breeze", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["air", "gentle"] }
+                { text: "Gael", meaning: "Gentle Breeze", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["air", "gentle"] },
+                
+                // 血精灵专属自然前缀 - 基于奎尔萨拉斯和太阳井文化
+                { text: "Quel", meaning: "High", syllables: 1, bloodline: ["bloodElf"], tags: ["noble", "heritage"] },
+                { text: "Sin", meaning: "Blood", syllables: 1, bloodline: ["bloodElf"], tags: ["heritage", "power"] },
+                { text: "Anor", meaning: "Sun", syllables: 2, bloodline: ["bloodElf"], tags: ["light", "power"] },
+                { text: "Bel", meaning: "Bright", syllables: 1, bloodline: ["bloodElf"], tags: ["light", "beauty"] },
+                { text: "Thal", meaning: "Flame", syllables: 1, bloodline: ["bloodElf"], tags: ["magic", "power"] },
+                { text: "Anar", meaning: "Fire", syllables: 2, bloodline: ["bloodElf"], tags: ["magic", "control"] },
+                { text: "Sil", meaning: "Shining", syllables: 1, bloodline: ["bloodElf"], tags: ["light", "elegance"] },
+                { text: "Dor", meaning: "Golden", syllables: 1, bloodline: ["bloodElf"], tags: ["precious", "refined"] }
             ],
         
             // Abstract concept lexicon (prefixes)
             abstractPrefixes: [
                 { text: "Vyr", meaning: "Void", syllables: 1, bloodline: ["darkElf", "halfElf"], tags: ["shadow", "mystery"] },
                 { text: "Syl", meaning: "Shadow", syllables: 1, bloodline: ["darkElf"], tags: ["shadow", "stealth"] },
-                { text: "Quel", meaning: "Ancient", syllables: 1, bloodline: ["highElf", "darkElf"], tags: ["ancient", "wisdom"] },
+                { text: "Quel", meaning: "Ancient", syllables: 1, bloodline: ["highElf", "darkElf", "bloodElf"], tags: ["ancient", "wisdom"] },
                 { text: "Dras", meaning: "Dragonborn", syllables: 1, bloodline: ["darkElf"], tags: ["power", "fire"] },
                 { text: "Xan", meaning: "Chaos", syllables: 1, bloodline: ["darkElf"], tags: ["chaos", "wild"] },
-                { text: "Phae", meaning: "Fate", syllables: 1, bloodline: ["highElf", "darkElf"], tags: ["destiny", "mystery"] },
+                { text: "Phae", meaning: "Fate", syllables: 1, bloodline: ["highElf", "darkElf", "bloodElf"], tags: ["destiny", "mystery"] },
                 { text: "Zor", meaning: "Pain", syllables: 1, bloodline: ["darkElf"], tags: ["battle", "strength"] },
                 { text: "Vael", meaning: "Fallen", syllables: 1, bloodline: ["darkElf", "halfElf"], tags: ["sorrow", "honor"] },
-                { text: "Riv", meaning: "Wisdom", syllables: 1, bloodline: ["highElf"], tags: ["wisdom", "ancient"] },
-                { text: "Elen", meaning: "Stars", syllables: 2, bloodline: ["highElf"], tags: ["celestial", "destiny"] },
-                { text: "Val", meaning: "Power Divine", syllables: 1, bloodline: ["highElf"], tags: ["power", "divine"] },
-                { text: "Myr", meaning: "Mystery", syllables: 1, bloodline: ["highElf", "darkElf"], tags: ["mystery", "magic"] },
-                { text: "Tyr", meaning: "Justice Order", syllables: 1, bloodline: ["highElf"], tags: ["justice", "honor"] },
+                { text: "Riv", meaning: "Wisdom", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["wisdom", "ancient"] },
+                { text: "Elen", meaning: "Stars", syllables: 2, bloodline: ["highElf", "bloodElf"], tags: ["celestial", "destiny"] },
+                { text: "Val", meaning: "Power Divine", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["power", "divine"] },
+                { text: "Myr", meaning: "Mystery", syllables: 1, bloodline: ["highElf", "darkElf", "bloodElf"], tags: ["mystery", "magic"] },
+                { text: "Tyr", meaning: "Justice Order", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["justice", "honor"] },
                 { text: "Sor", meaning: "Sorrow", syllables: 1, bloodline: ["darkElf", "halfElf"], tags: ["sorrow", "deep"] },
-                { text: "Nor", meaning: "Knowledge Legend", syllables: 1, bloodline: ["highElf"], tags: ["wisdom", "legend"] },
-                { text: "Dae", meaning: "Artistry Creation", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["art", "creation"] },
+                { text: "Nor", meaning: "Knowledge Legend", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["wisdom", "legend"] },
+                { text: "Dae", meaning: "Artistry Creation", syllables: 1, bloodline: ["highElf", "halfElf", "bloodElf"], tags: ["art", "creation"] },
                 { text: "Ryn", meaning: "Memory", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["memory", "ancient"] },
-                { text: "Kael", meaning: "Hatred Vengeance", syllables: 1, bloodline: ["darkElf"], tags: ["battle", "strength"] }
+                { text: "Kael", meaning: "Hatred Vengeance", syllables: 1, bloodline: ["darkElf"], tags: ["battle", "strength"] },
+                
+                // 血精灵专属抽象前缀 - 基于魔法、救赎、贵族文化
+                { text: "Kael", meaning: "Sun King", syllables: 1, bloodline: ["bloodElf"], tags: ["noble", "mastery"] },
+                { text: "Rom", meaning: "Eternal", syllables: 1, bloodline: ["bloodElf"], tags: ["ancient", "power"] },
+                { text: "Dar", meaning: "Redeemed", syllables: 1, bloodline: ["bloodElf"], tags: ["redemption", "honor"] },
+                { text: "Shal", meaning: "Magical", syllables: 1, bloodline: ["bloodElf"], tags: ["magic", "arcane"] },
+                { text: "Thel", meaning: "Perfected", syllables: 1, bloodline: ["bloodElf"], tags: ["perfection", "refined"] },
+                { text: "Vor", meaning: "Devoted", syllables: 1, bloodline: ["bloodElf"], tags: ["dedication", "mastery"] },
+                { text: "Aeth", meaning: "Sublime", syllables: 1, bloodline: ["bloodElf"], tags: ["beauty", "sophistication"] },
+                { text: "Zin", meaning: "Pure", syllables: 1, bloodline: ["bloodElf"], tags: ["purity", "elegance"] }
             ],
         
             // Infix connection library
@@ -436,50 +476,70 @@ class AdvancedElfNameGenerator {
             suffixes: {
                 female: [
                     { text: "ire", meaning: "Flower of", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["gentle", "nature"] },
-                    { text: "ara", meaning: "Light of", syllables: 2, bloodline: ["highElf"], tags: ["light", "noble"] },
-                    { text: "ena", meaning: "Daughter of", syllables: 2, bloodline: ["highElf", "woodElf"], tags: ["family", "honor"] },
+                    { text: "ara", meaning: "Light of", syllables: 2, bloodline: ["highElf", "bloodElf"], tags: ["light", "noble"] },
+                    { text: "ena", meaning: "Daughter of", syllables: 2, bloodline: ["highElf", "woodElf", "bloodElf"], tags: ["family", "honor"] },
                     { text: "yll", meaning: "Leaf of", syllables: 1, bloodline: ["woodElf"], tags: ["nature", "gentle"] },
                     { text: "ryn", meaning: "Water of", syllables: 1, bloodline: ["woodElf", "halfElf"], tags: ["water", "flow"] },
-                    { text: "dria", meaning: "Stars", syllables: 2, bloodline: ["highElf"], tags: ["celestial", "destiny"] },
+                    { text: "dria", meaning: "Stars", syllables: 2, bloodline: ["highElf", "bloodElf"], tags: ["celestial", "destiny"] },
                     { text: "phine", meaning: "Leaf of", syllables: 2, bloodline: ["woodElf"], tags: ["nature", "delicate"] },
-                    { text: "wynn", meaning: "Blessing", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["blessing", "divine"] },
+                    { text: "wynn", meaning: "Blessing", syllables: 1, bloodline: ["highElf", "halfElf", "bloodElf"], tags: ["blessing", "divine"] },
                     { text: "ssa", meaning: "Shadow of", syllables: 1, bloodline: ["darkElf"], tags: ["shadow", "mystery"] },
-                    { text: "nelis", meaning: "Song of", syllables: 2, bloodline: ["highElf"], tags: ["art", "beauty"] },
-                    { text: "elle", meaning: "Grace", syllables: 2, bloodline: ["highElf"], tags: ["grace", "noble"] },
-                    { text: "eth", meaning: "Wisdom", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["wisdom", "ancient"] },
-                    { text: "iana", meaning: "Daughter of the Moon", syllables: 3, bloodline: ["highElf"], tags: ["celestial", "noble"] },
+                    { text: "nelis", meaning: "Song of", syllables: 2, bloodline: ["highElf", "bloodElf"], tags: ["art", "beauty"] },
+                    { text: "elle", meaning: "Grace", syllables: 2, bloodline: ["highElf", "bloodElf"], tags: ["grace", "noble"] },
+                    { text: "eth", meaning: "Wisdom", syllables: 1, bloodline: ["highElf", "woodElf", "bloodElf"], tags: ["wisdom", "ancient"] },
+                    { text: "iana", meaning: "Daughter of the Moon", syllables: 3, bloodline: ["highElf", "bloodElf"], tags: ["celestial", "noble"] },
                     { text: "lya", meaning: "Whisper", syllables: 1, bloodline: ["woodElf"], tags: ["gentle", "mystery"] },
                     { text: "nara", meaning: "Flame Passion", syllables: 2, bloodline: ["darkElf", "halfElf"], tags: ["fire", "passion"] },
-                    { text: "syl", meaning: "Daughter of the Forest", syllables: 1, bloodline: ["woodElf"], tags: ["forest", "family"] }
+                    { text: "syl", meaning: "Daughter of the Forest", syllables: 1, bloodline: ["woodElf"], tags: ["forest", "family"] },
+                    
+                    // 血精灵专属女性后缀
+                    { text: "andra", meaning: "Sun Blessed", syllables: 3, bloodline: ["bloodElf"], tags: ["light", "noble"] },
+                    { text: "straza", meaning: "Fire Heart", syllables: 3, bloodline: ["bloodElf"], tags: ["magic", "passion"] },
+                    { text: "therin", meaning: "Spell Weaver", syllables: 2, bloodline: ["bloodElf"], tags: ["magic", "mastery"] },
+                    { text: "ssara", meaning: "Golden Voice", syllables: 2, bloodline: ["bloodElf"], tags: ["art", "elegance"] },
+                    { text: "lynn", meaning: "Crystal Pure", syllables: 1, bloodline: ["bloodElf"], tags: ["beauty", "refinement"] }
                 ],
                 male: [
-                    { text: "ios", meaning: "Son of", syllables: 1, bloodline: ["highElf"], tags: ["family", "honor"] },
+                    { text: "ios", meaning: "Son of", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["family", "honor"] },
                     { text: "en", meaning: "Stone of", syllables: 1, bloodline: ["woodElf"], tags: ["strength", "earth"] },
                     { text: "or", meaning: "Blade of", syllables: 1, bloodline: ["darkElf"], tags: ["battle", "strength"] },
-                    { text: "as", meaning: "Eagle of", syllables: 1, bloodline: ["highElf"], tags: ["noble", "freedom"] },
+                    { text: "as", meaning: "Eagle of", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["noble", "freedom"] },
                     { text: "ir", meaning: "Fire of", syllables: 1, bloodline: ["darkElf", "halfElf"], tags: ["fire", "power"] },
-                    { text: "ric", meaning: "King", syllables: 1, bloodline: ["highElf"], tags: ["noble", "power"] },
+                    { text: "ric", meaning: "King", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["noble", "power"] },
                     { text: "drin", meaning: "Guardian", syllables: 1, bloodline: ["woodElf"], tags: ["protection", "honor"] },
-                    { text: "thas", meaning: "Scholar", syllables: 1, bloodline: ["highElf"], tags: ["wisdom", "knowledge"] },
+                    { text: "thas", meaning: "Scholar", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["wisdom", "knowledge"] },
                     { text: "vain", meaning: "Blood of", syllables: 1, bloodline: ["darkElf"], tags: ["family", "strength"] },
-                    { text: "mir", meaning: "Gemstone", syllables: 1, bloodline: ["highElf"], tags: ["precious", "beauty"] },
-                    { text: "ion", meaning: "Noble Descendant", syllables: 1, bloodline: ["highElf"], tags: ["noble", "family"] },
-                    { text: "ael", meaning: "Radiance", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["light", "divine"] },
+                    { text: "mir", meaning: "Gemstone", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["precious", "beauty"] },
+                    { text: "ion", meaning: "Noble Descendant", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["noble", "family"] },
+                    { text: "ael", meaning: "Radiance", syllables: 1, bloodline: ["highElf", "halfElf", "bloodElf"], tags: ["light", "divine"] },
                     { text: "dur", meaning: "Steadfast", syllables: 1, bloodline: ["woodElf", "darkElf"], tags: ["strength", "honor"] },
-                    { text: "mar", meaning: "Glory", syllables: 1, bloodline: ["highElf"], tags: ["honor", "victory"] },
+                    { text: "mar", meaning: "Glory", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["honor", "victory"] },
                     { text: "nil", meaning: "Void Profound", syllables: 1, bloodline: ["darkElf"], tags: ["mystery", "deep"] },
-                    { text: "rond", meaning: "Sanctuary Dome", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["protection", "home"] }
+                    { text: "rond", meaning: "Sanctuary Dome", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["protection", "home"] },
+                    
+                    // 血精灵专属男性后缀
+                    { text: "thas", meaning: "Seeker", syllables: 1, bloodline: ["bloodElf"], tags: ["mastery", "knowledge"] },
+                    { text: "strider", meaning: "Walker", syllables: 2, bloodline: ["bloodElf"], tags: ["journey", "refined"] },
+                    { text: "dorei", meaning: "Noble Born", syllables: 2, bloodline: ["bloodElf"], tags: ["noble", "heritage"] },
+                    { text: "mancer", meaning: "Spell Master", syllables: 2, bloodline: ["bloodElf"], tags: ["magic", "control"] },
+                    { text: "las", meaning: "Sun Sworn", syllables: 1, bloodline: ["bloodElf"], tags: ["power", "dedication"] }
                 ],
                 neutral: [
                     { text: "an", meaning: "Land of", syllables: 1, bloodline: ["woodElf"], tags: ["earth", "home"] },
                     { text: "is", meaning: "Spirit of", syllables: 1, bloodline: ["darkElf"], tags: ["spirit", "mystery"] },
-                    { text: "ys", meaning: "Mist of", syllables: 1, bloodline: ["highElf", "darkElf"], tags: ["mystery", "ethereal"] },
-                    { text: "ar", meaning: "Sun of", syllables: 1, bloodline: ["highElf"], tags: ["light", "power"] },
+                    { text: "ys", meaning: "Mist of", syllables: 1, bloodline: ["highElf", "darkElf", "bloodElf"], tags: ["mystery", "ethereal"] },
+                    { text: "ar", meaning: "Sun of", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["light", "power"] },
                     { text: "in", meaning: "Wind of", syllables: 1, bloodline: ["woodElf"], tags: ["air", "freedom"] },
-                    { text: "al", meaning: "Essence Belonging", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["essence", "belonging"] },
-                    { text: "en", meaning: "Ancient From", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["ancient", "origin"] },
+                    { text: "al", meaning: "Essence Belonging", syllables: 1, bloodline: ["highElf", "halfElf", "bloodElf"], tags: ["essence", "belonging"] },
+                    { text: "en", meaning: "Ancient From", syllables: 1, bloodline: ["highElf", "woodElf", "bloodElf"], tags: ["ancient", "origin"] },
                     { text: "ith", meaning: "Path Passage", syllables: 1, bloodline: ["woodElf", "darkElf"], tags: ["journey", "path"] },
-                    { text: "oril", meaning: "Crystal Light", syllables: 2, bloodline: ["highElf"], tags: ["light", "precious"] }
+                    { text: "oril", meaning: "Crystal Light", syllables: 2, bloodline: ["highElf", "bloodElf"], tags: ["light", "precious"] },
+                    
+                    // 血精灵专属中性后缀
+                    { text: "alas", meaning: "Eternal", syllables: 2, bloodline: ["bloodElf"], tags: ["ancient", "enduring"] },
+                    { text: "thalas", meaning: "Kingdom", syllables: 2, bloodline: ["bloodElf"], tags: ["noble", "power"] },
+                    { text: "doron", meaning: "Sanctuary", syllables: 2, bloodline: ["bloodElf"], tags: ["home", "sacred"] },
+                    { text: "amor", meaning: "Love", syllables: 2, bloodline: ["bloodElf"], tags: ["beauty", "devotion"] }
                 ]
             },
         
@@ -488,18 +548,18 @@ class AdvancedElfNameGenerator {
           surnameRules: {
               prefix: [
                   // 原有的前缀
-                  { text: "Mag", meaning: "Moon", syllables: 1, bloodline: ["highElf"], tags: ["celestial"] },
+                  { text: "Mag", meaning: "Moon", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["celestial"] },
                   { text: "Wys", meaning: "Forest", syllables: 1, bloodline: ["woodElf"], tags: ["forest"] },
                   { text: "Ol", meaning: "River", syllables: 1, bloodline: ["woodElf"], tags: ["water"] },
                   { text: "Bry", meaning: "Rock", syllables: 1, bloodline: ["highElf", "woodElf"], tags: ["earth"] },
-                  { text: "Rey", meaning: "Sun", syllables: 1, bloodline: ["highElf"], tags: ["light"] },
+                  { text: "Rey", meaning: "Sun", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["light"] },
                   { text: "Sha", meaning: "Shadow", syllables: 1, bloodline: ["darkElf"], tags: ["shadow"] },
                   { text: "Faf", meaning: "Flame", syllables: 1, bloodline: ["darkElf"], tags: ["fire"] },
-                  { text: "Er", meaning: "Ancient", syllables: 1, bloodline: ["highElf"], tags: ["ancient"] },
+                  { text: "Er", meaning: "Ancient", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["ancient"] },
                   { text: "Rav", meaning: "Raven", syllables: 1, bloodline: ["darkElf"], tags: ["dark"] },
                   { text: "Vir", meaning: "Poison", syllables: 1, bloodline: ["darkElf"], tags: ["danger"] },
-                  { text: "Sil", meaning: "Silver", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["precious"] },
-                  { text: "Lor", meaning: "Gold Dream", syllables: 1, bloodline: ["highElf"], tags: ["precious"] },
+                  { text: "Sil", meaning: "Silver", syllables: 1, bloodline: ["highElf", "halfElf", "bloodElf"], tags: ["precious"] },
+                  { text: "Lor", meaning: "Gold Dream", syllables: 1, bloodline: ["highElf", "bloodElf"], tags: ["precious"] },
                   { text: "Tyr", meaning: "Watch", syllables: 1, bloodline: ["highElf"], tags: ["vigilance"] },
                   { text: "Fen", meaning: "Swamp Border", syllables: 1, bloodline: ["woodElf", "darkElf"], tags: ["wild"] },
                   { text: "Val", meaning: "Prosperity", syllables: 1, bloodline: ["highElf"], tags: ["prosperity"] },
@@ -519,7 +579,15 @@ class AdvancedElfNameGenerator {
                   { text: "Mor", meaning: "Black", syllables: 1, bloodline: ["darkElf"], tags: ["darkness", "power"] },
                   { text: "Wind", meaning: "Wind", syllables: 1, bloodline: ["woodElf", "halfElf"], tags: ["air", "movement"] },
                   { text: "Dawn", meaning: "Dawn", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["time", "light"] },
-                  { text: "River", meaning: "River", syllables: 2, bloodline: ["woodElf", "halfElf"], tags: ["water", "flow"] }
+                  { text: "River", meaning: "River", syllables: 2, bloodline: ["woodElf", "halfElf"], tags: ["water", "flow"] },
+                  
+                  // 血精灵专属姓氏前缀
+                  { text: "Sun", meaning: "Sun", syllables: 1, bloodline: ["bloodElf"], tags: ["light", "power"] },
+                  { text: "Fire", meaning: "Fire", syllables: 1, bloodline: ["bloodElf"], tags: ["magic", "passion"] },
+                  { text: "Gold", meaning: "Gold", syllables: 1, bloodline: ["bloodElf"], tags: ["precious", "noble"] },
+                  { text: "Crystal", meaning: "Crystal", syllables: 2, bloodline: ["bloodElf"], tags: ["beauty", "refinement"] },
+                  { text: "Dawn", meaning: "Dawn", syllables: 1, bloodline: ["bloodElf"], tags: ["hope", "renewal"] },
+                  { text: "Phoenix", meaning: "Phoenix", syllables: 2, bloodline: ["bloodElf"], tags: ["rebirth", "power"] }
               ],
               suffix: [
                   // 原有的后缀
@@ -562,7 +630,17 @@ class AdvancedElfNameGenerator {
                   { text: "haven", meaning: "Haven", syllables: 2, bloodline: ["halfElf"], tags: ["safety", "peace"] },
                   { text: "heart", meaning: "Heart", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["emotion", "core"] },
                   { text: "keeper", meaning: "Keeper", syllables: 2, bloodline: ["highElf", "woodElf"], tags: ["guardian", "protection"] },
-                  { text: "born", meaning: "Born", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["origin", "birth"] }
+                  { text: "born", meaning: "Born", syllables: 1, bloodline: ["highElf", "halfElf"], tags: ["origin", "birth"] },
+                  
+                  // 血精灵专属姓氏后缀
+                  { text: "strider", meaning: "Walker", syllables: 2, bloodline: ["bloodElf"], tags: ["journey", "noble"] },
+                  { text: "weaver", meaning: "Spell Weaver", syllables: 2, bloodline: ["bloodElf"], tags: ["magic", "mastery"] },
+                  { text: "seeker", meaning: "Seeker", syllables: 2, bloodline: ["bloodElf"], tags: ["wisdom", "quest"] },
+                  { text: "singer", meaning: "Song", syllables: 2, bloodline: ["bloodElf"], tags: ["art", "beauty"] },
+                  { text: "crown", meaning: "Crown", syllables: 1, bloodline: ["bloodElf"], tags: ["noble", "power"] },
+                  { text: "light", meaning: "Light", syllables: 1, bloodline: ["bloodElf"], tags: ["divine", "purity"] },
+                  { text: "flame", meaning: "Flame", syllables: 1, bloodline: ["bloodElf"], tags: ["magic", "passion"] },
+                  { text: "wing", meaning: "Wing", syllables: 1, bloodline: ["bloodElf"], tags: ["flight", "freedom"] }
               ]
           }
 
@@ -797,7 +875,8 @@ class AdvancedElfNameGenerator {
             'highElf': 'light',
             'woodElf': 'nature', 
             'darkElf': 'shadow',
-            'halfElf': Math.random() > 0.5 ? 'light' : 'nature'
+            'halfElf': Math.random() > 0.5 ? 'light' : 'nature',
+            'bloodElf': 'light'  // 血精灵使用光明主题，适合其魔法和贵族背景
         };
         return themeMap[bloodline] || 'light';
     }

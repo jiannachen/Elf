@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Elf Name Generator for Fantasy RPGs & D&D</title>
-    <meta name="description" content="Generate authentic elf names for D&D and fantasy RPGs. Explore High, Wood, Dark, and Half-Elf names with meanings and lore for immersive storytelling.">
+    <title>Free Elf Name Generator - Fantasy RPGs & D&D Character Names</title>
+    <meta name="description" content="Generate authentic elf names for D&D and fantasy RPGs. Create High Elf, Wood Elf, Dark Elf, Blood Elf, Half-Elf, and Snow Elf names with meanings and lore for immersive storytelling.">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Elf Name Generator">
     <meta name="language" content="English">
@@ -23,202 +23,207 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bg.css">
     <link rel="stylesheet" href="css/blood.css">
+    <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/respons.css">
     <link rel="canonical" href="https://www.elfnamegenerator.online">
 </head>
 
+
 <body data-theme="high-elf">
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Elf Name Generator</a>
+            <div class="nav-links">
+                <a href="#generator-section" class="nav-link">Generator</a>
+                <a href="#lore" class="nav-link">Lore</a>
+                <a href="#races-guide" class="nav-link">Races</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
     <!-- Theme and Background Containers -->
     <div id="theme-container">
         <div id="particles-container"></div>
         <div id="runes-container"></div>
     </div>
     
-    <header class="main-header">
-        <h1>Elven Name Generator</h1>
-        <p class="subtitle">Free Elf Name Generator | D&D Character Names | Fantasy RPG Name Creator</p>
-        <!-- 新增：功能亮点列表 -->
-    <div class="key-features">
-        <div class="feature-highlights">
-            <span class="highlight-item" aria-expanded="false">
-                <i class="fas fa-layer-group"></i>
-                <span class="highlight-text">Dual Generation Modes</span>
-                <div class="highlight-description">
-                    Seamlessly switch between basic and advanced modes for tailored name generation.
-                </div>
-            </span>
-            <span class="highlight-item">
-                <i class="fas fa-users"></i>
-                <span class="highlight-text">4 Elven Bloodlines</span>
-                <div class="highlight-description">
-                    Explore distinct naming conventions for High, Wood, Dark, and Half-Elves.
-                </div>
-            </span>
-            <span class="highlight-item">
-                <i class="fas fa-palette"></i>
-                <span class="highlight-text">Style Customization</span>
-                <div class="highlight-description">
-                    Refine names with specific cultural styles and thematic elements.
-                </div>
-            </span>
-            <span class="highlight-item">
-                <i class="fas fa-book-open"></i>
-                <span class="highlight-text">Meaningful Names</span>
-                <div class="highlight-description">
-                    Generate names with authentic meanings and rich lore backgrounds.
-                </div>
-            </span>
-            <span class="highlight-item">
-                <i class="fas fa-volume-up"></i>
-                <span class="highlight-text">Audio Pronunciation</span>
-                <div class="highlight-description">
-                    Listen to the correct pronunciation of each elven name.
-                </div>
-            </span>
-            <span class="highlight-item">
-                <i class="fas fa-heart"></i>
-                <span class="highlight-text">Save & Export</span>
-                <div class="highlight-description">
-                    Save your favorite names and export them for later use.
-                </div>
-            </span>
-            <span class="highlight-item">
-                <i class="fas fa-mobile-alt"></i>
-                <span class="highlight-text">Mobile Friendly</span>
-                <div class="highlight-description">
-                    Enjoy a seamless experience on all devices, from desktop to mobile.
-                </div>
-            </span>
+    <header class="hero-section" id="features">
+        <div class="hero-content">
+            <h1 class="hero-title">Forge Your Legend: The Ultimate Fantasy Elf Name Generator</h1>
+            <p class="hero-subtitle">Instantly create authentic, meaningful elf names for D&D, fantasy writing, and RPG adventures. Dive into a world of High, Wood, Dark, Blood, and Half Elves with a single click.</p>
+            <div class="hero-cta-group">
+                <a href="#generator-section" class="hero-cta-primary">Start Generating</a>
+                <a href="#lore" class="hero-cta-secondary">Explore Lore</a>
+            </div>
         </div>
-    </div>
-        
+        <div class="scroll-down-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="key-features-grid">
+            <div class="feature-item"><i class="fas fa-layer-group"></i> Dual Generation Modes</div>
+            <div class="feature-item"><i class="fas fa-users"></i> 5 Elven Bloodlines</div>
+            <div class="feature-item"><i class="fas fa-palette"></i> Style Customization</div>
+            <div class="feature-item"><i class="fas fa-book-open"></i> Meaningful Names</div>
+            <div class="feature-item"><i class="fas fa-volume-up"></i> Audio Pronunciation</div>
+        </div>
     </header>
     
 
     
     <main>
         <!-- H2 #2: 名字生成器和结果 -->
-        <section class="generator-section">
+        <section class="generator-section" id="generator-section">
             
-            <h2>Create Your Perfect Elven Character</h2>
-            <div class="intro-content">
-                <p>Create authentic <strong>elf names with meanings</strong> for your <strong>Dungeons & Dragons characters</strong>, <strong>fantasy RPG games</strong>, and creative writing. Our <strong>elf name generator</strong> creates culturally rich <strong>High Elf names</strong>, <strong>Wood Elf names</strong>, <strong>Dark Elf names</strong>, and <strong>Half-Elf names</strong> with detailed meanings and lore backgrounds for immersive storytelling.</p>
-            </div>
-            <!-- 模式切换按钮 -->
-            <div class="mode-toggle-container">
-                <button id="mode-toggle" class="mode-toggle basic">
-                    <span class="mode-icon">
-                        <i class="fas fa-magic"></i>
-                    </span>
-                    <span class="mode-text">Advanced Mode</span>
-                    <span class="mode-indicator">
-                        <i class="fas fa-chevron-right"></i>
-                    </span>
-                </button>
-            </div>
-
-            <!-- 基础选项（两种模式都显示） -->
-            <div class="basic-options">
-                <fieldset class="bloodline-fieldset">
-                    <legend>Choose Bloodline</legend>
-                    <div class="bloodline-selector">
-                        <div class="bloodline-option active" data-bloodline="high-elf">
-                            <div class="bloodline-icon high-elf-icon"></div>
-                            <span>High Elf</span>
-                            <p class="bloodline-desc">Noble and magical</p>
-                        </div>
-                        <div class="bloodline-option" data-bloodline="wood-elf">
-                            <div class="bloodline-icon wood-elf-icon"></div>
-                            <span>Wood Elf</span>
-                            <p class="bloodline-desc">Wild and natural</p>
-                        </div>
-                        <div class="bloodline-option" data-bloodline="dark-elf">
-                            <div class="bloodline-icon dark-elf-icon"></div>
-                            <span>Dark Elf</span>
-                            <p class="bloodline-desc">Mysterious and shadowy</p>
-                        </div>
-                        <div class="bloodline-option" data-bloodline="half-elf">
-                            <div class="bloodline-icon half-elf-icon"></div>
-                            <span>Half-Elf</span>
-                            <p class="bloodline-desc">Versatile and adaptable</p>
+            <h2>Create Your Elven Identity with Our Advanced Elf Name Generator</h2>
+            
+            <!-- Direct Generator Layout -->
+            <div class="generation-flow">
+                <!-- Main Controls -->
+                <div class="flow-step active" id="main-controls">
+                    
+                    <!-- 紧凑种族选择 -->
+                    <div class="race-selector-compact">
+                        <label class="selector-label">
+                            <i class="fas fa-users"></i> Race
+                        </label>
+                        <div class="race-tabs">
+                            <button class="race-tab active" data-race="dark-elf" 
+                                    title="Dark Elf Name Generator - Mysterious & Ancient">
+                                <span class="tab-icon">🌙</span>
+                                <span class="tab-text">Dark Elf</span>
+                            </button>
+                            <button class="race-tab" data-race="blood-elf" 
+                                    title="Blood Elf Name Generator - Aristocratic & Refined">
+                                <span class="tab-icon">🩸</span>
+                                <span class="tab-text">Blood Elf</span>
+                            </button>
+                            <button class="race-tab" data-race="wood-elf" 
+                                    title="Wood Elf Name Generator - Natural & Wild">
+                                <span class="tab-icon">🌿</span>
+                                <span class="tab-text">Wood Elf</span>
+                            </button>
+                            <button class="race-tab" data-race="half-elf" 
+                                    title="Half Elf Name Generator - Balanced & Adaptive">
+                                <span class="tab-icon">⚖️</span>
+                                <span class="tab-text">Half-Elf</span>
+                            </button>
+                            <button class="race-tab" data-race="high-elf" 
+                                    title="High Elf - Noble & Magical">
+                                <span class="tab-icon">✨</span>
+                                <span class="tab-text">High Elf</span>
+                            </button>
                         </div>
                     </div>
-                </fieldset>
+                </div>
                 
-                <fieldset class="gender-fieldset">
-                    <legend>Choose Gender</legend>
-                    <div class="gender-button-group">
-                        <button class="gender-btn active" data-gender="male">
-                            <i class="fas fa-mars"></i> Male
-                        </button>
-                        <button class="gender-btn" data-gender="female">
-                            <i class="fas fa-venus"></i> Female
-                        </button>
-                        <button class="gender-btn" data-gender="neutral">
-                            <i class="fas fa-genderless"></i> Neutral
-                        </button>
-                    </div>
-                </fieldset>
-            </div>
-
-            <!-- 高级选项（仅在高级模式显示） -->
-            <div id="advanced-options" class="advanced-options hidden">
-                <!-- 风格选择 -->
-                <fieldset class="option-section">
-                    <legend class="option-label">
-                        <i class="fas fa-palette"></i> Name Style
-                    </legend>
-                    <div class="style-selector" id="style-selector">
-                        <!-- 动态生成的风格选项 -->
-                    </div>
-                </fieldset>
-                
-                <!-- 含义偏好 -->
-                <fieldset class="option-section">
-                    <legend class="option-label">
-                        <i class="fas fa-heart"></i> Meaning Preference
-                    </legend>
-                    <div class="meaning-tags" id="meaning-tags">
-                        <!-- 动态生成的含义标签 -->
-                    </div>
-                </fieldset>
-                
-                <!-- 控制选项 -->
-                <fieldset class="option-section">
-                    <legend class="option-label">
-                        <i class="fas fa-cogs"></i> Generation Options
-                    </legend>
-                    <div class="control-row">
-                        <!-- 姓氏开关 -->
-                        <div class="control-item">
-                            <label class="control-label">
-                                <i class="fas fa-user-tag"></i> Include Surname
-                            </label>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="surname-toggle">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        
-                        <!-- 名字数量 -->
-                        <div class="control-item">
-                            <label class="control-label">
-                                <i class="fas fa-list-ol"></i> Count
-                            </label>
-                            <div class="count-selector">
-                                <button type="button" class="count-btn" data-count="6">6</button>
-                                <button type="button" class="count-btn active" data-count="9">9</button>
-                                <button type="button" class="count-btn" data-count="15">15</button>
-                                <button type="button" class="count-btn" data-count="30">30</button>
+                <!-- Step 2: Customization (Hidden initially) -->
+                <div class="flow-step" id="step-2">
+                    
+                    <div class="customization-options">
+                        <div class="option-row">
+                            <div class="option-group">
+                                <label class="option-label">Gender</label>
+                                <div class="gender-quick-select">
+                                    <button class="gender-option active" data-gender="male">
+                                        <i class="fas fa-mars"></i>  Male
+                                    </button>
+                                    <button class="gender-option" data-gender="female">
+                                        <i class="fas fa-venus"></i>  Female
+                                    </button>
+                                    <button class="gender-option" data-gender="any">
+                                        <i class="fas fa-genderless"></i> Any
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </fieldset>
+                    
+                    <!-- 始终可见的高级选项切换按钮 -->
+                    <div class="advanced-options-toggle">
+                        <div class="toggle-header">
+                            <h4>
+                                <i class="fas fa-sliders-h"></i>
+                                Advanced Options
+                            </h4>
+                            <label class="toggle-switch advanced-panel-toggle">
+                                <input type="checkbox" id="advanced-panel-toggle-checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <p class="toggle-subtitle">Customize your names with cultural details</p>
+                    </div>
+                    
+                    <!-- 可隐藏的高级选项面板 -->
+                    <div id="advanced-settings-panel" class="advanced-settings-panel">
+                        <div class="panel-header">
+                            <p class="panel-subtitle">Configure your preferences below</p>
+                        </div>
+
+                        <!-- 风格选择 -->
+                        <div class="advanced-section">
+                            <label class="advanced-label">
+                                <i class="fas fa-palette"></i> Name Style
+                            </label>
+                            <div class="style-selector" id="style-selector">
+                                <!-- 动态生成的风格选项 -->
+                            </div>
+                        </div>
+
+                        <!-- 含义偏好 -->
+                        <div class="advanced-section">
+                            <label class="advanced-label">
+                                <i class="fas fa-heart"></i> Meaning Focus
+                            </label>
+                            <div class="meaning-tags" id="meaning-tags">
+                                <!-- 动态生成的含义标签 -->
+                            </div>
+                        </div>
+
+                        <!-- 生成设置 -->
+                        <div class="advanced-section">
+                            <label class="advanced-label">
+                                <i class="fas fa-cogs"></i> Settings
+                            </label>
+                            <div class="settings-row">
+                                <div class="setting-item">
+                                    <label class="setting-label">
+                                        <i class="fas fa-user-tag"></i> Include Surname
+                                    </label>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="surname-toggle">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="setting-label">
+                                        <i class="fas fa-list-ol"></i> Count
+                                    </label>
+                                    <div class="count-selector">
+                                        <button type="button" class="count-btn" data-count="6">6</button>
+                                        <button type="button" class="count-btn active" data-count="9">9</button>
+                                        <button type="button" class="count-btn" data-count="15">15</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 始终可见的生成按钮区域 -->
+                    <div class="generate-area">
+                        <button id="generate-btn" class="generate-primary">
+                            <i class="fas fa-magic"></i>
+                            <span>Generate Elf Names</span>
+                        </button>
+                        <p class="generate-hint">✨ Create authentic elven identities with cultural meanings using our specialized generators</p>
+                    </div>
+                </div>
             </div>
 
-            <button id="generate-btn" class="action-btn">
-                <i class="fas fa-magic"></i> Generate Names
-            </button>
         </section>
         
         <section class="results-area">
@@ -232,15 +237,15 @@
             </div>
             <div id="name-results">
                 <div class="generated-name-placeholder">
-                    <p>Click the generate button above to create elven names</p>
-                    <div class="placeholder-decoration">✧</div>
+                    <p>Ready to discover your perfect elven identity? Click generate to begin your magical journey!</p>
+                    <div class="placeholder-decoration">✨</div>
                 </div>
             </div>
         </section>
         
         <section class="favorites-section">
-            <div class="favorites-header">
-                <h3>My Favorites <span id="favorites-count">(0)</span></h3>
+                <div class="favorites-header">
+                    <h3>My Favorites <span id="favorites-count">(0)</span></h3>
                 <div class="favorites-actions">
                     <button id="export-favorites-btn" class="secondary-btn" title="Export favorites">
                         <i class="fas fa-download"></i> Export
@@ -252,7 +257,7 @@
              </div>
             <div id="favorites-container">
                 <div class="empty-favorites-message">
-                    <p>You haven't saved any names yet</p>
+                    <p>Your treasure chest of favorite characters awaits! Save identities you love during generation.</p>
                     <div class="placeholder-decoration">♡</div>
                 </div>
             </div>
@@ -260,16 +265,16 @@
         
 
         
-        <!-- H2 #3: 文化知识和示例 -->
-        <section class="lore-section">
+        <!-- Cultural Knowledge Section - Simplified -->
+        <section class="lore-section" id="lore">
             <header class="lore-header">
-            <h2>Elven Culture, Lore & Name Examples</h2>
-            <p class="section-subtitle">Discover authentic elven naming traditions and cultural heritage</p>
-             </header>
+                <h2>Explore Elven Names & Culture</h2>
+                <p class="section-subtitle">Discover the rich heritage behind every generated name</p>
+            </header>
             <div class="meaning-showcase">
-                <h3>The Power of <strong>Elf Names with Meanings</strong></h3>
+                <h3>The Power of Our <strong>Elf Name Generator with Meanings</strong></h3>
                 <div class="meaning-intro">
-                    <p>Unlike simple random generators, our <strong>elf name generator with meanings</strong> creates names with authentic cultural significance. Each <strong>meaningful elf name</strong> tells a story, reflecting the rich heritage and mystical nature of elven society through carefully crafted linguistic patterns.</p>
+                    <p>Unlike simple random generators, our <strong>elf name generator with meanings</strong> creates names with authentic cultural significance. Each <strong>meaningful elf name</strong> tells a story, reflecting the rich heritage and mystical nature of elven society through carefully crafted linguistic patterns. Whether you need a <strong>dark elf name generator</strong>, <strong>blood elf name generator</strong>, <strong>wood elf name generator</strong>, or <strong>half elf name generator</strong>, our tool provides culturally authentic results.</p>
                 </div>
     
                     <!-- 交互式含义分类展示 -->
@@ -369,26 +374,33 @@
 
    
             
-            <div class="race-culture-guide">
-                <h3>Complete <strong>Elf Names Guide by Race & Culture</strong></h3>
+            <div class="race-culture-guide" id="races-guide">
+                <h3>Complete <strong>Elf Name Generator Guide by Race & Culture</strong></h3>
                 <!-- 种族选择器 -->
                 <div class="race-selector">
-                    <button class="race-tab active" data-race="high-elf">
-                        <span class="race-icon">✨</span>
-                        <span class="race-name">High Elves</span>
+                    <button class="race-tab" data-race="dark-elf">
+                        <span class="race-icon">🌙</span>
+                        <span class="race-name">Dark Elves</span>
+                     </button>
+                    <button class="race-tab" data-race="blood-elf">
+                        <span class="race-icon">🩸</span>
+                        <span class="race-name">Blood Elves</span>
                     </button>
+       
                     <button class="race-tab" data-race="wood-elf">
                         <span class="race-icon">🌿</span>
                         <span class="race-name">Wood Elves</span>
                     </button>
-                    <button class="race-tab" data-race="dark-elf">
-                        <span class="race-icon">🌙</span>
-                        <span class="race-name">Dark Elves</span>
-                    </button>
+
                     <button class="race-tab" data-race="half-elf">
                         <span class="race-icon">⚖️</span>
                         <span class="race-name">Half-Elves</span>
                     </button>
+                    <button class="race-tab active" data-race="high-elf">
+                        <span class="race-icon">✨</span>
+                        <span class="race-name">High Elves</span>
+                    </button>
+
                 </div>
                 
                 <!-- 种族内容展示区 -->
@@ -480,6 +492,35 @@
                         </div>
                     </div>
                     
+                    <div class="race-panel" id="blood-elf-panel">
+                        <div class="race-description">
+                            <h4>Blood Elf Names & Crimson Legacy</h4>
+                            <p>Blood Elves embrace names that reflect their magical addiction and aristocratic heritage. Our <strong>blood elf name generator</strong> creates elegant names embodying their pursuit of arcane power and noble traditions.</p>
+                        </div>
+                        <div class="name-examples-grid">
+                            <div class="name-example">
+                                <div class="elf-name">Crimsonspell</div>
+                                <div class="name-meaning">&quot;Red Magic&quot;</div>
+                                <div class="name-type">Magister</div>
+                            </div>
+                            <div class="name-example">
+                                <div class="elf-name">Sunstrider</div>
+                                <div class="name-meaning">&quot;Light Walker&quot;</div>
+                                <div class="name-type">Paladin</div>
+                            </div>
+                            <div class="name-example">
+                                <div class="elf-name">Goldvein</div>
+                                <div class="name-meaning">&quot;Noble Blood&quot;</div>
+                                <div class="name-type">Noble</div>
+                            </div>
+                            <div class="name-example">
+                                <div class="elf-name">Rubyfire</div>
+                                <div class="name-meaning">&quot;Crimson Flame&quot;</div>
+                                <div class="name-type">Enchanter</div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="race-panel" id="half-elf-panel">
                         <div class="race-description">
                             <h4>Half-Elf Names & Dual Heritage</h4>
@@ -513,22 +554,22 @@
                 <!-- 使用场景说明 -->
                 <div class="usage-summary">
                     <h4>Perfect for <strong>D&D 5e, Fantasy Writing & Roleplay</strong></h4>
-                    <p>Whether creating characters for tabletop RPGs, writing fantasy novels, or developing immersive roleplay personas, our <strong>elf name generator</strong> provides culturally authentic names with meaningful backgrounds for every fantasy adventure.</p>
+                    <p>Whether creating characters for tabletop RPGs, writing fantasy novels, or developing immersive roleplay personas, our comprehensive <strong>fantasy elf name generator</strong> and <strong>dnd elf name generator</strong> provides culturally authentic names with meaningful backgrounds for every fantasy adventure. Generate <strong>high elf name generator</strong> results, use our specialized <strong>dark elf name generator</strong> for mysterious characters, explore <strong>wood elf name generator</strong> options for nature-loving elves, discover <strong>blood elf name generator</strong> possibilities for magical nobility, find <strong>half elf name generator</strong> combinations for dual-heritage characters, and access our <strong>snow elf name generator</strong> for arctic adventures.</p>
                 </div>
             </div>
 
 
         </section>
         
-        <section class="faq-section">
-            <h2>Usage Guide & Frequently Asked Questions</h2>
+        <section class="faq-section" id="faq">
+            <h2>Elf Name Generator Usage Guide & FAQ</h2>
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">
                         <h3>How does this Elf Name Generator work? <i class="fas fa-chevron-down"></i></h3>
                     </div>
                     <div class="faq-answer">
-                        <p>Our generator uses a sophisticated algorithm to combine various elven linguistic patterns, cultural elements, and thematic meanings to create unique and authentic names. You can customize your generation by choosing bloodline, gender, and advanced style/meaning preferences.</p>
+                        <p>Our <strong>elf name generator</strong> uses a sophisticated algorithm to combine various elven linguistic patterns, cultural elements, and thematic meanings to create unique and authentic names. You can customize your generation by choosing bloodline, gender, and advanced style/meaning preferences.</p>
                     </div>
                 </div>
                 
@@ -537,7 +578,7 @@
                         <h3>Is this Elf Name Generator free to use? <i class="fas fa-chevron-down"></i></h3>
                     </div>
                     <div class="faq-answer">
-                        <p>Yes, this Elf Name Generator is completely free to use for all your personal and commercial creative projects, including D&D campaigns, fantasy novels, and video games.</p>
+                        <p>Yes, this <strong>elf name generator</strong> is completely free to use for all your personal and commercial creative projects, including D&D campaigns, fantasy novels, and video games.</p>
                     </div>
                 </div>
                 
@@ -555,7 +596,7 @@
                         <h3>What types of elf names can I generate? <i class="fas fa-chevron-down"></i></h3>
                     </div>
                     <div class="faq-answer">
-                        <p>You can generate names for High Elves, Wood Elves, Dark Elves, and Half-Elves. Each bloodline has distinct naming conventions and cultural influences reflected in the generated names.</p>
+                        <p>You can generate names for High Elves, Wood Elves, Dark Elves, Blood Elves, Half-Elves, and Snow Elves. Each bloodline has distinct naming conventions and cultural influences reflected in the generated names using our comprehensive <strong>elf name generator dnd</strong> system.</p>
                     </div>
                 </div>
                 
@@ -649,7 +690,7 @@
     </div>
     <footer class="main-footer">
         <div class="footer-content">
-            <p class="copyright">&copy; 2025 Elven Name Generator. All rights reserved.</p>
+            <p class="copyright">&copy; 2025 Elf Name Generator - Free Fantasy Names. All rights reserved.</p>
             <div class="footer-links">  
                 <a href="privacy.html" class="footer-link">Privacy Policy</a>
                 <span class="footer-separator">|</span>
@@ -679,11 +720,13 @@
             "High Elf Names",
             "Wood Elf Names",
             "Dark Elf Names",
+            "Blood Elf Names",
             "Half-Elf Names",
+            "Snow Elf Names",
             "Name Meanings",
             "Cultural Background"
         ],
-                "keywords": "elf name generator, elven names, fantasy names, RPG names, D&D names, high elf, wood elf, dark elf, half-elf"
+                "keywords": "elf name generator, dark elf name generator, elf name generator dnd, blood elf name generator, wood elf name generator, half elf name generator, fantasy elf name generator, high elf name generator, dnd elf name generator, snow elf name generator, elven names, fantasy names, RPG names, D&D names"
             }
     </script>
 
